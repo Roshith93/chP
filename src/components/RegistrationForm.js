@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import Row from 'react-bootstrap/Row'
@@ -6,14 +6,17 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
+import { tempData } from '../Context/data'
 
-function RegistrationForm() {
+const languages = tempData.languageDetails
+
+function RegistrationForm(props) {
   const initialValues = {
-    month:'',
-    year:'',
-    gender:'',
-    primaryLanguage:'',
-    proficiencyLevel:'',
+    month: '',
+    year: '',
+    gender: '',
+    primaryLanguage: '',
+    proficiencyLevel: '',
   }
   const validationSchema = Yup.object({
     month: Yup.string().required('Enter the Month'),
@@ -22,7 +25,28 @@ function RegistrationForm() {
     primaryLanguage: Yup.string().required('Select the primary Languagae'),
     proficiencyLevel: Yup.string().required('Please select proficiency level'),
   })
-  const onSubmit = (values, actions) => console.log(values)
+  const onSubmit = (values, actions) => {
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2))
+      actions.setSubmitting(false)
+    }, 1000)
+    tempData.chirpDetails.push({
+      ...values,
+      year: 2018,
+      recordId: 'aFl0v000000024ACAQ',
+      reason: null,
+      proficiency: 'Child',
+      parent: 'a0y0v000001GjwCAAS',
+      month: 'March',
+      language: 'English',
+      gender: 'Male',
+      email: 'abc@cdef.com',
+      country: 'India',
+      age: 3,
+      active: true,
+    })
+    console.log(values)
+  }
 
   return (
     <Formik
@@ -38,6 +62,7 @@ function RegistrationForm() {
         touched,
         isValid,
         errors,
+        isSubmitting,
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Row>
@@ -74,8 +99,8 @@ function RegistrationForm() {
                 <option key={1} value='' selected>
                   Select{' '}
                 </option>
-                {['2021', '2021'].map((option) => (
-                  <option key={option}>{option}</option>
+                {languages.map(({ languageId, name }) => (
+                  <option key={languageId}>{name}</option>
                 ))}
               </Form.Control>
 
@@ -124,10 +149,8 @@ function RegistrationForm() {
                 <option key={1} value='' selected>
                   Select{' '}
                 </option>
-                {['English', 'Spanish'].map((option) => (
-                  <>
-                    <option key={option}>{option}</option>
-                  </>
+                {languages.map(({ languageId, name }) => (
+                  <option key={languageId}>{name}</option>
                 ))}
               </Form.Control>
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -157,9 +180,20 @@ function RegistrationForm() {
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
           </Row>
-          <br/>
-          <Button type='submit'>Submit </Button>
-          <pre>{JSON.stringify(values, null, 2)}</pre>
+          <br />
+          <Button type='submit' disabled={isSubmitting} style={{ margin: '5px'}}>
+            {isSubmitting ? 'Please wait...' : 'Submit'}
+          </Button>
+          <Button
+            type='button'
+            disabled={isSubmitting}
+            onClick={() => props.close(false)}
+            variant='secondary'
+            style={{ margin: '5px'}}
+          >
+            Cancel
+          </Button>
+          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
         </Form>
       )}
     </Formik>
