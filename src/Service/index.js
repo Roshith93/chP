@@ -42,12 +42,6 @@ export const ServiceCalls = () => {
     })
     return response
   }
-  getToken()
-    .then((response) => {
-      setAccessToken(response.data.access_token)
-    })
-    .catch((err) => console.log(err))
-
   useEffect(() => {
     getChildDetails()
       .then((response) => {
@@ -55,8 +49,14 @@ export const ServiceCalls = () => {
         console.log(response.data)
       })
       .catch((err) => console.log(err))
-  }, [])
+  }, [accessToken])
 
-  useEffect(() => {})
+  useEffect(() => {
+    getToken()
+      .then((response) => {
+        setAccessToken(response.data.access_token)
+      })
+      .catch((err) => console.log(err))
+  }, [])
   return null
 }
