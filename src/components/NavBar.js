@@ -5,14 +5,14 @@ import Container from 'react-bootstrap/Container'
 import { ChirpContext } from '../Context/ChirpContext'
 
 export const NavBar = () => {
-  const { accessToken } = useContext(ChirpContext)
-  console.log(accessToken)
+  const { userDetails } = useContext(ChirpContext)
+  console.log(userDetails)
   return (
     <Navbar expand='lg' variant='dark' bg='dark'>
       <Container>
         <Navbar.Collapse className='justify-content-end'>
           <Navbar.Text href='#' style={{fontSize: 'larger', fontWeight: 'bold', color: '#fff'}}>
-            {accessToken ? `Username : ${accessToken}` : 'User not logged in'}
+            {userDetails ? `Logged in as : ${userDetails?.employeeDetails?.fullName}` : 'User not logged in'}
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

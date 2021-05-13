@@ -9,6 +9,8 @@ export const ChirpProvider = (props) => {
   const [userName, setuserName] = useState('')
   const [userDetails, setUserDetails] = useState(null)
 
+  const [showModal, setShowModal] = useState(false)
+
   useEffect(() => {
     // getToken()
     //   .then((res) => {
@@ -19,7 +21,14 @@ export const ChirpProvider = (props) => {
   }, [])
   return (
     <ChirpContext.Provider
-      value={{ userDetails, setUserDetails, accessToken, setAccessToken }}
+      value={{
+        userDetails,
+        setUserDetails,
+        accessToken,
+        setAccessToken,
+        showModal,
+        setShowModal,
+      }}
     >
       {props.children}
     </ChirpContext.Provider>

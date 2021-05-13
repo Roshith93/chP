@@ -3,11 +3,13 @@ import { useContext } from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import { ChirpContext } from '../Context/ChirpContext'
+import { ConfirmModal } from './ConfirmModal'
 
 export const UserLists = () => {
-  const { userDetails } = useContext(ChirpContext)
+  const { userDetails, setShowModal, showModal } = useContext(ChirpContext)
   return (
     <>
+    <ConfirmModal/>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -33,7 +35,7 @@ export const UserLists = () => {
                       <Button variant='link' onClick={() => alert(recordId)}>
                         Edit
                       </Button>{' '}
-                      <Button variant='link'>Delete</Button>{' '}
+                      <Button variant='link' onClick={() => setShowModal(true)}>Delete</Button>{' '}
                     </td>
                   </tr>
                 )
@@ -41,7 +43,6 @@ export const UserLists = () => {
             )}
         </tbody>
       </Table>
-      {/* <pre>{JSON.stringify(userDetails, null, 2)}</pre> */}
     </>
   )
 }
