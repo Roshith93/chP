@@ -6,7 +6,8 @@ export const ChirpContext = createContext()
 
 export const ChirpProvider = (props) => {
   const [accessToken, setAccessToken] = useState('')
-  const [userDetails, setUserDetails] = useState(tempData?.chirpDetails)
+  const [userName, setuserName] = useState('')
+  const [userDetails, setUserDetails] = useState(null)
 
   useEffect(() => {
     // getToken()
@@ -17,7 +18,9 @@ export const ChirpProvider = (props) => {
     //   .catch((err) => console.log(err))
   }, [])
   return (
-    <ChirpContext.Provider value={{ userDetails, accessToken, setAccessToken }}>
+    <ChirpContext.Provider
+      value={{ userDetails, setUserDetails, accessToken, setAccessToken }}
+    >
       {props.children}
     </ChirpContext.Provider>
   )

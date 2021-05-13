@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import { ChirpContext } from '../Context/ChirpContext'
 
 export const UserLists = () => {
-  const {userDetails} = useContext(ChirpContext)
+  const { userDetails } = useContext(ChirpContext)
   return (
     <>
       <Table striped bordered hover>
@@ -20,21 +20,25 @@ export const UserLists = () => {
         </thead>
         <tbody>
           {userDetails &&
-            userDetails.map(({ recordId,gender, email, country, age }) => {
-              return (
-                <tr key={recordId}>
-                  <td>{email}</td>
-                  <td>{country}</td>
-                  <td>{age}</td>
-                  <td>{gender}</td>
-                  <td>
-                    {' '}
-                    <Button variant='link' onClick={() =>alert(recordId)}>Edit</Button>{' '}
-                    <Button variant='link'>Delete</Button>{' '}
-                  </td>
-                </tr>
-              )
-            })}
+            userDetails.chirpDetails.map(
+              ({ recordId, gender, email, country, age }) => {
+                return (
+                  <tr key={recordId}>
+                    <td>{email}</td>
+                    <td>{country}</td>
+                    <td>{age}</td>
+                    <td>{gender}</td>
+                    <td>
+                      {' '}
+                      <Button variant='link' onClick={() => alert(recordId)}>
+                        Edit
+                      </Button>{' '}
+                      <Button variant='link'>Delete</Button>{' '}
+                    </td>
+                  </tr>
+                )
+              }
+            )}
         </tbody>
       </Table>
       {/* <pre>{JSON.stringify(userDetails, null, 2)}</pre> */}
