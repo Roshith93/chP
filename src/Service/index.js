@@ -4,13 +4,17 @@ import axios from 'axios'
 import { ChirpContext } from '../Context/ChirpContext'
 
 const TOKEN_BASE_URL = 'https://test.salesforce.com/services/oauth2/token'
-const CHILD_BASE_URL =
+export const CHILD_BASE_URL =
   'https://pra--PERSONAL25.my.salesforce.com/services/apexrest/EmployeeResource/'
 
 export const ServiceCalls = () => {
-  const { accessToken, setAccessToken, setUserDetails } = useContext(
-    ChirpContext
-  )
+  const {
+    accessToken,
+    setAccessToken,
+    setUserDetails,
+    userDetails,
+    recordID,
+  } = useContext(ChirpContext)
 
   const getToken = async () => {
     const response = await axios({
@@ -34,7 +38,7 @@ export const ServiceCalls = () => {
       url: CHILD_BASE_URL,
       method: 'get',
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer 00D0v000000Doeo!ARkAQMWHfx4HcD48mE0r31MLSinMdU7FzKmhowaMspWa.PS1tq.5C0ofuBoTLVvVpTHw3Dif7b3.hA8eN.SecIq5aYW0gIsJ`,
       },
       params: {
         username: 'test-krishnapparavi@prahs.com',
@@ -42,6 +46,7 @@ export const ServiceCalls = () => {
     })
     return response
   }
+  
   useEffect(() => {
     getChildDetails()
       .then((response) => {
@@ -60,3 +65,4 @@ export const ServiceCalls = () => {
   }, [])
   return null
 }
+

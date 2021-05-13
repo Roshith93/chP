@@ -5,7 +5,9 @@ import Modal from 'react-bootstrap/Modal'
 import { ChirpContext } from '../Context/ChirpContext'
 
 export const ConfirmModal = () => {
-  const { showModal, setShowModal } = useContext(ChirpContext)
+  const { showModal, setShowModal, deleteChildDetails } = useContext(
+    ChirpContext
+  )
   return (
     <>
       <Modal
@@ -22,7 +24,9 @@ export const ConfirmModal = () => {
           <Button variant='secondary' onClick={() => setShowModal(false)}>
             Close
           </Button>
-          <Button variant='danger'>Delete</Button>
+          <Button variant='danger' onClick={deleteChildDetails}>
+            Delete
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -6,10 +6,13 @@ import { NavBar } from './components/NavBar'
 import { HomeContainer } from './components/HomeContainer'
 import { UserContextProvider } from './Context/UserContext'
 import { ServiceCalls } from './Service'
+import { ConfirmModal } from './components/ConfirmModal'
 
 const App = () => {
   return (
     <>
+    <ConfirmModal/>
+
       <ServiceCalls />
       <UserContextProvider>
         <NavBar />
