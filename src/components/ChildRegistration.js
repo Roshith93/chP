@@ -18,6 +18,8 @@ export const ChildRegistration = () => {
         onHide={handleClose}
         backdrop='static'
         keyboard={false}
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
       >
         <Modal.Header>
           <Modal.Title>Add Child Details</Modal.Title>

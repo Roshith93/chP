@@ -1,15 +1,22 @@
 import React, { useContext } from 'react'
-import { Formik } from 'formik'
+import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
+// import Form from 'react-bootstrap/Form'
 
 import { tempData } from '../Context/data'
 
 const languages = tempData.languageDetails
 
+const validationSchema = Yup.object({
+  month: Yup.string().required('Enter the Month'),
+  year: Yup.string().required('Enter the Year'),
+  gender: Yup.string().required('Select gender'),
+  primaryLanguage: Yup.string().required('Select the primary Languagae'),
+  proficiencyLevel: Yup.string().required('Please select proficiency level'),
+})
 function RegistrationForm(props) {
   const initialValues = {
     month: '',
@@ -18,33 +25,14 @@ function RegistrationForm(props) {
     primaryLanguage: '',
     proficiencyLevel: '',
   }
-  const validationSchema = Yup.object({
-    month: Yup.string().required('Enter the Month'),
-    year: Yup.string().required('Enter the Year'),
-    gender: Yup.string().required('Select gender'),
-    primaryLanguage: Yup.string().required('Select the primary Languagae'),
-    proficiencyLevel: Yup.string().required('Please select proficiency level'),
-  })
+
   const onSubmit = (values, actions) => {
+    console.log(values)
     setTimeout(() => {
       alert(JSON.stringify(values, null, 2))
       actions.setSubmitting(false)
     }, 1000)
-    tempData.chirpDetails.push({
-      ...values,
-      year: 2018,
-      recordId: 'aFl0v000000024ACAQ',
-      reason: null,
-      proficiency: 'Child',
-      parent: 'a0y0v000001GjwCAAS',
-      month: 'March',
-      language: 'English',
-      gender: 'Male',
-      email: 'abc@cdef.com',
-      country: 'India',
-      age: 3,
-      active: true,
-    })
+
     console.log(values)
   }
 
@@ -55,132 +43,140 @@ function RegistrationForm(props) {
       initialValues={initialValues}
     >
       {({
-        handleSubmit,
-        handleChange,
-        handleBlur,
-        values,
         touched,
-        isValid,
         errors,
         isSubmitting,
+        dirty,
+        setFieldValue,
+        values,
+        handleChange
       }) => (
-        <Form noValidate onSubmit={handleSubmit}>
-          <Row>
-            <Form.Group as={Col} md='6' controlId='validationFormik01'>
-              <Form.Label>Select Month</Form.Label>
-              <Form.Control
-                as='select'
+        <Form>
+          <div className='form-row'>
+            <div className='form-group col'>
+              <label>Select Month</label>
+              <Field
                 name='month'
-                // custom
-                // className='form-control'
-                value={values.month}
-                onChange={handleChange}
-                isValid={touched.month && !errors.month}
+                as='select'
+                className={
+                  'form-control' +
+                  (errors.month && touched.month ? ' is-invalid' : '')
+                }
               >
-                <option key={1} value='' selected>
-                  Select{' '}
-                </option>
+                <option value=''></option>
                 {['Jan', 'Feb'].map((option) => (
                   <option key={option}>{option}</option>
                 ))}
-              </Form.Control>
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-
-            <Form.Group as={Col} md='6' controlId='validationFormik02'>
-              <Form.Label>Select Year</Form.Label>
-              <Form.Control
+              </Field>
+              <ErrorMessage
+                name='month'
+                component='div'
+                className='invalid-feedback'
+              />
+            </div>
+            <br />
+            <div className='form-group col'>
+              <label>Select Year</label>
+              <Field
                 name='year'
                 as='select'
-                value={values.year}
-                onChange={handleChange}
-                isValid={touched.year && !errors.year}
+                className={
+                  'form-control' +
+                  (errors.year && touched.year ? ' is-invalid' : '')
+                }
               >
-                <option key={1} value='' selected>
-                  Select{' '}
-                </option>
-                {languages.map(({ languageId, name }) => (
-                  <option key={languageId}>{name}</option>
+                <option value=''></option>
+                {['2021', '2020', '2019'].map((option) => (
+                  <option key={option}>{option}</option>
                 ))}
-              </Form.Control>
+              </Field>
+              <ErrorMessage
+                name='year'
+                component='div'
+                className='invalid-feedback'
+              />
+            </div>
+            <br />
+          </div>
+          <div className='form-group col'>
+            <label>Select Gender </label>
 
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-          </Row>
-          <Row>
-            <Form.Group as={Col} md='6' controlId='validationFormik03'>
-              <Form.Label>Select Gender</Form.Label>
-              {['radio'].map((type) => (
-                <div key={`inline-${type}`} className='mb-3'>
-                  <Form.Check
-                    inline
-                    label='Male'
-                    name='gender'
-                    type={type}
-                    id={`inline-${type}-1`}
-                    onChange={handleChange}
-                    value={'male'}
-                  />
-                  <Form.Check
-                    inline
-                    label='Female'
-                    name='gender'
-                    type={type}
-                    id={`inline-${type}-2`}
-                    onChange={handleChange}
-                    value={'Female'}
-                  />
-                </div>
-              ))}
-            </Form.Group>
-          </Row>
-          <Row>
-            <Form.Group as={Col} md='12' controlId='validationFormik01'>
-              <Form.Label>Child's Primary Language</Form.Label>
-              <Form.Control
-                as='select'
-                name='primaryLanguage'
-                // custom
-                // className='form-control'
-                value={values.primaryLanguage}
+            <div class='custom-control custom-radio'>
+              <input
+                type='radio'
+                class='custom-control-input'
+                id='Male'
+                name='gender'
+                value={'male'}
                 onChange={handleChange}
-                isValid={touched.primaryLanguage && !errors.primaryLanguage}
+              />{' '}
+              <label class='custom-control-label' for='Male'>
+                Male
+              </label>{' '}
+              <input
+                type='radio'
+                class='custom-control-input'
+                id='Female'
+                name='gender'
+                value={'Female'}
+                onChange={handleChange}
+              />{' '}
+              <label class='custom-control-label' for='Female'>
+                Female
+              </label>{' '}
+            </div>
+          </div>
+          <br />
+          <div className='form-row'>
+            <div className='form-group col'>
+              <label>Select Primary Language</label>
+              <Field
+                name='primaryLanguage'
+                as='select'
+                className={
+                  'form-control' +
+                  (errors.primaryLanguage && touched.primaryLanguage
+                    ? ' is-invalid'
+                    : '')
+                }
               >
-                <option key={1} value='' selected>
-                  Select{' '}
-                </option>
+                <option value=''></option>
                 {languages.map(({ languageId, name }) => (
                   <option key={languageId}>{name}</option>
                 ))}
-              </Form.Control>
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-          </Row>
-          <Row>
-            <Form.Group as={Col} md='12' controlId='validationFormik01'>
-              <Form.Label>Child's Primary Language</Form.Label>
-              <Form.Control
-                as='select'
+              </Field>
+              <ErrorMessage
+                name='primaryLanguage'
+                component='div'
+                className='invalid-feedback'
+              />
+            </div>
+            <br />
+            <div className='form-group col'>
+              <label>Select Proficiency Level</label>
+              <Field
                 name='proficiencyLevel'
-                // custom
-                // className='form-control'
-                value={values.proficiencyLevel}
-                onChange={handleChange}
-                isValid={touched.proficiencyLevel && !errors.proficiencyLevel}
+                as='select'
+                className={
+                  'form-control' +
+                  (errors.proficiencyLevel && touched.proficiencyLevel
+                    ? ' is-invalid'
+                    : '')
+                }
               >
-                <option key={1} value='-1' selected>
-                  Select{' '}
-                </option>
-                {['Beginner', 'Expert'].map((option) => (
-                  <>
-                    <option key={option}>{option}</option>
-                  </>
+                <option value=''></option>
+                {['Beginner', 'Intermediate', 'Expert'].map((option) => (
+                  <option key={option}>{option}</option>
                 ))}
-              </Form.Control>
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-          </Row>
-          <br />
+              </Field>
+              <ErrorMessage
+                name='proficiencyLevel'
+                component='div'
+                className='invalid-feedback'
+              />
+            </div>
+          </div>
+
           <Button
             type='submit'
             disabled={isSubmitting}
@@ -197,7 +193,7 @@ function RegistrationForm(props) {
           >
             Cancel
           </Button>
-          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+          <pre>{JSON.stringify(values, null, 2)}</pre>
         </Form>
       )}
     </Formik>
