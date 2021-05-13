@@ -2,8 +2,7 @@ import { useContext } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 
-import { ChirpContext } from '../Context/PraContext'
-import { UserContext } from '../Context/UserContext'
+import { ChirpContext } from '../Context/ChirpContext'
 
 export const NavBar = () => {
   const { accessToken } = useContext(ChirpContext)

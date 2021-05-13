@@ -8,7 +8,7 @@ import Image from 'react-bootstrap/Image'
 
 import { ChildRegistration } from './ChildRegistration'
 import { ChildCancellation } from './ChildCancellation'
-import { ChirpContext } from '../Context/PraContext'
+import { ChirpContext } from '../Context/ChirpContext'
 import { UserLists } from './UserLists'
 import { firstPageData, tabTitles } from '../Context/data'
 

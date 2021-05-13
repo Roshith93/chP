@@ -4,12 +4,13 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { ChirpProvider } from './Context/PraContext'
+
+import { ChirpProvider } from './Context/ChirpContext'
 
 ReactDOM.render(
   <React.StrictMode>
     <ChirpProvider>
-        <App />
+      <App />
     </ChirpProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-import { ChirpContext } from '../Context/PraContext'
+import { ChirpContext } from '../Context/ChirpContext'
 
 export const UserLists = () => {
   const {userDetails} = useContext(ChirpContext)
