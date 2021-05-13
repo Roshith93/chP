@@ -4,13 +4,16 @@ import Container from 'react-bootstrap/Container'
 
 import { ChirpContext } from '../Context/PraContext'
 import { UserContext } from '../Context/UserContext'
+
 export const NavBar = () => {
-  const userDetails = useContext(UserContext)
-  console.log(userDetails)
+  const { accessToken } = useContext(ChirpContext)
+  console.log(accessToken)
   return (
-    <Navbar expand='lg' variant='light' bg='light' >
+    <Navbar expand='lg' variant='light' bg='light'>
       <Container>
-        <Navbar.Brand href='#' >{userDetails ? userDetails : 'User not logged in'}</Navbar.Brand>
+        <Navbar.Brand href='#'>
+          {accessToken ? accessToken : 'User not logged in'}
+        </Navbar.Brand>
       </Container>
     </Navbar>
   )

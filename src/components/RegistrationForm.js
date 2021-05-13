@@ -181,7 +181,11 @@ function RegistrationForm(props) {
             </Form.Group>
           </Row>
           <br />
-          <Button type='submit' disabled={isSubmitting} style={{ margin: '5px'}}>
+          <Button
+            type='submit'
+            disabled={isSubmitting}
+            style={{ margin: '5px' }}
+          >
             {isSubmitting ? 'Please wait...' : 'Submit'}
           </Button>
           <Button
@@ -189,7 +193,7 @@ function RegistrationForm(props) {
             disabled={isSubmitting}
             onClick={() => props.close(false)}
             variant='secondary'
-            style={{ margin: '5px'}}
+            style={{ margin: '5px' }}
           >
             Cancel
           </Button>

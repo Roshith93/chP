@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import { ChirpContext } from '../Context/PraContext'
 
 export const UserLists = () => {
-  const userDetails = useContext(ChirpContext)
+  const {userDetails} = useContext(ChirpContext)
   return (
     <>
       <Table striped bordered hover>
@@ -20,7 +20,7 @@ export const UserLists = () => {
         </thead>
         <tbody>
           {userDetails &&
-            userDetails?.chirpDetails.map(({ recordId,gender, email, country, age }) => {
+            userDetails.map(({ recordId,gender, email, country, age }) => {
               return (
                 <tr key={recordId}>
                   <td>{email}</td>
