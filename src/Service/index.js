@@ -33,12 +33,32 @@ export const ServiceCalls = () => {
     return response
   }
 
+  const setWithExpiry = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value))
+    setAccessToken(JSON.parse(localStorage.getItem('accessToken')))
+  }
+  const getWithExpiry = async (key) => {
+    console.log('hello')
+    const itemStr = localStorage.getItem(key)
+    // if the item doesn't exist, return null
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+    // compare the expiry time of the item with the current time
+    if (!itemStr || now.getTime() > item.expiry) {
+      await getToken()
+        .then((response) => {
+          setWithExpiry('accessToken', response.data.access_token)
+        })
+        .catch((err) => console.log(err))
+    }
+  }
+
   const getChildDetails = async () => {
     const response = await axios({
       url: CHILD_BASE_URL,
       method: 'get',
       headers: {
-        Authorization: `Bearer 00D0v000000Doeo!ARkAQMWHfx4HcD48mE0r31MLSinMdU7FzKmhowaMspWa.PS1tq.5C0ofuBoTLVvVpTHw3Dif7b3.hA8eN.SecIq5aYW0gIsJ`,
+        Authorization: `Bearer ${accessToken}`,
       },
       params: {
         username: 'test-krishnapparavi@prahs.com',
@@ -46,8 +66,14 @@ export const ServiceCalls = () => {
     })
     return response
   }
-  
   useEffect(() => {
+    // if (accessToken === null) {
+    // getWithExpiry('accessToken')
+    // }
+  }, [setAccessToken])
+
+  useEffect(() => {
+    getWithExpiry('accessToken')
     getChildDetails()
       .then((response) => {
         setUserDetails(response.data)
@@ -57,12 +83,11 @@ export const ServiceCalls = () => {
   }, [accessToken])
 
   useEffect(() => {
-    getToken()
-      .then((response) => {
-        setAccessToken(response.data.access_token)
-      })
-      .catch((err) => console.log(err))
-  }, [])
+    setInterval(() => {
+      console.log('coming here')
+      localStorage.removeItem('accessToken')
+      getWithExpiry('accessToken')
+    }, 120000)
+  }, [accessToken])
   return null
 }
-
