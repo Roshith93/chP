@@ -1,31 +1,34 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 import RegistrationForm from './RegistrationForm'
+import { ChirpContext } from '../Context/ChirpContext'
 
 export const ChildRegistration = () => {
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const { addEditModal, setAddEditModal } = useContext(ChirpContext)
   return (
     <>
-      <Button variant='primary' onClick={handleShow} style={{ margin: '5px' }}>
+      <Button
+        variant='primary'
+        onClick={() => setAddEditModal(true)}
+        style={{ margin: '5px' }}
+      >
         Add child details
       </Button>
       <Modal
-        show={show}
-        onHide={handleClose}
+        show={addEditModal}
+        onHide={() => setAddEditModal(false)}
         backdrop='static'
         keyboard={false}
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
+        aria-labelledby='contained-modal-title-vcenter'
+        centered
       >
         <Modal.Header>
           <Modal.Title>Add Child Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <RegistrationForm close={handleClose} />
+          <RegistrationForm close={() => setAddEditModal(false)} />
         </Modal.Body>
       </Modal>
     </>

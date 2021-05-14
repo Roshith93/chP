@@ -14,7 +14,7 @@ import { firstPageData, tabTitles } from '../Context/data'
 
 export const TabMenus = () => {
   const [key, setKey] = useState('home')
-  const {userDetails} = useContext(ChirpContext)
+  const { userDetails } = useContext(ChirpContext)
 
   return (
     <div>
@@ -59,7 +59,7 @@ export const TabMenus = () => {
             </Col>
           </Row>
         </Tab>
-        <Tab eventKey='contact' title={tabTitles.third} disabled={userDetails}>
+        <Tab eventKey='contact' title={tabTitles.third}>
           <ChildCancellation />
         </Tab>
       </Tabs>

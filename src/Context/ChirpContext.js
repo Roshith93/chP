@@ -13,11 +13,11 @@ export const ChirpProvider = (props) => {
   const [accessToken, setAccessToken] = useState(
     JSON.parse(localStorage.getItem('accessToken'))
   )
-  const [userName, setuserName] = useState('')
   const [userDetails, setUserDetails] = useState(null)
-
+  const [loadedData, setLoadedData] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [record, setRecord] = useState(null)
+  const [addEditModal, setAddEditModal] = useState(false)
 
   // ==  get Token
   const getToken = async () => {
@@ -152,7 +152,31 @@ export const ChirpProvider = (props) => {
       })
       .catch((err) => console.error(err))
   }
+  //  ==  Edit Record
+  const editChild = async (id) => {
+    let data = userDetails?.chirpDetails
+      .filter(({ active }) => active === true)
+      .filter((chirpList) => {
+        return chirpList.recordId === id
+      })
 
+    const result = data.map(
+      ({ month, year, gender, language, proficiency }) => ({
+        month,
+        year,
+        gender,
+        language,
+        proficiency,
+      })
+    )
+    setLoadedData({
+      month: result[0].month,
+      year: result[0].year,
+      gender: result[0].gender,
+      language: result[0].language,
+      proficiency: result[0].proficiency,
+    })
+  }
   useEffect(() => {
     getWithExpiry('accessToken')
     getChildDetails()
@@ -186,6 +210,10 @@ export const ChirpProvider = (props) => {
         addChildData,
         deleteChild,
         getChildDetails,
+        editChild,
+        loadedData,
+        setAddEditModal,
+        addEditModal,
       }}
     >
       {props.children}

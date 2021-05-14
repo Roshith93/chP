@@ -20,7 +20,14 @@ const validationSchema = Yup.object({
   proficiency: Yup.string().required('Please select proficiency level'),
 })
 function RegistrationForm(props) {
-  const { addChildData } = useContext(ChirpContext)
+  const { addChildData , loadedData} = useContext(ChirpContext)
+  // const loadedData = {
+  //   month: 'January',
+  //   year: '2021',
+  //   gender: 'Female',
+  //   language: 'English',
+  //   proficiency: 'Beginner',
+  // }
   const initialValues = {
     month: '',
     year: '',
@@ -76,7 +83,7 @@ function RegistrationForm(props) {
     <Formik
       validationSchema={validationSchema}
       onSubmit={onSubmit}
-      initialValues={initialValues}
+      initialValues={loadedData || initialValues}
     >
       {({
         touched,

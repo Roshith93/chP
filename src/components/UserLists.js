@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import { ChirpContext } from '../Context/ChirpContext'
 
 export const UserLists = () => {
-  const { userDetails, setShowModal, showModal, setRecord } = useContext(
+  const { userDetails, setShowModal, showModal, setRecord, editChild } = useContext(
     ChirpContext
   )
   return (
@@ -33,7 +33,7 @@ export const UserLists = () => {
                     <td>{gender}</td>
                     <td>
                       {' '}
-                      <Button variant='link' onClick={() => alert(recordId)}>
+                      <Button variant='link' onClick={() => editChild(recordId)}>
                         Edit
                       </Button>{' '}
                       <Button
