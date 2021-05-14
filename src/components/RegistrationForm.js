@@ -20,14 +20,7 @@ const validationSchema = Yup.object({
   proficiency: Yup.string().required('Please select proficiency level'),
 })
 function RegistrationForm(props) {
-  const { addChildData , loadedData} = useContext(ChirpContext)
-  // const loadedData = {
-  //   month: 'January',
-  //   year: '2021',
-  //   gender: 'Female',
-  //   language: 'English',
-  //   proficiency: 'Beginner',
-  // }
+  const { addChildData , loadedData, setLoadedData,userDetails, record,setRecord, editChildData} = useContext(ChirpContext)
   const initialValues = {
     month: '',
     year: '',
@@ -41,12 +34,40 @@ function RegistrationForm(props) {
       ...values,
       age: 10,
       active: true,
-      country: 'India',
-      email: 'hhh@gg.com',
-      parent: 'a0y0v000001dPwcAAE',
+      country: userDetails.employeeDetails.country,
+      email: userDetails.employeeDetails.emailAddress,
+      parent: userDetails.employeeDetails.empoyeeId,
+      recordId: record,
     }
-    console.log(values)
+    console.log(finalData)
     setTimeout(() => {
+      record ? editChildData(finalData).then((result)=>{
+        props.close(false)
+        actions.setSubmitting(false)
+        toast.success('🦄 Child Added succesfully!', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+        actions.resetForm()
+        setRecord(null)
+      })
+      .catch((err) => {
+        toast.error('🦄Error not add child', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      
+      }) : 
       addChildData(finalData)
         .then((result) => {
           props.close(false)
@@ -224,7 +245,7 @@ function RegistrationForm(props) {
           <Button
             type='button'
             disabled={isSubmitting}
-            onClick={() => props.close(false)}
+            onClick={() =>{ props.close(false); setLoadedData(null)}}
             variant='secondary'
             style={{ margin: '5px' }}
           >

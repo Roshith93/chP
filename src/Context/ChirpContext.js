@@ -87,6 +87,22 @@ export const ChirpProvider = (props) => {
     })
     return response
   }
+  // == Edit child data
+  const editChildData = async (data) => {
+    let finalData = {
+      chirpList: [data],
+    }
+    console.log(JSON.stringify(finalData))
+    const response = await axios({
+      url: CHILD_BASE_URL,
+      method: 'patch',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      data: finalData,
+    })
+    return response
+  }
   //  == Delete child
   const deleteChild = async () => {
     let data = userDetails?.chirpDetails
@@ -100,7 +116,6 @@ export const ChirpProvider = (props) => {
     let finalData = {
       chirpList: [{ ...data[0], active: false }],
     }
-    console.log(finalData)
     const response = await axios({
       url: CHILD_BASE_URL,
       method: 'patch',
@@ -118,7 +133,7 @@ export const ChirpProvider = (props) => {
         getChildDetails()
           .then((response) => {
             setUserDetails(response.data)
-            console.log(response.data)
+            setRecord(null)
           })
           .catch((err) => console.log(err))
         console.log(result.data[0].message)
@@ -154,6 +169,7 @@ export const ChirpProvider = (props) => {
   }
   //  ==  Edit Record
   const editChild = async (id) => {
+    setRecord(id)
     let data = userDetails?.chirpDetails
       .filter(({ active }) => active === true)
       .filter((chirpList) => {
@@ -176,6 +192,7 @@ export const ChirpProvider = (props) => {
       language: result[0].language,
       proficiency: result[0].proficiency,
     })
+    setAddEditModal(true)
   }
   useEffect(() => {
     getWithExpiry('accessToken')
@@ -185,7 +202,7 @@ export const ChirpProvider = (props) => {
         console.log(response.data)
       })
       .catch((err) => console.log(err))
-  }, [])
+  },[])
 
   useEffect(() => {
     setInterval(() => {
@@ -214,6 +231,8 @@ export const ChirpProvider = (props) => {
         loadedData,
         setAddEditModal,
         addEditModal,
+        setLoadedData,
+        editChildData,
       }}
     >
       {props.children}
