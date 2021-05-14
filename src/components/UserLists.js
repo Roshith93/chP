@@ -5,9 +5,13 @@ import Button from 'react-bootstrap/Button'
 import { ChirpContext } from '../Context/ChirpContext'
 
 export const UserLists = () => {
-  const { userDetails, setShowModal, showModal, setRecord, editChild } = useContext(
-    ChirpContext
-  )
+  const {
+    userDetails,
+    setShowModal,
+    showModal,
+    setRecord,
+    editChild,
+  } = useContext(ChirpContext)
   return (
     <>
       <Table striped bordered hover>
@@ -21,10 +25,15 @@ export const UserLists = () => {
           </tr>
         </thead>
         <tbody>
-          {userDetails &&
+          {userDetails ? (
             userDetails?.chirpDetails
-              .filter(({ active }) => active === true)
+              .filter(({ active }) => {
+                  return active === true
+                }
+              )
               .map(({ recordId, gender, email, country, age }) => {
+                if(!recordId) return <tr><td colSpan="5">No data found</td></tr>
+                console.log('active')
                 return (
                   <tr key={recordId}>
                     <td>{email}</td>
@@ -33,7 +42,10 @@ export const UserLists = () => {
                     <td>{gender}</td>
                     <td>
                       {' '}
-                      <Button variant='link' onClick={() => editChild(recordId)}>
+                      <Button
+                        variant='link'
+                        onClick={() => editChild(recordId)}
+                      >
                         Edit
                       </Button>{' '}
                       <Button
@@ -48,7 +60,12 @@ export const UserLists = () => {
                     </td>
                   </tr>
                 )
-              })}
+              })
+          ) : (
+            <tr>
+              <td colSpan='5'>No data found</td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </>

@@ -21,9 +21,9 @@ export const ChildCancellation = () => {
         aria-labelledby='example-modal-sizes-title-lg'
         size='lg'
       >
-        <Modal.Header closeButton>
+        <Modal.Header >
           <Modal.Title id='example-modal-sizes-title-lg'>
-            Custom Modal Styling
+            Confirm 
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

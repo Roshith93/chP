@@ -29,6 +29,7 @@ function RegistrationForm(props) {
     setRecord,
     editChildData,
     setUserDetails,
+    getChildDetails,
   } = useContext(ChirpContext)
   const initialValues = {
     month: '',
@@ -55,6 +56,12 @@ function RegistrationForm(props) {
             .then((result) => {
               props.close(false)
               actions.setSubmitting(false)
+              getChildDetails()
+                .then((response) => {
+                  setUserDetails(response.data)
+                  console.log(response.data)
+                })
+                .catch((err) => console.log(err))
               toast.success('🦄 Child Added succesfully!', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -83,6 +90,12 @@ function RegistrationForm(props) {
             .then((result) => {
               console.log(result)
               props.close(false)
+              getChildDetails()
+                .then((response) => {
+                  setUserDetails(response.data)
+                  console.log(response.data)
+                })
+                .catch((err) => console.log(err))
               actions.setSubmitting(false)
               toast.success('🦄 Child Added succesfully!', {
                 position: 'top-right',
