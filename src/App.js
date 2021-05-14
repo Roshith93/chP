@@ -7,12 +7,13 @@ import { HomeContainer } from './components/HomeContainer'
 import { UserContextProvider } from './Context/UserContext'
 import { ServiceCalls } from './Service'
 import { ConfirmModal } from './components/ConfirmModal'
+import { Toast } from './components/ToastContainer'
 
 const App = () => {
   return (
     <>
-    <ConfirmModal/>
-
+      <ConfirmModal />
+      <Toast />
       <ServiceCalls />
       <UserContextProvider>
         <NavBar />

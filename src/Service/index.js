@@ -80,11 +80,11 @@ export const ServiceCalls = () => {
         console.log(response.data)
       })
       .catch((err) => console.log(err))
-  }, [accessToken])
+  }, [accessToken, userDetails])
 
   useEffect(() => {
     setInterval(() => {
-      console.log('coming here')
+      console.log('coming here at timeout')
       localStorage.removeItem('accessToken')
       getWithExpiry('accessToken')
     }, 120000)
