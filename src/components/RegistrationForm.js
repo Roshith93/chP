@@ -16,7 +16,7 @@ const validationSchema = Yup.object({
   year: Yup.string().required('Enter the Year'),
   gender: Yup.string().required('Select gender'),
   language: Yup.string().required('Select the primary Languagae'),
-  proficiencyLevel: Yup.string().required('Please select proficiency level'),
+  proficiency: Yup.string().required('Please select proficiency level'),
 })
 function RegistrationForm(props) {
   const { addChildData } = useContext(ChirpContext)
@@ -25,7 +25,7 @@ function RegistrationForm(props) {
     year: '',
     gender: '',
     language: '',
-    proficiencyLevel: '',
+    proficiency: '',
   }
 
   const onSubmit = (values, actions) => {
@@ -39,11 +39,11 @@ function RegistrationForm(props) {
     }
     console.log(values)
     setTimeout(() => {
-      // addChildData(finalData)
-      //   .then((result) => {
-      //     console.log(result)
-      //   })
-      //   .catch((err) => console.log(err))
+      addChildData(finalData)
+        .then((result) => {
+          console.log(result)
+        })
+        .catch((err) => console.log(err))
       alert(JSON.stringify(finalData, null, 2))
       actions.setSubmitting(false)
     }, 0)
@@ -79,7 +79,20 @@ function RegistrationForm(props) {
                 }
               >
                 <option value=''></option>
-                {['Jan', 'Feb'].map((option) => (
+                {[
+                  'January',
+                  'February',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December',
+                ].map((option) => (
                   <option key={option}>{option}</option>
                 ))}
               </Field>
@@ -125,7 +138,7 @@ function RegistrationForm(props) {
                 value={'male'}
                 onChange={handleChange}
               />{' '}
-              <label class='custom-control-label' for='Male'>
+              <label class='custom-control-label' htmlFor='Male'>
                 Male
               </label>{' '}
               <input
@@ -136,7 +149,7 @@ function RegistrationForm(props) {
                 value={'Female'}
                 onChange={handleChange}
               />{' '}
-              <label class='custom-control-label' for='Female'>
+              <label class='custom-control-label' htmlFor='Female'>
                 Female
               </label>{' '}
             </div>
@@ -168,11 +181,11 @@ function RegistrationForm(props) {
             <div className='form-group col'>
               <label>Select Proficiency Level</label>
               <Field
-                name='proficiencyLevel'
+                name='proficiency'
                 as='select'
                 className={
                   'form-control' +
-                  (errors.proficiencyLevel && touched.proficiencyLevel
+                  (errors.proficiency && touched.proficiency
                     ? ' is-invalid'
                     : '')
                 }
@@ -183,7 +196,7 @@ function RegistrationForm(props) {
                 ))}
               </Field>
               <ErrorMessage
-                name='proficiencyLevel'
+                name='proficiency'
                 component='div'
                 className='invalid-feedback'
               />

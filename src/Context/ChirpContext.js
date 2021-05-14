@@ -73,27 +73,19 @@ export const ChirpProvider = (props) => {
 
   // == Add child data
   const addChildData = async (data) => {
-    // let data = userDetails?.chirpDetails
-    //   .filter(({ active }) => active === true)
-    //   .filter((chirpList) => {
-    //     if (chirpList.recordId === record) {
-    //       return chirpList = [{ ...chirpList, active: false }]
-    //     }
-    //   })
-
-    console.log(data)
-    // let finalData = {
-    //   chirpList: [{...data[0], active: false}],
-    // }
-    // const response = await axios({
-    //   url: CHILD_BASE_URL,
-    //   method: 'post',
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    //   data: finalData,
-    // })
-    // return response
+    let finalData = {
+      chirpList: [data],
+    }
+    console.log(JSON.stringify(finalData))
+    const response = await axios({
+      url: CHILD_BASE_URL,
+      method: 'post',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      data: finalData,
+    })
+    return response
   }
   //  == Delete child
   const deleteChild = async () => {
@@ -193,6 +185,7 @@ export const ChirpProvider = (props) => {
         deleteChildDetails,
         addChildData,
         deleteChild,
+        getChildDetails,
       }}
     >
       {props.children}
