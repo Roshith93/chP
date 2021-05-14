@@ -22,8 +22,9 @@ export const UserLists = () => {
         </thead>
         <tbody>
           {userDetails &&
-            userDetails?.chirpDetails.map(
-              ({ recordId, gender, email, country, age }) => {
+            userDetails?.chirpDetails
+              .filter(({ active }) => active === true)
+              .map(({ recordId, gender, email, country, age }) => {
                 return (
                   <tr key={recordId}>
                     <td>{email}</td>
@@ -47,8 +48,7 @@ export const UserLists = () => {
                     </td>
                   </tr>
                 )
-              }
-            )}
+              })}
         </tbody>
       </Table>
     </>
