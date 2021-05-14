@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 // import Form from 'react-bootstrap/Form'
 
 import { tempData } from '../Context/data'
+import { ChirpContext } from '../Context/ChirpContext'
 
 const languages = tempData.languageDetails
 
@@ -14,24 +15,38 @@ const validationSchema = Yup.object({
   month: Yup.string().required('Enter the Month'),
   year: Yup.string().required('Enter the Year'),
   gender: Yup.string().required('Select gender'),
-  primaryLanguage: Yup.string().required('Select the primary Languagae'),
+  language: Yup.string().required('Select the primary Languagae'),
   proficiencyLevel: Yup.string().required('Please select proficiency level'),
 })
 function RegistrationForm(props) {
+  const { addChildData } = useContext(ChirpContext)
   const initialValues = {
     month: '',
     year: '',
     gender: '',
-    primaryLanguage: '',
+    language: '',
     proficiencyLevel: '',
   }
 
   const onSubmit = (values, actions) => {
+    let finalData = {
+      ...values,
+      age: 10,
+      active: true,
+      country: 'India',
+      email: 'hhh@gg.com',
+      parent: 'a0y0v000001dPwcAAE',
+    }
     console.log(values)
     setTimeout(() => {
-      alert(JSON.stringify(values, null, 2))
+      // addChildData(finalData)
+      //   .then((result) => {
+      //     console.log(result)
+      //   })
+      //   .catch((err) => console.log(err))
+      alert(JSON.stringify(finalData, null, 2))
       actions.setSubmitting(false)
-    }, 1000)
+    }, 0)
 
     console.log(values)
   }
@@ -49,7 +64,7 @@ function RegistrationForm(props) {
         dirty,
         setFieldValue,
         values,
-        handleChange
+        handleChange,
       }) => (
         <Form>
           <div className='form-row'>
@@ -131,13 +146,11 @@ function RegistrationForm(props) {
             <div className='form-group col'>
               <label>Select Primary Language</label>
               <Field
-                name='primaryLanguage'
+                name='language'
                 as='select'
                 className={
                   'form-control' +
-                  (errors.primaryLanguage && touched.primaryLanguage
-                    ? ' is-invalid'
-                    : '')
+                  (errors.language && touched.language ? ' is-invalid' : '')
                 }
               >
                 <option value=''></option>
@@ -146,7 +159,7 @@ function RegistrationForm(props) {
                 ))}
               </Field>
               <ErrorMessage
-                name='primaryLanguage'
+                name='language'
                 component='div'
                 className='invalid-feedback'
               />
