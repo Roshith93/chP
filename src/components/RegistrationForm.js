@@ -20,7 +20,16 @@ const validationSchema = Yup.object({
   proficiency: Yup.string().required('Please select proficiency level'),
 })
 function RegistrationForm(props) {
-  const { addChildData , loadedData, setLoadedData,userDetails, record,setRecord, editChildData} = useContext(ChirpContext)
+  const {
+    addChildData,
+    loadedData,
+    setLoadedData,
+    userDetails,
+    record,
+    setRecord,
+    editChildData,
+    setUserDetails,
+  } = useContext(ChirpContext)
   const initialValues = {
     month: '',
     year: '',
@@ -41,59 +50,65 @@ function RegistrationForm(props) {
     }
     console.log(finalData)
     setTimeout(() => {
-      record ? editChildData(finalData).then((result)=>{
-        props.close(false)
-        actions.setSubmitting(false)
-        toast.success('🦄 Child Added succesfully!', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-        actions.resetForm()
-        setRecord(null)
-      })
-      .catch((err) => {
-        toast.error('🦄Error not add child', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-      
-      }) : 
-      addChildData(finalData)
-        .then((result) => {
-          props.close(false)
-          actions.setSubmitting(false)
-          toast.success('🦄 Child Added succesfully!', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
-          actions.resetForm()
-        })
-        .catch((err) => {
-          toast.error('🦄Error not add child', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
-        })
+      record
+        ? editChildData(finalData)
+            .then((result) => {
+              props.close(false)
+              actions.setSubmitting(false)
+              toast.success('🦄 Child Added succesfully!', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+              actions.resetForm()
+              setRecord(null)
+            })
+            .catch((err) => {
+              toast.error('🦄Error not add child', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+              setRecord(null)
+            })
+        : addChildData(finalData)
+            .then((result) => {
+              console.log(result)
+              props.close(false)
+              actions.setSubmitting(false)
+              toast.success('🦄 Child Added succesfully!', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+              actions.resetForm()
+              setRecord(null)
+              setLoadedData(null)
+            })
+            .catch((err) => {
+              toast.error('🦄Error not add child', {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              })
+              setRecord(null)
+            })
       // alert(JSON.stringify(finalData, null, 2))
     }, 0)
 
@@ -245,7 +260,10 @@ function RegistrationForm(props) {
           <Button
             type='button'
             disabled={isSubmitting}
-            onClick={() =>{ props.close(false); setLoadedData(null)}}
+            onClick={() => {
+              props.close(false)
+              setLoadedData(null)
+            }}
             variant='secondary'
             style={{ margin: '5px' }}
           >

@@ -6,19 +6,24 @@ import RegistrationForm from './RegistrationForm'
 import { ChirpContext } from '../Context/ChirpContext'
 
 export const ChildRegistration = () => {
-  const { addEditModal, setAddEditModal } = useContext(ChirpContext)
+  const { addEditModal, setAddEditModal, setLoadedData } = useContext(ChirpContext)
   return (
     <>
       <Button
         variant='primary'
-        onClick={() => setAddEditModal(true)}
+        onClick={() => {
+          setLoadedData(null)
+          setAddEditModal(true)
+        }}
         style={{ margin: '5px' }}
       >
         Add child details
       </Button>
       <Modal
         show={addEditModal}
-        onHide={() => setAddEditModal(false)}
+        onHide={() => {
+          setAddEditModal(false)
+        }}
         backdrop='static'
         keyboard={false}
         aria-labelledby='contained-modal-title-vcenter'

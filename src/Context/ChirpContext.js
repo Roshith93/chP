@@ -202,8 +202,16 @@ export const ChirpProvider = (props) => {
         console.log(response.data)
       })
       .catch((err) => console.log(err))
-  },[])
-
+  }, [record])
+  // useEffect(() => {
+  //   getWithExpiry('accessToken')
+  //   getChildDetails()
+  //     .then((response) => {
+  //       setUserDetails(response.data)
+  //       console.log(response.data)
+  //     })
+  //     .catch((err) => console.log(err))
+  // }, [userDetails])
   useEffect(() => {
     setInterval(() => {
       console.log('coming here at timeout')
@@ -228,10 +236,10 @@ export const ChirpProvider = (props) => {
         deleteChild,
         getChildDetails,
         editChild,
+        setLoadedData,
         loadedData,
         setAddEditModal,
         addEditModal,
-        setLoadedData,
         editChildData,
       }}
     >
