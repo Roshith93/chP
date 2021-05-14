@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 // import Form from 'react-bootstrap/Form'
+import { toast } from 'react-toastify'
+
 
 import { tempData } from '../Context/data'
 import { ChirpContext } from '../Context/ChirpContext'
@@ -41,11 +43,31 @@ function RegistrationForm(props) {
     setTimeout(() => {
       addChildData(finalData)
         .then((result) => {
-          console.log(result)
+          props.close(false)
+          actions.setSubmitting(false)
+          toast.success('🦄 Child Added succesfully!', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+          actions.resetForm()
         })
-        .catch((err) => console.log(err))
-      alert(JSON.stringify(finalData, null, 2))
-      actions.setSubmitting(false)
+        .catch((err) => {
+          toast.error('🦄Error not add child', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+        })
+      // alert(JSON.stringify(finalData, null, 2))
     }, 0)
 
     console.log(values)
