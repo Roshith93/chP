@@ -7,7 +7,6 @@ import Button from 'react-bootstrap/Button'
 // import Form from 'react-bootstrap/Form'
 import { toast } from 'react-toastify'
 
-
 import { tempData } from '../Context/data'
 import { ChirpContext } from '../Context/ChirpContext'
 
@@ -149,31 +148,14 @@ function RegistrationForm(props) {
             <br />
           </div>
           <div className='form-group col'>
-            <label>Select Gender </label>
-
-            <div class='custom-control custom-radio'>
-              <input
-                type='radio'
-                class='custom-control-input'
-                id='Male'
-                name='gender'
-                value={'male'}
-                onChange={handleChange}
-              />{' '}
-              <label class='custom-control-label' htmlFor='Male'>
-                Male
+            <label>Select Gender </label>{' '}
+            <div role='group' aria-labelledby='my-radio-group'>
+              <label>
+                <Field type='radio' name='gender' value='Male' /> Male
               </label>{' '}
-              <input
-                type='radio'
-                class='custom-control-input'
-                id='Female'
-                name='gender'
-                value={'Female'}
-                onChange={handleChange}
-              />{' '}
-              <label class='custom-control-label' htmlFor='Female'>
-                Female
-              </label>{' '}
+              <label>
+                <Field type='radio' name='gender' value='Female' /> Female
+              </label>
             </div>
           </div>
           <br />
