@@ -18,6 +18,7 @@ export const ChirpProvider = (props) => {
   const [showModal, setShowModal] = useState(false)
   const [record, setRecord] = useState(null)
   const [addEditModal, setAddEditModal] = useState(false)
+  const [isUserRegistered, setIsUserRegistered] = useState(false)
 
   // ==  get Token
   const getToken = async () => {
@@ -241,6 +242,8 @@ export const ChirpProvider = (props) => {
         setAddEditModal,
         addEditModal,
         editChildData,
+        isUserRegistered,
+        setIsUserRegistered,
       }}
     >
       {props.children}

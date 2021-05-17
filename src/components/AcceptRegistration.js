@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -6,7 +7,10 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import { ChirpContext } from '../Context/ChirpContext'
+
 export const AcceptRegistration = () => {
+  const { isUserRegistered } = useContext(ChirpContext)
   return (
     <Container fluid>
       <Form>
@@ -56,6 +60,8 @@ export const AcceptRegistration = () => {
                       <Form.Check
                         type='checkbox'
                         label='I have read the above statements  agree'
+                        disabled={isUserRegistered}
+                        checked={isUserRegistered}
                       />
                     </Form.Group>
                   </Col>
@@ -69,7 +75,9 @@ export const AcceptRegistration = () => {
                   type='submit'
                   style={{ margin: '10px' }}
                 >
-                  {true ? 'Update Registration ' : 'Submit Registration'}
+                  {isUserRegistered
+                    ? 'Update Registration '
+                    : 'Submit Registration'}
                 </Button>
               </Col>
             </Row>

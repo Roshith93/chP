@@ -11,10 +11,19 @@ export const UserLists = () => {
     showModal,
     setRecord,
     editChild,
+    setIsUserRegistered,
+    isUserRegistered,
   } = useContext(ChirpContext)
   const userLists = userDetails?.chirpDetails
-  const activeData = userLists ? userLists.filter((el) => el.active === true) : []
-  console.log(activeData)
+  const activeData = userLists
+    ? userLists.filter(({active}) => active === true)
+    : []
+  if (activeData.length === 0) {
+    setIsUserRegistered(false)
+  } else{
+    // call the deregister modal
+    setIsUserRegistered(true)
+  }
   return (
     <>
       <Table striped bordered hover>
