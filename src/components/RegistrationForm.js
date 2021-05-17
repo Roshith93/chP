@@ -282,7 +282,7 @@ function RegistrationForm(props) {
           >
             Cancel
           </Button>
-          <pre>{JSON.stringify(values, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
         </Form>
       )}
     </Formik>

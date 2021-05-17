@@ -12,6 +12,9 @@ export const UserLists = () => {
     setRecord,
     editChild,
   } = useContext(ChirpContext)
+  const userLists = userDetails?.chirpDetails
+  const activeData = userLists.filter((el) => el.active === true)
+  console.log(activeData)
   return (
     <>
       <Table striped bordered hover>
@@ -19,27 +22,27 @@ export const UserLists = () => {
           <tr>
             <th>Email</th>
             <th>Country</th>
-            <th>Age</th>
+            <th>Language</th>
             <th>Gender</th>
             <th>Action</th>
+            <th>Proficiency</th>
           </tr>
         </thead>
         <tbody>
-          {userDetails ? (
-            userDetails?.chirpDetails
-              .filter(({ active }) => {
-                  return active === true
-                }
-              )
-              .map(({ recordId, gender, email, country, age }) => {
-                if(!recordId) return <tr><td colSpan="5">No data found</td></tr>
-                console.log('active')
+          {activeData.length === 0 ? (
+            <tr>
+              <td colSpan='6'>No data found</td>
+            </tr>
+          ) : (
+            activeData.map(
+              ({ recordId, gender, email, country, language, proficiency }) => {
                 return (
                   <tr key={recordId}>
                     <td>{email}</td>
                     <td>{country}</td>
-                    <td>{age}</td>
+                    <td>{language}</td>
                     <td>{gender}</td>
+                    <td>{proficiency}</td>
                     <td>
                       {' '}
                       <Button
@@ -60,11 +63,8 @@ export const UserLists = () => {
                     </td>
                   </tr>
                 )
-              })
-          ) : (
-            <tr>
-              <td colSpan='5'>No data found</td>
-            </tr>
+              }
+            )
           )}
         </tbody>
       </Table>
