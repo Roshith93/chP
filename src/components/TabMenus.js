@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Image from 'react-bootstrap/Image'
 
+import { AcceptRegistration } from './AcceptRegistration'
 import { ChildRegistration } from './ChildRegistration'
 import { ChildCancellation } from './ChildCancellation'
 import { ChirpContext } from '../Context/ChirpContext'
@@ -58,6 +59,7 @@ export const TabMenus = () => {
               </Card>
             </Col>
           </Row>
+          <AcceptRegistration />
         </Tab>
         <Tab eventKey='contact' title={tabTitles.third}>
           <ChildCancellation />

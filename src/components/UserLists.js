@@ -13,7 +13,7 @@ export const UserLists = () => {
     editChild,
   } = useContext(ChirpContext)
   const userLists = userDetails?.chirpDetails
-  const activeData = userLists.filter((el) => el.active === true)
+  const activeData = userLists ? userLists.filter((el) => el.active === true) : []
   console.log(activeData)
   return (
     <>
