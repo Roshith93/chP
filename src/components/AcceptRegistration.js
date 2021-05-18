@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 import { ChirpContext } from '../Context/ChirpContext'
+import { agreement } from '../Context/data'
 
 export const AcceptRegistration = () => {
   const { isUserRegistered } = useContext(ChirpContext)
@@ -20,39 +21,11 @@ export const AcceptRegistration = () => {
               <Card.Header>ChIRP Interest</Card.Header>
               <Card.Body>
                 <ListGroup variant='flush'>
-                  <ListGroup.Item>
-                    I have discussed ChIRP with my child(ren) and I and they
-                    have agreed they are interested in taking part.
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    I agree for my child(ren) to be listed in the database of
-                    participants. I understand that this will include their
-                    name, date of birth and gender.
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    I understand that I can request for my child to be removed
-                    from the database at any time.
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    I understand that each child will be allocated a
-                    unique number in the database and their name and date of
-                    birth will not be visible in the database.
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    I understand that any report generated from the database
-                    will only include the allocated unique number, age and
-                    gender of the child.
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    I understand that the PRA system administrator will be able
-                    to see my child’s month and year of birth and country in
-                    which they live only.
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    I understand my PRA email address will be stored in the
-                    database and will be used to send me an emailed link to
-                    access  any review requests.
-                  </ListGroup.Item>
+                  {
+                    agreement.map(({id, label}) => {
+                      return <ListGroup.Item key={id}>{label}</ListGroup.Item>
+                    })
+                  }
                 </ListGroup>
                 <Row className='justify-content-md-center'>
                   <Col md='auto'>
