@@ -4,6 +4,8 @@ import * as Yup from 'yup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import { v4 as uuidv4 } from 'uuid';
+
 // import Form from 'react-bootstrap/Form'
 import { toast } from 'react-toastify'
 
@@ -47,7 +49,7 @@ function RegistrationForm(props) {
       country: userDetails.employeeDetails.country,
       email: userDetails.employeeDetails.emailAddress,
       parent: userDetails.employeeDetails.empoyeeId,
-      recordId: record,
+      recordId: record ? record : uuidv4(),
     }
     console.log(finalData)
     setTimeout(() => {
@@ -56,12 +58,12 @@ function RegistrationForm(props) {
             .then((result) => {
               props.close(false)
               actions.setSubmitting(false)
-              getChildDetails()
-                .then((response) => {
-                  setUserDetails(response.data)
-                  console.log(response.data)
-                })
-                .catch((err) => console.log(err))
+              // getChildDetails()
+              //   .then((response) => {
+              //     setUserDetails(response.data)
+              //     console.log(response.data)
+              //   })
+              //   .catch((err) => console.log(err))
               toast.success('🦄 Child Added succesfully!', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -75,6 +77,7 @@ function RegistrationForm(props) {
               setRecord(null)
             })
             .catch((err) => {
+              actions.setSubmitting(false)
               toast.error('🦄Error not add child', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -88,14 +91,14 @@ function RegistrationForm(props) {
             })
         : addChildData(finalData)
             .then((result) => {
-              console.log(result)
+              // console.log(result)
               props.close(false)
-              getChildDetails()
-                .then((response) => {
-                  setUserDetails(response.data)
-                  console.log(response.data)
-                })
-                .catch((err) => console.log(err))
+              // getChildDetails()
+              //   .then((response) => {
+              //     setUserDetails(response.data)
+              //     console.log(response.data)
+              //   })
+              //   .catch((err) => console.log(err))
               actions.setSubmitting(false)
               toast.success('🦄 Child Added succesfully!', {
                 position: 'top-right',
@@ -282,7 +285,7 @@ function RegistrationForm(props) {
           >
             Cancel
           </Button>
-          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+          <pre>{JSON.stringify(values, null, 2)}</pre>
         </Form>
       )}
     </Formik>

@@ -14,11 +14,15 @@ export const ChirpProvider = (props) => {
     JSON.parse(localStorage.getItem('accessToken'))
   )
   const [userDetails, setUserDetails] = useState(null)
+  const [chirpDetails, setChirpDetails] = useState(null)
+  const [languageDetails, setLanguageDetails] = useState(null)
+  const [employeeDetails, setEmployeeDetails] = useState(null)
   const [loadedData, setLoadedData] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [record, setRecord] = useState(null)
   const [addEditModal, setAddEditModal] = useState(false)
   const [isUserRegistered, setIsUserRegistered] = useState(false)
+  const [isLastRecord, setIsLastRecord] = useState(false)
 
   // ==  get Token
   const getToken = async () => {
@@ -43,7 +47,6 @@ export const ChirpProvider = (props) => {
     setAccessToken(JSON.parse(localStorage.getItem('accessToken')))
   }
   const getWithExpiry = async (key) => {
-    console.log('hello')
     const itemStr = localStorage.getItem(key)
     // if the item doesn't exist, return null
     const item = JSON.parse(itemStr)
@@ -57,7 +60,7 @@ export const ChirpProvider = (props) => {
         .catch((err) => console.log(err))
     }
   }
-
+  //  == get child Details
   const getChildDetails = async () => {
     const response = await axios({
       url: CHILD_BASE_URL,
@@ -74,104 +77,187 @@ export const ChirpProvider = (props) => {
 
   // == Add child data
   const addChildData = async (data) => {
-    let finalData = {
-      chirpList: [data],
-    }
-    console.log(JSON.stringify(finalData))
-    const response = await axios({
-      url: CHILD_BASE_URL,
-      method: 'post',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      data: finalData,
+    await setChirpDetails((prevValue) => {
+      return [...prevValue, data]
     })
-    return response
+    console.log(chirpDetails)
+    // const response = await axios({
+    //   url: CHILD_BASE_URL,
+    //   method: 'post',
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    //   data: finalData,
+    // })
+    // return response
   }
+
   // == Edit child data
   const editChildData = async (data) => {
-    let finalData = {
-      chirpList: [data],
-    }
-    console.log(JSON.stringify(finalData))
-    const response = await axios({
-      url: CHILD_BASE_URL,
-      method: 'patch',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      data: finalData,
+    // data is a object
+    await setChirpDetails((prevState) => {
+      var index = prevState
+        .map(function (el) {
+          return el.recordId
+        })
+        .indexOf(data.recordId)
+      prevState.splice(index, 1, data)
+      return prevState
     })
-    return response
+    // console.log(JSON.stringify(finalData))
+    // const response = await axios({
+    //   url: CHILD_BASE_URL,
+    //   method: 'patch',
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    //   data: finalData,
+    // })
+    // return response
   }
+
   //  == Delete child
   const deleteChild = async () => {
-    let data = userDetails?.chirpDetails
-      .filter(({ active }) => active === true)
-      .filter((chirpList) => {
-        if (chirpList.recordId === record) {
-          return (chirpList = [{ ...chirpList, active: false }])
-        }
-      })
-
-    let finalData = {
-      chirpList: [{ ...data[0], active: false }],
-    }
-    const response = await axios({
-      url: CHILD_BASE_URL,
-      method: 'patch',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      data: finalData,
-    })
-    return response
+    // let data = chirpDetails.filter(({ active }) => active === true).filter((chirpList) => {
+    //     if (chirpList.recordId === record) {
+    //       return (chirpList = [{ ...chirpList, active: false }])
+    //     }
+    //   })
+    // let finalData = {
+    //   chirpList: [{ ...data[0], active: false }],
+    // }
+    // await setChirpDetails((prevState) => {
+    //   let data = chirpDetails
+    //     .filter(({ active }) => active === true)
+    //     .filter((chirp) => {
+    //       if (chirp.recordId === record) {
+    //         chirp.active = false
+    //         return chirp
+    //       }
+    //     })
+    //   console.log(data)
+    //   var index = prevState
+    //     .map(function (el) {
+    //       return el.recordId
+    //     })
+    //     .indexOf(data[0].recordId)
+    //   prevState.splice(index, 1, data)
+    //   return prevState
+    // })
+    // const response = await axios({
+    //   url: CHILD_BASE_URL,
+    //   method: 'patch',
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    //   data: finalData,
+    // })
+    // return response
   }
+
   const deleteChildDetails = async () => {
+    // let data = chirpDetails
+    //   .filter(({ active }) => active === true)
+    //   .filter((chirp) => {
+    //     if (chirp.recordId === record) {
+    //       chirp.active = false
+    //       return chirp
+    //     }
+    //   })
+    await setChirpDetails((prevState) => {
+      // find data object
+      let deleteData = prevState
+        .filter(({ active }) => active == true)
+        .filter((chirp) => chirp.recordId === record)
+      // convert arry to object and
+      const convertArrayToObject = (array) => {
+        const initialValue = {}
+        return array.reduce((obj, item) => {
+          return {
+            ...obj,
+            ...item,
+          }
+        }, initialValue)
+      }
+      let data = convertArrayToObject(deleteData)
+      console.log(data)
+
+      var index = prevState
+        .map(function (el) {
+          return el.recordId
+        })
+        .indexOf(data.recordId)
+      prevState.splice(index, 1, { ...data, active: false })
+      return prevState
+    })
+    // await setChirpDetails((prevState) => {
+
+    //    prevState
+    //     .filter(({ active }) => active === true)
+    //     .filter((chirp) => {
+    //       let index = prevState
+    //         .map(function (el) {
+    //           return el.recordId
+    //         })
+    //         .indexOf(record)
+    //       if (chirp.recordId === record) {
+    //         chirp.active = false
+    //         return prevState.splice(index, 1, chirp)
+    //       }
+    //     })
+    //   // var index = prevState
+    //   //   .map(function (el) {
+    //   //     return el.recordId
+    //   //   })
+    //   //   .indexOf(data[0].recordId)
+    //   // prevState.splice(index, 1, data[0])
+    //   // return prevState
+    // })
     console.log('coming')
-    await deleteChild()
-      .then((result) => {
-        getChildDetails()
-          .then((response) => {
-            setUserDetails(response.data)
-            setRecord(null)
-          })
-          .catch((err) => console.log(err))
-        console.log(result.data[0].message)
-        if (result.data[0].success === 'true') {
-          console.log('true')
 
-          setShowModal(false)
-          toast.error('🦄 Deleted succesfully!', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
-        } else if (result.data[0].success === 'false') {
-          console.log('false')
+    // await deleteChild()
+    //   .then((result) => {
+    //     getChildDetails()
+    //       .then((response) => {
+    //         setUserDetails(response.data)
+    //         setRecord(null)
+    //       })
+    //       .catch((err) => console.log(err))
+    //     console.log(result.data[0].message)
+    //     if (result.data[0].success === 'true') {
+    //       console.log('true')
 
-          toast.error(result.data[0].message, {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
-          setShowModal(false)
-        }
-      })
-      .catch((err) => console.error(err))
+    //       setShowModal(false)
+    //       toast.error('🦄 Deleted succesfully!', {
+    //         position: 'top-right',
+    //         autoClose: 3000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //       })
+    //     } else if (result.data[0].success === 'false') {
+    //       console.log('false')
+
+    //       toast.error(result.data[0].message, {
+    //         position: 'top-right',
+    //         autoClose: 3000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //       })
+    //       setShowModal(false)
+    //     }
+    //   })
+    //   .catch((err) => console.error(err))
   }
   //  ==  Edit Record
   const editChild = async (id) => {
     setRecord(id)
-    let data = userDetails?.chirpDetails
+    let data = chirpDetails
       .filter(({ active }) => active === true)
       .filter((chirpList) => {
         return chirpList.recordId === id
@@ -200,10 +286,12 @@ export const ChirpProvider = (props) => {
     getChildDetails()
       .then((response) => {
         setUserDetails(response.data)
-        console.log(response.data)
+        setChirpDetails(response.data.chirpDetails)
+        setLanguageDetails(response.data.languageDetails)
+        setEmployeeDetails(response.data.employeeDetails)
       })
       .catch((err) => console.log(err))
-  }, [record])
+  }, [])
   // useEffect(() => {
   //   getWithExpiry('accessToken')
   //   getChildDetails()
@@ -226,6 +314,9 @@ export const ChirpProvider = (props) => {
       value={{
         userDetails,
         setUserDetails,
+        chirpDetails,
+        employeeDetails,
+        languageDetails,
         accessToken,
         setAccessToken,
         showModal,
@@ -244,6 +335,8 @@ export const ChirpProvider = (props) => {
         editChildData,
         isUserRegistered,
         setIsUserRegistered,
+        isLastRecord,
+        setIsLastRecord,
       }}
     >
       {props.children}

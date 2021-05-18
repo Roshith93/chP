@@ -7,21 +7,21 @@ import { ChirpContext } from '../Context/ChirpContext'
 export const UserLists = () => {
   const {
     userDetails,
+    chirpDetails,
     setShowModal,
     showModal,
     setRecord,
     editChild,
     setIsUserRegistered,
-    isUserRegistered,
+    isUserRegistered,setIsLastRecord,
   } = useContext(ChirpContext)
-  const userLists = userDetails?.chirpDetails
-  const activeData = userLists
-    ? userLists.filter(({active}) => active === true)
-    : []
+  console.log(chirpDetails)
+  const activeData = chirpDetails ? chirpDetails.filter(({active}) => active === true) : []
   if (activeData.length === 0) {
     setIsUserRegistered(false)
   } else{
     // call the deregister modal
+    setIsLastRecord(true)
     setIsUserRegistered(true)
   }
   return (

@@ -8,6 +8,9 @@ export const ConfirmModal = () => {
   const { showModal, setShowModal, deleteChildDetails } = useContext(
     ChirpContext
   )
+  const deleteRecord = () => {
+    deleteChildDetails().then(result => setShowModal(false))
+  }
   return (
     <>
       <Modal
@@ -24,7 +27,7 @@ export const ConfirmModal = () => {
           <Button variant='secondary' onClick={() => setShowModal(false)}>
             Close
           </Button>
-          <Button variant='danger' onClick={deleteChildDetails}>
+          <Button variant='danger' onClick={deleteRecord}>
             Delete
           </Button>
         </Modal.Footer>
