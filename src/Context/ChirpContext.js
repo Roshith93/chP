@@ -172,7 +172,7 @@ export const ChirpProvider = (props) => {
       //   setDeregisterModal(true)
       // }
       let deleteData = prevState
-        .filter(({ active }) => active == true)
+        .filter(({ active }) => active === true)
         .filter((chirp) => chirp.recordId === record)
       // convert arry to object and
       const convertArrayToObject = (array) => {
