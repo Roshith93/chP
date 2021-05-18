@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import Row from 'react-bootstrap/Row'
@@ -6,17 +6,22 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
+import { ChirpContext } from '../Context/ChirpContext'
 
-function CancellationForm() {
+function CancellationForm(props) {
+  const { setDeregisterModal, setisUserAlreadyRegistered } = useContext(ChirpContext)
+
   const initialValues = {
-    option:'',
-    reason:'',
+    option: '',
+    reason: '',
   }
   const validationSchema = Yup.object({
-   option: Yup.string().required('Select option'),
-   reason: Yup.string().required('Select the Reason'),
+    option: Yup.string().required('Select option'),
+    reason: Yup.string().required('Select the Reason'),
   })
-  const onSubmit = (values, actions) => console.log(values)
+  const onSubmit = (values, actions) =>{
+    setisUserAlreadyRegistered(false)
+  }
 
   return (
     <Formik
@@ -36,8 +41,10 @@ function CancellationForm() {
         <Form noValidate onSubmit={handleSubmit}>
           <Row>
             <p>
-             Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque ab tempore quaerat repudiandae dolorum dolores consequuntur culpa? Assumenda, illo accusamus.
-             </p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Doloremque ab tempore quaerat repudiandae dolorum dolores
+              consequuntur culpa? Assumenda, illo accusamus.
+            </p>
           </Row>
           <Row>
             <Form.Group as={Col} md='6' controlId='validationFormik03'>
@@ -90,9 +97,14 @@ function CancellationForm() {
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
           </Row>
-         
-          <br/>
-          <Button type='submit' variant="danger">I no longer wish my child(rens) to participate in chirp</Button>
+
+          <br />
+          <Button type='submit' variant='danger'>
+            I no longer wish my child(rens) to participate in chirp
+          </Button>
+          <Button type='button' variant='secondary' onClick={props.close()}>
+            Cancel
+          </Button>
           <pre>{JSON.stringify(values, null, 2)}</pre>
         </Form>
       )}

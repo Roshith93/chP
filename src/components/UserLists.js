@@ -12,17 +12,23 @@ export const UserLists = () => {
     showModal,
     setRecord,
     editChild,
-    setIsUserRegistered,
-    isUserRegistered,setIsLastRecord,
+    setisUserAlreadyRegistered,
+    isUserAlreadyRegistered,
+    setIsLastRecord,
+    setDeregisterModal,
   } = useContext(ChirpContext)
   console.log(chirpDetails)
-  const activeData = chirpDetails ? chirpDetails.filter(({active}) => active === true) : []
-  if (activeData.length === 0) {
-    setIsUserRegistered(false)
-  } else{
+  const activeData = chirpDetails
+    ? chirpDetails.filter(({ active }) => active === true)
+    : []
+  if (activeData.length === 1 && isUserAlreadyRegistered) {
+    // setisUserAlreadyRegistered(false)
+    // call the deregister modal
+    setDeregisterModal(true)
+  } else {
     // call the deregister modal
     setIsLastRecord(true)
-    setIsUserRegistered(true)
+    // setisUserAlreadyRegistered(true)
   }
   return (
     <>

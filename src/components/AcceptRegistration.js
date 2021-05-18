@@ -11,7 +11,7 @@ import { ChirpContext } from '../Context/ChirpContext'
 import { agreement } from '../Context/data'
 
 export const AcceptRegistration = () => {
-  const { isUserRegistered } = useContext(ChirpContext)
+  const { isUserAlreadyRegistered } = useContext(ChirpContext)
   return (
     <Container fluid>
       <Form>
@@ -33,8 +33,8 @@ export const AcceptRegistration = () => {
                       <Form.Check
                         type='checkbox'
                         label='I have read the above statements  agree'
-                        disabled={isUserRegistered}
-                        checked={isUserRegistered}
+                        disabled={isUserAlreadyRegistered}
+                        checked={isUserAlreadyRegistered}
                       />
                     </Form.Group>
                   </Col>
@@ -48,7 +48,7 @@ export const AcceptRegistration = () => {
                   type='submit'
                   style={{ margin: '10px' }}
                 >
-                  {isUserRegistered
+                  {isUserAlreadyRegistered
                     ? 'Update Registration '
                     : 'Submit Registration'}
                 </Button>

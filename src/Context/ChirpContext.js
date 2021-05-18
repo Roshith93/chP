@@ -21,8 +21,9 @@ export const ChirpProvider = (props) => {
   const [showModal, setShowModal] = useState(false)
   const [record, setRecord] = useState(null)
   const [addEditModal, setAddEditModal] = useState(false)
-  const [isUserRegistered, setIsUserRegistered] = useState(false)
+  const [isUserAlreadyRegistered, setisUserAlreadyRegistered] = useState(false)
   const [isLastRecord, setIsLastRecord] = useState(false)
+  const [deregisterModal, setDeregisterModal] = useState(false)
 
   // ==  get Token
   const getToken = async () => {
@@ -165,7 +166,11 @@ export const ChirpProvider = (props) => {
     //     }
     //   })
     await setChirpDetails((prevState) => {
-      // find data object
+      // find data object\
+      // let activeDatas =  prevState ? prevState.filter(({ active }) => active === true) : []
+      // if(activeDatas.length === 1) {
+      //   setDeregisterModal(true)
+      // }
       let deleteData = prevState
         .filter(({ active }) => active == true)
         .filter((chirp) => chirp.recordId === record)
@@ -180,7 +185,6 @@ export const ChirpProvider = (props) => {
         }, initialValue)
       }
       let data = convertArrayToObject(deleteData)
-      console.log(data)
 
       var index = prevState
         .map(function (el) {
@@ -285,10 +289,18 @@ export const ChirpProvider = (props) => {
     getWithExpiry('accessToken')
     getChildDetails()
       .then((response) => {
+        let { chirpDetails, languageDetails, employeeDetails } = response.data
         setUserDetails(response.data)
-        setChirpDetails(response.data.chirpDetails)
-        setLanguageDetails(response.data.languageDetails)
-        setEmployeeDetails(response.data.employeeDetails)
+        setChirpDetails(chirpDetails)
+        setLanguageDetails(languageDetails)
+        setEmployeeDetails(employeeDetails)
+        chirpDetails
+          ? chirpDetails.filter(({ active }) => {
+              if (active === true) {
+                setisUserAlreadyRegistered(true)
+              }
+            })
+          : setisUserAlreadyRegistered(false)
       })
       .catch((err) => console.log(err))
   }, [])
@@ -333,10 +345,12 @@ export const ChirpProvider = (props) => {
         setAddEditModal,
         addEditModal,
         editChildData,
-        isUserRegistered,
-        setIsUserRegistered,
+        isUserAlreadyRegistered,
+        setisUserAlreadyRegistered,
         isLastRecord,
         setIsLastRecord,
+        deregisterModal,
+        setDeregisterModal,
       }}
     >
       {props.children}
