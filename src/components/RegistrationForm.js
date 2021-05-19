@@ -26,12 +26,11 @@ function RegistrationForm(props) {
     addChildData,
     loadedData,
     setLoadedData,
-    userDetails,
     record,
     setRecord,
     editChildData,
-    setUserDetails,
     getChildDetails,
+    employeeDetails,
   } = useContext(ChirpContext)
   const initialValues = {
     month: '',
@@ -46,9 +45,9 @@ function RegistrationForm(props) {
       ...values,
       age: 10,
       active: true,
-      country: userDetails.employeeDetails.country,
-      email: userDetails.employeeDetails.emailAddress,
-      parent: userDetails.employeeDetails.empoyeeId,
+      country: employeeDetails.country,
+      email: employeeDetails.emailAddress,
+      parent: employeeDetails.empoyeeId,
       recordId: record ? record : uuidv4(),
     }
     console.log(finalData)

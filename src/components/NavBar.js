@@ -5,8 +5,8 @@ import Container from 'react-bootstrap/Container'
 import { ChirpContext } from '../Context/ChirpContext'
 
 export const NavBar = () => {
-  const { userDetails } = useContext(ChirpContext)
-  console.log(userDetails)
+  const { employeeDetails } = useContext(ChirpContext)
+  console.log(employeeDetails)
   return (
     <Navbar expand='lg' variant='dark' bg='dark'>
       <Navbar.Brand
@@ -33,8 +33,8 @@ export const NavBar = () => {
             href='#'
             style={{ fontSize: 'larger', fontWeight: 'bold', color: '#fff' }}
           >
-            {userDetails
-              ? `Logged in as : ${userDetails?.employeeDetails?.fullName}`
+            {employeeDetails
+              ? `Logged in as : ${employeeDetails?.fullName}`
               : 'User not logged in'}
           </Navbar.Text>
         </Navbar.Collapse>

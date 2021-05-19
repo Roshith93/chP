@@ -15,7 +15,7 @@ import { firstPageData, tabTitles } from '../Context/data'
 
 export const TabMenus = () => {
   const [key, setKey] = useState('home')
-  const { userDetails } = useContext(ChirpContext)
+  // const { userDetails } = useContext(ChirpContext)
 
   return (
     <div>

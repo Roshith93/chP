@@ -6,7 +6,6 @@ import { ChirpContext } from '../Context/ChirpContext'
 
 export const UserLists = () => {
   const {
-    userDetails,
     chirpDetails,
     setShowModal,
     showModal,

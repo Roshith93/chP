@@ -76,7 +76,23 @@ export const ChirpProvider = (props) => {
     return response
   }
 
-  // == Add child data
+  //  ! Add data to server
+  const addDataToServer = async (chirpDetails) => {
+    let finalData = {
+      chirpList: [chirpDetails]
+    }
+     const response = await axios({
+      url: CHILD_BASE_URL,
+      method: 'post',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      data: finalData,
+    })
+    return response
+  }
+
+  // == Add child data locally
   const addChildData = async (data) => {
     await setChirpDetails((prevValue) => {
       return [...prevValue, data]
