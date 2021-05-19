@@ -102,10 +102,9 @@ export const ChirpProvider = (props) => {
     return response
   }
   const addServerDataToServer = async () => {
-
     let submitMethod = 'patch'
-    let localData = chirpDetails.filter(({ active }) => active === true)
-    
+    let localData = chirpDetails.filter(({ active }) => active === true).filter(({ recordId }) => !recordId.includes('-'))
+
     console.log(localData)
 
     let finalData = {
@@ -125,20 +124,25 @@ export const ChirpProvider = (props) => {
 
   //  ! Add data to server
   const addDataToServer = async () => {
-    let data = chirpDetails
+    let localData = chirpDetails
       .filter(({ active }) => active === true)
       .map(({ recordId, ...keepRest }) => recordId.includes('-') && keepRest)
-      console.log(data)
-    let anyNewData = data.filter((e) => {
+    console.log(localData)
+    let anyNewLocalData = localData.filter((e) => {
       return e !== false
     })
-    console.log(anyNewData)
+    let serverData = chirpDetails
+      .filter(({ active }) => active === true)
+      .filter(({ recordId }) => !recordId.includes('-'))
+    console.log(serverData)
 
-
-    if (anyNewData.length > 0) {
-      addLocalDataToServer().then((res) => alert('successfull from local data'))
-    }else{
-      addServerDataToServer().then(res => alert('server to server'))
+    if (serverData.length > 0) {
+      await addServerDataToServer().then((res) => alert('server to server'))
+    } 
+     if (anyNewLocalData.length > 0) {
+      await addLocalDataToServer().then((res) =>
+        alert('successfull from local data')
+      )
     }
   }
 

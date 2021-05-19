@@ -13,9 +13,7 @@ import { agreement } from '../Context/data'
 export const AcceptRegistration = () => {
   const { isUserAlreadyRegistered, addDataToServer } = useContext(ChirpContext)
   const triggerAddDataToServer = () => {
-    addDataToServer()
-      .then((result) => alert('success'))
-      .catch((err) => alert(err))
+    addDataToServer().then(res => alert('success'))
   }
   return (
     <Container fluid>
