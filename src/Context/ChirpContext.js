@@ -28,6 +28,7 @@ export const ChirpProvider = (props) => {
   const [isUserAlreadyRegistered, setisUserAlreadyRegistered] = useState(false)
   const [isLastRecord, setIsLastRecord] = useState(false)
   const [deregisterModal, setDeregisterModal] = useState(false)
+  const [isDataSubmitted, setIsDataSubmitted] = useState(null)
 
   // ==  get Token
   const getToken = async () => {
@@ -248,7 +249,7 @@ export const ChirpProvider = (props) => {
           : setisUserAlreadyRegistered(false)
       })
       .catch((err) => console.log(err))
-  }, [])
+  }, [isDataSubmitted])
 
   useEffect(() => {
     setInterval(() => {
@@ -288,6 +289,8 @@ export const ChirpProvider = (props) => {
         deregisterModal,
         setDeregisterModal,
         addDataToServer,
+        isDataSubmitted,
+setIsDataSubmitted
       }}
     >
       {props.children}

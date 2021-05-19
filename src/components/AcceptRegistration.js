@@ -10,16 +10,25 @@ import Button from 'react-bootstrap/Button'
 import { ChirpContext } from '../Context/ChirpContext'
 import { agreement } from '../Context/data'
 import { SuccessToastEmitter, ErrorToastEmitter } from './ToastContainer'
+import { marginTop } from './styles'
 
 export const AcceptRegistration = () => {
   const [status, setStatus] = useState(false)
-  const { isUserAlreadyRegistered, addDataToServer, chirpDetails } = useContext(
-    ChirpContext
-  )
+  const {
+    isUserAlreadyRegistered,
+    addDataToServer,
+    chirpDetails,
+    setIsDataSubmitted,
+  } = useContext(ChirpContext)
   const triggerAddDataToServer = () => {
-    addDataToServer()
-      .then((res) => SuccessToastEmitter({ message: 'Successfully updated.' }))
-      .catch((err) => ErrorToastEmitter({ message: 'Some Error Occured' }))
+    if (status) {
+      addDataToServer()
+        .then((res) => {
+          setIsDataSubmitted(Math.random())
+          SuccessToastEmitter({ message: 'Successfully updated.' })
+        })
+        .catch((err) => ErrorToastEmitter({ message: 'Some Error Occured' }))
+    }
   }
   const handleCheckboxChange = (e) => {
     setStatus(!status)
@@ -28,7 +37,7 @@ export const AcceptRegistration = () => {
     chirpDetails &&
     chirpDetails.filter(({ active }) => active === true).length > 0
   return (
-    <Container fluid>
+    <Container fluid style={marginTop}>
       {/* <Form> */}
       <Row>
         <Col>
@@ -46,7 +55,7 @@ export const AcceptRegistration = () => {
                     <Form.Check
                       type='checkbox'
                       label='I have read the above statements  agree'
-                      disabled={isUserAlreadyRegistered}
+                      // disabled={isUserAlreadyRegistered}
                       checked={status}
                       onClick={handleCheckboxChange}
                     />
@@ -62,7 +71,7 @@ export const AcceptRegistration = () => {
                 type='submit'
                 style={{ margin: '10px' }}
                 onClick={triggerAddDataToServer}
-                disabled={buttondisable ? status && buttondisable.length : true}
+                disabled={buttondisable ? buttondisable.length : true}
               >
                 {isUserAlreadyRegistered
                   ? 'Update Registration '
