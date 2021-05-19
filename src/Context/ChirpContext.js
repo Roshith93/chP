@@ -78,14 +78,13 @@ export const ChirpProvider = (props) => {
   const addLocalDataToServer = async () => {
     let submitMethod = 'post'
     let localData = chirpDetails.filter(({ active }) => active === true)
-    let postLocalArray = localData.map(({ recordId, ...keepRest }) =>
-      recordId.includes('-') && keepRest
+    let postLocalArray = localData.map(
+      ({ recordId, ...keepRest }) => recordId.includes('-') && keepRest
     )
     // if post array is empty, dont post
-    let anyNewData = postLocalArray.filter(e => {
+    let anyNewData = postLocalArray.filter((e) => {
       return e !== false
-      
-    });
+    })
     console.log(anyNewData)
 
     let finalData = {
@@ -102,22 +101,44 @@ export const ChirpProvider = (props) => {
     })
     return response
   }
-  const addServerDataToServer = async () => {}
+  const addServerDataToServer = async () => {
+
+    let submitMethod = 'patch'
+    let localData = chirpDetails.filter(({ active }) => active === true)
+    
+    console.log(localData)
+
+    let finalData = {
+      chirpList: localData,
+    }
+    console.log(finalData)
+    const response = await axios({
+      url: CHILD_BASE_URL,
+      method: submitMethod,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      data: finalData,
+    })
+    return response
+  }
 
   //  ! Add data to server
   const addDataToServer = async () => {
     let data = chirpDetails
       .filter(({ active }) => active === true)
       .map(({ recordId, ...keepRest }) => recordId.includes('-') && keepRest)
-    console.log(data)
-    let anyNewData = data.filter(e => {
-      console.log(e)
+      console.log(data)
+    let anyNewData = data.filter((e) => {
       return e !== false
-    
-    });
+    })
+    console.log(anyNewData)
 
-      if (anyNewData.length > 0) {
+
+    if (anyNewData.length > 0) {
       addLocalDataToServer().then((res) => alert('successfull from local data'))
+    }else{
+      addServerDataToServer().then(res => alert('server to server'))
     }
   }
 
