@@ -56,7 +56,7 @@ export const AcceptRegistration = () => {
                       type='checkbox'
                       label='I have read the above statements  agree'
                       // disabled={isUserAlreadyRegistered}
-                      checked={status}
+                      checked={status || isUserAlreadyRegistered}
                       onClick={handleCheckboxChange}
                     />
                   </Form.Group>
