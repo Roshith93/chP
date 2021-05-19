@@ -25,10 +25,11 @@ export const ChirpProvider = (props) => {
   const [showModal, setShowModal] = useState(false)
   const [record, setRecord] = useState(null)
   const [addEditModal, setAddEditModal] = useState(false)
-  const [isUserAlreadyRegistered, setisUserAlreadyRegistered] = useState(false)
+  const [isUserAlreadyRegistered, setIsUserAlreadyRegistered] = useState(false)
   const [isLastRecord, setIsLastRecord] = useState(false)
   const [deregisterModal, setDeregisterModal] = useState(false)
   const [isDataSubmitted, setIsDataSubmitted] = useState(null)
+  const [checkBoxStatus, setCheckBoxStatus] = useState(false)
 
   // ==  get Token
   const getToken = async () => {
@@ -129,6 +130,26 @@ export const ChirpProvider = (props) => {
     return response
   }
 
+  const deleteServerData = async () => {
+    // let submitMethod = 'patch'
+    // let localData = chirpDetails
+    //   // .filter(({ active }) => active === true)
+    //   .filter(({ recordId }) => !recordId.includes('-'))
+    // console.log(localData)
+    // let finalData = {
+    //   chirpList: localData,
+    // }
+    // console.log(finalData)
+    // const response = await axios({
+    //   url: CHILD_BASE_URL,
+    //   method: submitMethod,
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    //   data: finalData,
+    // })
+    // return response
+  }
   //  ! Add data to server
   const addDataToServer = async () => {
     let localData = chirpDetails
@@ -176,7 +197,7 @@ export const ChirpProvider = (props) => {
       return prevState
     })
   }
-
+  // == Edit child data
   const deleteChildDetails = async () => {
     await setChirpDetails((prevState) => {
       let deleteData = prevState
@@ -243,10 +264,10 @@ export const ChirpProvider = (props) => {
         chirpDetails
           ? chirpDetails.filter(({ active }) => {
               if (active === true) {
-                setisUserAlreadyRegistered(true)
+                setIsUserAlreadyRegistered(true)
               }
             })
-          : setisUserAlreadyRegistered(false)
+          : setIsUserAlreadyRegistered(false)
       })
       .catch((err) => console.log(err))
   }, [isDataSubmitted])
@@ -283,14 +304,16 @@ export const ChirpProvider = (props) => {
         addEditModal,
         editChildData,
         isUserAlreadyRegistered,
-        setisUserAlreadyRegistered,
+        setIsUserAlreadyRegistered,
         isLastRecord,
         setIsLastRecord,
         deregisterModal,
         setDeregisterModal,
         addDataToServer,
         isDataSubmitted,
-setIsDataSubmitted
+        setIsDataSubmitted,
+        checkBoxStatus,
+        setCheckBoxStatus,
       }}
     >
       {props.children}

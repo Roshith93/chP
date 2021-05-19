@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form'
 import { ChirpContext } from '../Context/ChirpContext'
 
 function CancellationForm(props) {
-  const { setDeregisterModal, setisUserAlreadyRegistered } = useContext(ChirpContext)
+  const { setDeregisterModal, setIsUserAlreadyRegistered } = useContext(ChirpContext)
 
   const initialValues = {
     option: '',
@@ -20,7 +20,7 @@ function CancellationForm(props) {
     reason: Yup.string().required('Select the Reason'),
   })
   const onSubmit = (values, actions) =>{
-    setisUserAlreadyRegistered(false)
+    setIsUserAlreadyRegistered(false)
   }
 
   return (

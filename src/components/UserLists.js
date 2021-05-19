@@ -11,7 +11,7 @@ export const UserLists = () => {
     showModal,
     setRecord,
     editChild,
-    setisUserAlreadyRegistered,
+    setIsUserAlreadyRegistered,
     isUserAlreadyRegistered,
     setIsLastRecord,
     setDeregisterModal,
@@ -21,13 +21,13 @@ export const UserLists = () => {
     ? chirpDetails.filter(({ active }) => active === true)
     : []
   if (activeData.length === 1 && isUserAlreadyRegistered) {
-    // setisUserAlreadyRegistered(false)
+    // setIsUserAlreadyRegistered(false)
     // call the deregister modal
     setDeregisterModal(true)
   } else {
     // call the deregister modal
     setIsLastRecord(true)
-    // setisUserAlreadyRegistered(true)
+    // setIsUserAlreadyRegistered(true)
   }
   return (
     <>

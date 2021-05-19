@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -13,15 +13,19 @@ import { SuccessToastEmitter, ErrorToastEmitter } from './ToastContainer'
 import { marginTop } from './styles'
 
 export const AcceptRegistration = () => {
-  const [status, setStatus] = useState(false)
   const {
     isUserAlreadyRegistered,
+    setIsUserAlreadyRegistered,
     addDataToServer,
     chirpDetails,
     setIsDataSubmitted,
+    checkBoxStatus,
+    setCheckBoxStatus,
   } = useContext(ChirpContext)
+  const [status, setStatus] = useState(true)
+
   const triggerAddDataToServer = () => {
-    if (status) {
+    if (checkBoxStatus) {
       addDataToServer()
         .then((res) => {
           setIsDataSubmitted(Math.random())
@@ -31,7 +35,7 @@ export const AcceptRegistration = () => {
     }
   }
   const handleCheckboxChange = (e) => {
-    setStatus(!status)
+    setCheckBoxStatus(!checkBoxStatus)
   }
   let buttondisable =
     chirpDetails &&
@@ -56,7 +60,7 @@ export const AcceptRegistration = () => {
                       type='checkbox'
                       label='I have read the above statements  agree'
                       // disabled={isUserAlreadyRegistered}
-                      checked={status || isUserAlreadyRegistered}
+                      checked={checkBoxStatus}
                       onClick={handleCheckboxChange}
                     />
                   </Form.Group>
