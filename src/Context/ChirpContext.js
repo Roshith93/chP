@@ -75,23 +75,24 @@ export const ChirpProvider = (props) => {
     })
     return response
   }
-
-  //  ! Add data to server
-  const addDataToServer = async () => {
-    let submitMethod;
+  const addLocalDataToServer = async () => {
+    let submitMethod = 'post'
     let localData = chirpDetails.filter(({ active }) => active === true)
-    const newArray = localData.map(({recordId,  ...keepRest}) => keepRest)
-    console.log(newArray)
-    if(isUserAlreadyRegistered){
-      submitMethod = 'patch'
-    }else{
-      submitMethod = 'post'
-    }
+    let postLocalArray = localData.map(({ recordId, ...keepRest }) =>
+      recordId.includes('-') && keepRest
+    )
+    // if post array is empty, dont post
+    let anyNewData = postLocalArray.filter(e => {
+      return e !== false
+      
+    });
+    console.log(anyNewData)
+
     let finalData = {
-      chirpList: newArray
+      chirpList: anyNewData,
     }
     console.log(finalData)
-     const response = await axios({
+    const response = await axios({
       url: CHILD_BASE_URL,
       method: submitMethod,
       headers: {
@@ -100,6 +101,24 @@ export const ChirpProvider = (props) => {
       data: finalData,
     })
     return response
+  }
+  const addServerDataToServer = async () => {}
+
+  //  ! Add data to server
+  const addDataToServer = async () => {
+    let data = chirpDetails
+      .filter(({ active }) => active === true)
+      .map(({ recordId, ...keepRest }) => recordId.includes('-') && keepRest)
+    console.log(data)
+    let anyNewData = data.filter(e => {
+      console.log(e)
+      return e !== false
+    
+    });
+
+      if (anyNewData.length > 0) {
+      addLocalDataToServer().then((res) => alert('successfull from local data'))
+    }
   }
 
   // == Add child data locally
