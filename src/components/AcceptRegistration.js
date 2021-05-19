@@ -11,52 +11,56 @@ import { ChirpContext } from '../Context/ChirpContext'
 import { agreement } from '../Context/data'
 
 export const AcceptRegistration = () => {
-  const { isUserAlreadyRegistered } = useContext(ChirpContext)
+  const { isUserAlreadyRegistered, addDataToServer } = useContext(ChirpContext)
+  const triggerAddDataToServer = () => {
+    addDataToServer()
+      .then((result) => alert('success'))
+      .catch((err) => alert(err))
+  }
   return (
     <Container fluid>
-      <Form>
-        <Row>
-          <Col>
-            <Card border='primary' style={{ width: 'auto' }}>
-              <Card.Header>ChIRP Interest</Card.Header>
-              <Card.Body>
-                <ListGroup variant='flush'>
-                  {
-                    agreement.map(({id, label}) => {
-                      return <ListGroup.Item key={id}>{label}</ListGroup.Item>
-                    })
-                  }
-                </ListGroup>
-                <Row className='justify-content-md-center'>
-                  <Col md='auto'>
-                    <Form.Group controlId='formBasicCheckbox'>
-                      <Form.Check
-                        type='checkbox'
-                        label='I have read the above statements  agree'
-                        disabled={isUserAlreadyRegistered}
-                        checked={isUserAlreadyRegistered}
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-            <Row className='justify-content-md-center'>
-              <Col md='auto'>
-                <Button
-                  variant='primary'
-                  type='submit'
-                  style={{ margin: '10px' }}
-                >
-                  {isUserAlreadyRegistered
-                    ? 'Update Registration '
-                    : 'Submit Registration'}
-                </Button>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Form>
+      {/* <Form> */}
+      <Row>
+        <Col>
+          <Card border='primary' style={{ width: 'auto' }}>
+            <Card.Header>ChIRP Interest</Card.Header>
+            <Card.Body>
+              <ListGroup variant='flush'>
+                {agreement.map(({ id, label }) => {
+                  return <ListGroup.Item key={id}>{label}</ListGroup.Item>
+                })}
+              </ListGroup>
+              <Row className='justify-content-md-center'>
+                <Col md='auto'>
+                  <Form.Group controlId='formBasicCheckbox'>
+                    <Form.Check
+                      type='checkbox'
+                      label='I have read the above statements  agree'
+                      disabled={isUserAlreadyRegistered}
+                      checked={isUserAlreadyRegistered}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+          <Row className='justify-content-md-center'>
+            <Col md='auto'>
+              <Button
+                variant='primary'
+                type='submit'
+                style={{ margin: '10px' }}
+                onClick={triggerAddDataToServer}
+              >
+                {isUserAlreadyRegistered
+                  ? 'Update Registration '
+                  : 'Submit Registration'}
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      {/* </Form> */}
     </Container>
   )
 }

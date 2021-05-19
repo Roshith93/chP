@@ -77,13 +77,23 @@ export const ChirpProvider = (props) => {
   }
 
   //  ! Add data to server
-  const addDataToServer = async (chirpDetails) => {
-    let finalData = {
-      chirpList: [chirpDetails]
+  const addDataToServer = async () => {
+    let submitMethod;
+    let localData = chirpDetails.filter(({ active }) => active === true)
+    const newArray = localData.map(({recordId,  ...keepRest}) => keepRest)
+    console.log(newArray)
+    if(isUserAlreadyRegistered){
+      submitMethod = 'patch'
+    }else{
+      submitMethod = 'post'
     }
+    let finalData = {
+      chirpList: newArray
+    }
+    console.log(finalData)
      const response = await axios({
       url: CHILD_BASE_URL,
-      method: 'post',
+      method: submitMethod,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -367,6 +377,7 @@ export const ChirpProvider = (props) => {
         setIsLastRecord,
         deregisterModal,
         setDeregisterModal,
+        addDataToServer,
       }}
     >
       {props.children}
