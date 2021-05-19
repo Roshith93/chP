@@ -59,7 +59,7 @@ export const AcceptRegistration = () => {
                 type='submit'
                 style={{ margin: '10px' }}
                 onClick={triggerAddDataToServer}
-                disabled={buttondisable ? buttondisable.length : true}
+                disabled={buttondisable ? status && buttondisable.length : true}
               >
                 {isUserAlreadyRegistered
                   ? 'Update Registration '
