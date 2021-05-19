@@ -9,7 +9,7 @@ export const ConfirmModal = () => {
     ChirpContext
   )
   const deleteRecord = () => {
-    deleteChildDetails().then(result => console.log(result))
+    deleteChildDetails().then(result => setShowModal(false))
   }
   return (
     <>
