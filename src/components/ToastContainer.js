@@ -1,4 +1,4 @@
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 
 export const Toast = () => (
   <ToastContainer
@@ -13,3 +13,25 @@ export const Toast = () => (
     pauseOnHover
   />
 )
+
+export const SuccessToastEmitter = ({ message }) =>
+  toast.success(message ? message : 'Successful', {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  })
+
+export const ErrorToastEmitter = ({ message }) =>
+  toast.error(message ? message : 'Error', {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  })

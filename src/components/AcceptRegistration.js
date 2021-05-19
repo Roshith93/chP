@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button'
 
 import { ChirpContext } from '../Context/ChirpContext'
 import { agreement } from '../Context/data'
+import { SuccessToastEmitter, ErrorToastEmitter } from './ToastContainer'
 
 export const AcceptRegistration = () => {
   const [status, setStatus] = useState(false)
@@ -16,7 +17,9 @@ export const AcceptRegistration = () => {
     ChirpContext
   )
   const triggerAddDataToServer = () => {
-    addDataToServer().then((res) => alert('success'))
+    addDataToServer()
+      .then((res) => SuccessToastEmitter({ message: 'Successfully updated.' }))
+      .catch((err) => ErrorToastEmitter({ message: 'Some Error Occured' }))
   }
   const handleCheckboxChange = (e) => {
     setStatus(!status)

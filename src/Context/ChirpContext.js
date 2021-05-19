@@ -2,6 +2,10 @@ import { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { tempData } from './data'
+import {
+  SuccessToastEmitter,
+  ErrorToastEmitter,
+} from '../components/ToastContainer'
 
 export const ChirpContext = createContext()
 
@@ -103,7 +107,9 @@ export const ChirpProvider = (props) => {
   }
   const addServerDataToServer = async () => {
     let submitMethod = 'patch'
-    let localData = chirpDetails.filter(({ active }) => active === true).filter(({ recordId }) => !recordId.includes('-'))
+    let localData = chirpDetails
+      .filter(({ active }) => active === true)
+      .filter(({ recordId }) => !recordId.includes('-'))
 
     console.log(localData)
 
@@ -137,12 +143,14 @@ export const ChirpProvider = (props) => {
     console.log(serverData)
 
     if (serverData.length > 0) {
-      await addServerDataToServer().then((res) => alert('server to server'))
-    } 
-     if (anyNewLocalData.length > 0) {
-      await addLocalDataToServer().then((res) =>
-        alert('successfull from local data')
-      )
+      await addServerDataToServer()
+        .then((res) => SuccessToastEmitter({ message: res.message }))
+        .catch((err) => ErrorToastEmitter({ message: err }))
+    }
+    if (anyNewLocalData.length > 0) {
+      await addLocalDataToServer()
+        .then((res) => SuccessToastEmitter({ message: res.message }))
+        .catch((err) => ErrorToastEmitter({ message: err }))
     }
   }
 
@@ -169,9 +177,7 @@ export const ChirpProvider = (props) => {
   }
 
   const deleteChildDetails = async () => {
-    
     await setChirpDetails((prevState) => {
-      
       let deleteData = prevState
         .filter(({ active }) => active === true)
         .filter((chirp) => chirp.recordId === record)
@@ -243,7 +249,7 @@ export const ChirpProvider = (props) => {
       })
       .catch((err) => console.log(err))
   }, [])
-  
+
   useEffect(() => {
     setInterval(() => {
       console.log('coming here at timeout')
