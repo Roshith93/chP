@@ -9,6 +9,7 @@ import { ChirpContext } from '../Context/ChirpContext'
 
 export const ChildCancellation = () => {
   const { deregisterModal, setDeregisterModal } = useContext(ChirpContext)
+  console.log(deregisterModal)
   return (
     <>
       <Button variant='primary' onClick={() => setDeregisterModal(true)}>
@@ -26,7 +27,7 @@ export const ChildCancellation = () => {
           <Modal.Title id='example-modal-sizes-title-lg'>Confirm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CancellationForm close={() => setDeregisterModal(false)} />
+          <CancellationForm  />
         </Modal.Body>
       </Modal>
     </>

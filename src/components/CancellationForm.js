@@ -99,13 +99,13 @@ function CancellationForm(props) {
           </Row>
 
           <br />
-          <Button type='submit' variant='danger'>
+          <Button type='submit' variant='danger' style={{margin:'5px'}}>
             I no longer wish my child(rens) to participate in chirp
           </Button>
-          <Button type='button' variant='secondary' onClick={props.close()}>
+          <Button type='button' variant='secondary' onClick={() => setDeregisterModal(false)}>
             Cancel
           </Button>
-          <pre>{JSON.stringify(values, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
         </Form>
       )}
     </Formik>
