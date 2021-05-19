@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -11,10 +11,19 @@ import { ChirpContext } from '../Context/ChirpContext'
 import { agreement } from '../Context/data'
 
 export const AcceptRegistration = () => {
-  const { isUserAlreadyRegistered, addDataToServer } = useContext(ChirpContext)
+  const [status, setStatus] = useState(false)
+  const { isUserAlreadyRegistered, addDataToServer, chirpDetails } = useContext(
+    ChirpContext
+  )
   const triggerAddDataToServer = () => {
-    addDataToServer().then(res => alert('success'))
+    addDataToServer().then((res) => alert('success'))
   }
+  const handleCheckboxChange = (e) => {
+    setStatus(!status)
+  }
+  let buttondisable =
+    chirpDetails &&
+    chirpDetails.filter(({ active }) => active === true).length > 0
   return (
     <Container fluid>
       {/* <Form> */}
@@ -35,7 +44,8 @@ export const AcceptRegistration = () => {
                       type='checkbox'
                       label='I have read the above statements  agree'
                       disabled={isUserAlreadyRegistered}
-                      checked={isUserAlreadyRegistered}
+                      checked={status}
+                      onClick={handleCheckboxChange}
                     />
                   </Form.Group>
                 </Col>
@@ -49,6 +59,7 @@ export const AcceptRegistration = () => {
                 type='submit'
                 style={{ margin: '10px' }}
                 onClick={triggerAddDataToServer}
+                disabled={buttondisable ? buttondisable.length : true}
               >
                 {isUserAlreadyRegistered
                   ? 'Update Registration '
