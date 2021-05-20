@@ -11,10 +11,12 @@ import { ErrorToastEmitter, SuccessToastEmitter } from './ToastContainer'
 
 function CancellationForm(props) {
   const {
-    setDeregisterModal,
     setIsUserAlreadyRegistered,
     setTabKeys,
     deregisterCompletely,
+    employeeDetails,
+    getChildDetails,
+    setIsDataSubmitted
   } = useContext(ChirpContext)
 
   const initialValues = {
@@ -34,16 +36,19 @@ function CancellationForm(props) {
   })
 
   const onSubmit = (values, actions) => {
+    console.log(employeeDetails)
     let finalData = {
       ...values,
       deregister: true,
-      parentId: 'a0y0v000001dPwcAAE',
+      parentId: employeeDetails.empoyeeId,
     }
     deregisterCompletely(finalData)
       .then((result) => {
         SuccessToastEmitter({ message: result.message })
         props.close(false)
         setTabKeys('home')
+        getChildDetails()
+        setIsDataSubmitted(Math.random())
       })
       .catch((err) => {
         ErrorToastEmitter({ message: err.message })
