@@ -104,3 +104,16 @@ export const reasonForDiscontinuation = [
   { label: 'No longer interested', id: '3' },
   { label: 'Other', id: '4' },
 ]
+
+
+export const generateArrayOfYears = () => {
+  var max = new Date().getFullYear()
+  var min = max - 17
+  var years = []
+
+  for (var i = max; i >= min; i--) {
+    years.push(i)
+  }
+  return years
+}
+console.log(generateArrayOfYears())

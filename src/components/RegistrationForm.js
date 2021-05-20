@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 // import Form from 'react-bootstrap/Form'
 import { toast } from 'react-toastify'
 
-import { tempData } from '../Context/data'
+import { tempData, generateArrayOfYears } from '../Context/data'
 import { ChirpContext } from '../Context/ChirpContext'
 
 const languages = tempData.languageDetails
@@ -193,7 +193,7 @@ function RegistrationForm(props) {
                 }
               >
                 <option value=''></option>
-                {['2021', '2020', '2019'].map((option) => (
+                {generateArrayOfYears().map((option) => (
                   <option key={option}>{option}</option>
                 ))}
               </Field>
@@ -253,7 +253,7 @@ function RegistrationForm(props) {
                 }
               >
                 <option value=''></option>
-                {['Beginner', 'Intermediate', 'Expert'].map((option) => (
+                {['Sufficient', 'Insufficient'].map((option) => (
                   <option key={option}>{option}</option>
                 ))}
               </Field>
