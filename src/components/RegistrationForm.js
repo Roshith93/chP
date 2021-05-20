@@ -4,15 +4,13 @@ import * as Yup from 'yup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 // import Form from 'react-bootstrap/Form'
 import { toast } from 'react-toastify'
 
-import { tempData, generateArrayOfYears } from '../Context/data'
+import { generateArrayOfYears } from '../Context/data'
 import { ChirpContext } from '../Context/ChirpContext'
-
-const languages = tempData.languageDetails
 
 const validationSchema = Yup.object({
   month: Yup.string().required('Enter the Month'),
@@ -31,6 +29,7 @@ function RegistrationForm(props) {
     editChildData,
     getChildDetails,
     employeeDetails,
+    languageDetails,
   } = useContext(ChirpContext)
   const initialValues = {
     month: '',
@@ -229,7 +228,7 @@ function RegistrationForm(props) {
                 }
               >
                 <option value=''></option>
-                {languages.map(({ languageId, name }) => (
+                {languageDetails.map(({ languageId, name }) => (
                   <option key={languageId}>{name}</option>
                 ))}
               </Field>
