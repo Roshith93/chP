@@ -9,9 +9,11 @@ import { ChirpContext } from '../Context/ChirpContext'
 import { reasonForDiscontinuation } from '../Context/data'
 
 function CancellationForm(props) {
-  const { setDeregisterModal, setIsUserAlreadyRegistered ,setTabKeys} = useContext(
-    ChirpContext
-  )
+  const {
+    setDeregisterModal,
+    setIsUserAlreadyRegistered,
+    setTabKeys,
+  } = useContext(ChirpContext)
 
   const initialValues = {
     option: '',
@@ -21,10 +23,10 @@ function CancellationForm(props) {
   const validationSchema = Yup.object({
     option: Yup.string().required('Please select an option'),
     reason: Yup.string().required('Please select the reason'),
-    other: Yup.string()
-      .required('Please enter the comments')
-      .max(250, 'Maximum 250 characters'),
+    other: Yup.string().max(250, 'Maximum 250 characters'),
   })
+
+
   const onSubmit = (values, actions) => {
     let finalData = {}
     setIsUserAlreadyRegistered(false)
@@ -60,7 +62,15 @@ function CancellationForm(props) {
           <Row>
             <div className='form-row'>
               <div className='form-group col'>
-                <label>Select Gender </label>{' '}
+                <label
+                  style={{
+                    fontSize: '17px',
+                    fontWeight: 'bold',
+                    margin: '2px 0px',
+                  }}
+                >
+                  Select Gender{' '}
+                </label>{' '}
                 <div role='group' aria-labelledby='my-radio-group'>
                   <label>
                     <Field
@@ -83,10 +93,18 @@ function CancellationForm(props) {
               </div>
             </div>
           </Row>
-          <Row>
+          <Row style={{ marginTop: '5px' }}>
             <div className='form-row'>
               <div className='form-group col'>
-                <label>Please choose one option</label>
+                <label
+                  style={{
+                    fontSize: '17px',
+                    fontWeight: 'bold',
+                    margin: '2px 0px',
+                  }}
+                >
+                  Please choose one option
+                </label>
                 <Field
                   name='reason'
                   as='select'
@@ -108,6 +126,27 @@ function CancellationForm(props) {
               </div>
             </div>
           </Row>
+          {values && values.reason === 'Other' ? (
+
+          <Row  style={{ marginTop: '5px' }}>
+            <div className='form-group col'>
+              <Field
+                name='other'
+                as ="textarea"
+                placeholder="Please let us know why?"
+                className={
+                  'form-control' +
+                  (errors.other && touched.other ? ' is-invalid' : '')
+                }
+              ></Field>
+              <ErrorMessage
+                name='other'
+                component='div'
+                className='invalid-feedback'
+              />
+            </div>
+          </Row>
+          ) : null}
 
           <br />
           <Button type='submit' variant='danger' style={{ margin: '5px' }}>
@@ -117,13 +156,13 @@ function CancellationForm(props) {
             type='button'
             variant='secondary'
             onClick={() => {
-              props.close(false);
+              props.close(false)
               setTabKeys('home')
             }}
           >
             Cancel
           </Button>
-          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+          <pre>{JSON.stringify(values, null, 2)}</pre>
         </Form>
       )}
     </Formik>
