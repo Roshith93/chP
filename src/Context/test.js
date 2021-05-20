@@ -13,14 +13,28 @@
 // ])
 //   console.log(res)
 
-export const generateArrayOfYears = () => {
-  var max = new Date().getFullYear()
-  var min = max - 17
-  var years = []
+// export const generateArrayOfYears = () => {
+//   var max = new Date().getFullYear()
+//   var min = max - 17
+//   var years = []
 
-  for (var i = max; i >= min; i--) {
-    years.push(i)
-  }
-  return years
-}
-console.log(generateArrayOfYears())
+//   for (var i = max; i >= min; i--) {
+//     years.push(i)
+//   }
+//   return years
+// }
+
+// console.log(generateArrayOfYears())
+
+var array = [
+  { caste: 'Banda', id: 4 },
+  { caste: 'Bestha', id: 6 },
+]
+
+let recordS = array.map((el) => el.id)
+console.log(recordS)
+const arrayOfObject = [{ id: 1, name: 'john' }, {id: 2, name: 'max'}];
+
+const checkUsername = obj => obj.id === 'max';
+
+console.log(arrayOfObject.some(checkUsername))

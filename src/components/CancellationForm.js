@@ -25,7 +25,12 @@ function CancellationForm(props) {
   const validationSchema = Yup.object({
     option: Yup.string().required('Please select an option'),
     reason: Yup.string().required('Please select the reason'),
-    other: Yup.string().max(250, 'Maximum 250 characters'),
+    other: Yup.string().when('reason', {
+      is: (val) => val ===  'Other',
+      then: Yup.string()
+        .max(250, 'Maximum 250 characters')
+        .required('Please select the reason'),
+    }),
   })
 
   const onSubmit = (values, actions) => {
@@ -83,14 +88,14 @@ function CancellationForm(props) {
                     margin: '2px 0px',
                   }}
                 >
-                  Select Gender{' '}
+                  Select Options{' '}
                 </label>{' '}
                 <div role='group' aria-labelledby='my-radio-group'>
                   <label>
                     <Field
                       type='radio'
                       name='option'
-                      value='Child no longer wants to take part'
+                      value='Child wants to Deregister'
                     />{' '}
                     Child no longer wants to take part
                   </label>{' '}
@@ -99,7 +104,7 @@ function CancellationForm(props) {
                     <Field
                       type='radio'
                       name='option'
-                      value='I no longer want my child to take part'
+                      value='Parent wants to Deregister'
                     />{' '}
                     I no longer want my child to take part
                   </label>
@@ -175,7 +180,7 @@ function CancellationForm(props) {
           >
             Cancel
           </Button>
-          <pre>{JSON.stringify(values, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
         </Form>
       )}
     </Formik>

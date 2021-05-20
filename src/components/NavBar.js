@@ -20,7 +20,7 @@ export const NavBar = () => {
       >
         <img
           alt=''
-          src='/images/sub_logo.jpg'
+          src='/images/main_logo.png'
           width='30'
           height='30'
           className='d-inline-block align-top'
