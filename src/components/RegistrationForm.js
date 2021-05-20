@@ -46,7 +46,7 @@ function RegistrationForm(props) {
       active: true,
       country: employeeDetails.country,
       email: employeeDetails.emailAddress,
-      parent: employeeDetails.empoyeeId,
+      empId: employeeDetails.empoyeeId,
       recordId: record ? record : uuidv4(),
     }
     console.log(finalData)
