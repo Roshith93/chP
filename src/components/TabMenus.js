@@ -14,8 +14,12 @@ import { UserLists } from './UserLists'
 import { firstPageData, tabTitles } from '../Context/data'
 
 export const TabMenus = () => {
-  const { tabKeys,
-    setTabKeys,setDeregisterModal } = useContext(ChirpContext)
+  const {
+    tabKeys,
+    setTabKeys,
+    setDeregisterModal,
+    isUserAlreadyRegistered,
+  } = useContext(ChirpContext)
   // const [key, setKey] = useState('home')
   // const { userDetails } = useContext(ChirpContext)
   useEffect(() => {
@@ -46,7 +50,12 @@ export const TabMenus = () => {
             </Col>
           </Row>
         </Tab>
-        <Tab eventKey='register' title={tabTitles.second}>
+        <Tab
+          eventKey='register'
+          title={
+            isUserAlreadyRegistered ? tabTitles.updatedSecond : tabTitles.second
+          }
+        >
           <Row style={{ marginTop: '10px' }}>
             <Col xs={12} md='auto'>
               <img src={firstPageData.image} alt='main' />
@@ -67,9 +76,11 @@ export const TabMenus = () => {
           </Row>
           <AcceptRegistration />
         </Tab>
-        <Tab eventKey='deregister' title={tabTitles.third}>
-          <ChildCancellation />
-        </Tab>
+        {isUserAlreadyRegistered ? (
+          <Tab eventKey='deregister' title={tabTitles.third}>
+            <ChildCancellation />
+          </Tab>
+        ) : null}
       </Tabs>
     </div>
   )
