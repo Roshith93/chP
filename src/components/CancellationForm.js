@@ -9,7 +9,7 @@ import { ChirpContext } from '../Context/ChirpContext'
 import { reasonForDiscontinuation } from '../Context/data'
 
 function CancellationForm(props) {
-  const { setDeregisterModal, setIsUserAlreadyRegistered } = useContext(
+  const { setDeregisterModal, setIsUserAlreadyRegistered ,setTabKeys} = useContext(
     ChirpContext
   )
 
@@ -117,7 +117,8 @@ function CancellationForm(props) {
             type='button'
             variant='secondary'
             onClick={() => {
-              props.close(false)
+              props.close(false);
+              setTabKeys('home')
             }}
           >
             Cancel
