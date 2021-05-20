@@ -198,7 +198,7 @@ export const ChirpProvider = (props) => {
       return prevState
     })
   }
-  // == Edit child data
+  // == Delete child data
   const deleteChildDetails = async () => {
     await setChirpDetails((prevState) => {
       let deleteData = prevState
@@ -252,6 +252,19 @@ export const ChirpProvider = (props) => {
       proficiency: result[0].proficiency,
     })
     setAddEditModal(true)
+  }
+
+  // == deregister data
+  const deregisterCompletely = async (data) => {
+    const response = await axios({
+      url: CHILD_BASE_URL,
+      method: 'patch',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      data,
+    })
+    return response
   }
   useEffect(() => {
     getWithExpiry('accessToken')
@@ -317,6 +330,7 @@ export const ChirpProvider = (props) => {
         setCheckBoxStatus,
         tabKeys,
         setTabKeys,
+        deregisterCompletely
       }}
     >
       {props.children}

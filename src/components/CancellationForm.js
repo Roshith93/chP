@@ -7,12 +7,14 @@ import Button from 'react-bootstrap/Button'
 
 import { ChirpContext } from '../Context/ChirpContext'
 import { reasonForDiscontinuation } from '../Context/data'
+import { ErrorToastEmitter, SuccessToastEmitter } from './ToastContainer'
 
 function CancellationForm(props) {
   const {
     setDeregisterModal,
     setIsUserAlreadyRegistered,
     setTabKeys,
+    deregisterCompletely,
   } = useContext(ChirpContext)
 
   const initialValues = {
@@ -26,9 +28,21 @@ function CancellationForm(props) {
     other: Yup.string().max(250, 'Maximum 250 characters'),
   })
 
-
   const onSubmit = (values, actions) => {
-    let finalData = {}
+    let finalData = {
+      ...values,
+      deregister: true,
+      parentId: 'a0y0v000001dPwcAAE',
+    }
+    deregisterCompletely(finalData)
+      .then((result) => {
+        SuccessToastEmitter({ message: result.message })
+        props.close(false)
+        setTabKeys('home')
+      })
+      .catch((err) => {
+        ErrorToastEmitter({ message: err.message })
+      })
     setIsUserAlreadyRegistered(false)
   }
 
@@ -127,25 +141,24 @@ function CancellationForm(props) {
             </div>
           </Row>
           {values && values.reason === 'Other' ? (
-
-          <Row  style={{ marginTop: '5px' }}>
-            <div className='form-group col'>
-              <Field
-                name='other'
-                as ="textarea"
-                placeholder="Please let us know why?"
-                className={
-                  'form-control' +
-                  (errors.other && touched.other ? ' is-invalid' : '')
-                }
-              ></Field>
-              <ErrorMessage
-                name='other'
-                component='div'
-                className='invalid-feedback'
-              />
-            </div>
-          </Row>
+            <Row style={{ marginTop: '5px' }}>
+              <div className='form-group col'>
+                <Field
+                  name='other'
+                  as='textarea'
+                  placeholder='Please let us know why?'
+                  className={
+                    'form-control' +
+                    (errors.other && touched.other ? ' is-invalid' : '')
+                  }
+                ></Field>
+                <ErrorMessage
+                  name='other'
+                  component='div'
+                  className='invalid-feedback'
+                />
+              </div>
+            </Row>
           ) : null}
 
           <br />
