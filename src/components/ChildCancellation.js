@@ -12,9 +12,9 @@ export const ChildCancellation = () => {
   console.log(deregisterModal)
   return (
     <>
-      <Button variant='primary' onClick={() => setDeregisterModal(true)}>
+      {/* <Button variant='primary' onClick={() => setDeregisterModal(true)}>
         Child Cancellation
-      </Button>
+      </Button> */}
 
       <Modal
         show={deregisterModal}
@@ -27,7 +27,7 @@ export const ChildCancellation = () => {
           <Modal.Title id='example-modal-sizes-title-lg'>Confirm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CancellationForm  />
+          <CancellationForm  close={() => setDeregisterModal(false)}/>
         </Modal.Body>
       </Modal>
     </>

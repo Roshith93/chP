@@ -97,3 +97,10 @@ export const agreement = [
       'I understand my PRA email address will be stored in the database and will be used to send me an emailed link to access  any review requests.  ',
   },
 ]
+
+export const reasonForDiscontinuation = [
+  { label: 'Takes too much time', id: '1' },
+  { label: 'Too complicated', id: '2' },
+  { label: 'No longer interested', id: '3' },
+  { label: 'Other', id: '4' },
+]

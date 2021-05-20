@@ -30,6 +30,7 @@ export const ChirpProvider = (props) => {
   const [deregisterModal, setDeregisterModal] = useState(false)
   const [isDataSubmitted, setIsDataSubmitted] = useState(null)
   const [checkBoxStatus, setCheckBoxStatus] = useState(false)
+  const [tabKeys, setTabKeys] = useState('home')
 
   // ==  get Token
   const getToken = async () => {
@@ -314,6 +315,8 @@ export const ChirpProvider = (props) => {
         setIsDataSubmitted,
         checkBoxStatus,
         setCheckBoxStatus,
+        tabKeys,
+        setTabKeys,
       }}
     >
       {props.children}

@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Row from 'react-bootstrap/Row'
@@ -14,15 +14,21 @@ import { UserLists } from './UserLists'
 import { firstPageData, tabTitles } from '../Context/data'
 
 export const TabMenus = () => {
-  const [key, setKey] = useState('home')
+  const { tabKeys,
+    setTabKeys,setDeregisterModal } = useContext(ChirpContext)
+  // const [key, setKey] = useState('home')
   // const { userDetails } = useContext(ChirpContext)
-
+  useEffect(() => {
+    if (tabKeys === 'deregister') {
+      setDeregisterModal(true)
+    }
+  }, [tabKeys])
   return (
     <div>
       <Tabs
         id='controlled-tab-example'
-        activeKey={key}
-        onSelect={(k) => setKey(k)}
+        activeKey={tabKeys}
+        onSelect={(k) => setTabKeys(k)}
       >
         <Tab eventKey='home' title={tabTitles.first}>
           <Row style={{ marginTop: '10px' }} noGutters>
@@ -40,7 +46,7 @@ export const TabMenus = () => {
             </Col>
           </Row>
         </Tab>
-        <Tab eventKey='profile' title={tabTitles.second}>
+        <Tab eventKey='register' title={tabTitles.second}>
           <Row style={{ marginTop: '10px' }}>
             <Col xs={12} md='auto'>
               <img src={firstPageData.image} alt='main' />
@@ -61,7 +67,7 @@ export const TabMenus = () => {
           </Row>
           <AcceptRegistration />
         </Tab>
-        <Tab eventKey='contact' title={tabTitles.third}>
+        <Tab eventKey='deregister' title={tabTitles.third}>
           <ChildCancellation />
         </Tab>
       </Tabs>

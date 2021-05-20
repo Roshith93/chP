@@ -23,7 +23,7 @@ export const UserLists = () => {
   if (activeData.length === 1 && isUserAlreadyRegistered) {
     // setIsUserAlreadyRegistered(false)
     // call the deregister modal
-    setDeregisterModal(true)
+    // setDeregisterModal(true)
   } else {
     // call the deregister modal
     setIsLastRecord(true)
