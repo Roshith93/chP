@@ -26,7 +26,7 @@ function CancellationForm(props) {
     option: Yup.string().required('Please select an option'),
     reason: Yup.string().required('Please select the reason'),
     other: Yup.string().when('reason', {
-      is: (val) => val ===  'Other',
+      is: (val) => val === 'Other',
       then: Yup.string()
         .max(250, 'Maximum 250 characters')
         .required('Please select the reason'),
@@ -167,12 +167,18 @@ function CancellationForm(props) {
           ) : null}
 
           <br />
-          <Button type='submit' variant='danger' style={{ margin: '5px' }}>
+          <Button
+            type='submit'
+            variant='danger'
+            style={{ margin: '5px' }}
+            disabled={isSubmitting}
+          >
             I no longer wish my child(rens) to participate in chirp
           </Button>
           <Button
             type='button'
             variant='secondary'
+            disabled={isSubmitting}
             onClick={() => {
               props.close(false)
               setTabKeys('home')
