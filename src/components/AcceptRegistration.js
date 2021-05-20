@@ -59,7 +59,7 @@ export const AcceptRegistration = () => {
                     <Form.Check
                       type='checkbox'
                       label='I have read the above statements  agree'
-                      // disabled={isUserAlreadyRegistered}
+                      disabled={isUserAlreadyRegistered}
                       checked={checkBoxStatus}
                       onClick={handleCheckboxChange}
                     />
