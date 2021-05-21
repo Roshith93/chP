@@ -11,7 +11,7 @@ export const ChirpContext = createContext()
 
 const TOKEN_BASE_URL = 'https://test.salesforce.com/services/oauth2/token'
 const CHILD_BASE_URL =
-  'https://pra--PERSONAL25.my.salesforce.com/services/apexrest/EmployeeResource/'
+  'https://pra--personal38.my.salesforce.com/services/apexrest/UserRegistration/'
 
 export const ChirpProvider = (props) => {
   const [accessToken, setAccessToken] = useState(
@@ -38,8 +38,8 @@ export const ChirpProvider = (props) => {
       url: TOKEN_BASE_URL,
       method: 'post',
       params: {
-        username: 'integrationuser@prahs.com.personal25',
-        password: 'Change123X9WXRSwyLiJ8esYzZfH9YCcSF',
+        username: 'sukavasibharath@praintl.com.personal38',
+        password: 'Hitler@1cVhBY6pK2QJL5gm6Az3z4dVq',
         grant_type: 'password',
         client_id:
           '3MVG97wqanbUM37Ktam8sz6Qni79f7xgjwJIfxp8PpsoBcM8ww5r.qdluKamSHXTHsgewcydRlmbz1oeK5dOw',
@@ -70,6 +70,7 @@ export const ChirpProvider = (props) => {
   }
   //  == get child Details
   const getChildDetails = async () => {
+    console.log(accessToken)
     const response = await axios({
       url: CHILD_BASE_URL,
       method: 'get',
@@ -77,7 +78,7 @@ export const ChirpProvider = (props) => {
         Authorization: `Bearer ${accessToken}`,
       },
       params: {
-        username: 'test-krishnapparavi@prahs.com',
+        username: 'userapi@prahs.com',
       },
     })
     return response
@@ -268,6 +269,8 @@ export const ChirpProvider = (props) => {
   }
   useEffect(() => {
     getWithExpiry('accessToken')
+  },[accessToken])
+  useEffect(() => {
     getChildDetails()
       .then((response) => {
         let { chirpDetails, languageDetails, employeeDetails } = response.data
@@ -284,7 +287,7 @@ export const ChirpProvider = (props) => {
           : setIsUserAlreadyRegistered(false)
       })
       .catch((err) => console.log(err))
-  }, [isDataSubmitted])
+  }, [isDataSubmitted, accessToken])
 
   useEffect(() => {
     setInterval(() => {
