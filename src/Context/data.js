@@ -12,7 +12,7 @@ export const tempData = {
   employeeDetails: {
     name: '10000',
     fullName: 'Brecheteau, Magda',
-    empoyeeId: 'a0y0v000001GjwCAAS',
+    employeeId: 'a0y0v000001GjwCAAS',
     emailAddress: 'test-brecheteaumagda@praintl.com',
     country: 'NETHERLANDS',
   },

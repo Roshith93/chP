@@ -77,9 +77,9 @@ export const ChirpProvider = (props) => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      params: {
-        username: 'userapi@40prahs.com',
-      },
+      params:{
+        username: 'userapi@prahs.com'
+      }
     })
     return response
   }
