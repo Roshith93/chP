@@ -16,7 +16,7 @@ export const tempData = {
     emailAddress: 'test-brecheteaumagda@praintl.com',
     country: 'NETHERLANDS',
   },
-  chirpDetails: [
+  chirpList: [
     {
       year: 2018,
       recordId: 'aFl0v000000024ACAQ',

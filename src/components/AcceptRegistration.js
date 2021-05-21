@@ -17,7 +17,7 @@ export const AcceptRegistration = () => {
     isUserAlreadyRegistered,
     setIsUserAlreadyRegistered,
     addDataToServer,
-    chirpDetails,
+    chirpList,
     setIsDataSubmitted,
     checkBoxStatus,
     setCheckBoxStatus,
@@ -25,6 +25,7 @@ export const AcceptRegistration = () => {
   const [status, setStatus] = useState(true)
 
   const triggerAddDataToServer = () => {
+    console.log(checkBoxStatus)
     if (checkBoxStatus) {
       addDataToServer()
         .then((res) => {
@@ -38,8 +39,8 @@ export const AcceptRegistration = () => {
     setCheckBoxStatus(!checkBoxStatus)
   }
   let buttondisable =
-    chirpDetails &&
-    chirpDetails.filter(({ active }) => active === true).length > 0
+    chirpList &&
+    chirpList.filter(({ active }) => active === true).length > 0
   return (
     <Container fluid style={marginTop}>
       {/* <Form> */}
@@ -59,8 +60,8 @@ export const AcceptRegistration = () => {
                     <Form.Check
                       type='checkbox'
                       label='I have read the above statements  agree'
-                      disabled={isUserAlreadyRegistered}
-                      checked={isUserAlreadyRegistered || checkBoxStatus}
+                      disabled={isUserAlreadyRegistered && checkBoxStatus}
+                      checked={checkBoxStatus }
                       onClick={handleCheckboxChange}
                     />
                   </Form.Group>

@@ -6,7 +6,7 @@ import { ChirpContext } from '../Context/ChirpContext'
 
 export const UserLists = () => {
   const {
-    chirpDetails,
+    chirpList,
     setShowModal,
     showModal,
     setRecord,
@@ -16,9 +16,9 @@ export const UserLists = () => {
     setIsLastRecord,
     setDeregisterModal,
   } = useContext(ChirpContext)
-  console.log(chirpDetails)
-  const activeData = chirpDetails
-    ? chirpDetails.filter(({ active }) => active === true)
+  console.log(chirpList)
+  const activeData = chirpList
+    ? chirpList.filter(({ active }) => active === true)
     : []
   if (activeData.length === 1 && isUserAlreadyRegistered) {
     // setIsUserAlreadyRegistered(false)

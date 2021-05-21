@@ -18,7 +18,7 @@ export const ChirpProvider = (props) => {
     JSON.parse(localStorage.getItem('accessToken'))
   )
   const [userDetails, setUserDetails] = useState(null)
-  const [chirpDetails, setChirpDetails] = useState(null)
+  const [chirpList, setChirpList] = useState(null)
   const [languageDetails, setLanguageDetails] = useState(null)
   const [employeeDetails, setEmployeeDetails] = useState(null)
   const [loadedData, setLoadedData] = useState(null)
@@ -29,7 +29,7 @@ export const ChirpProvider = (props) => {
   const [isLastRecord, setIsLastRecord] = useState(false)
   const [deregisterModal, setDeregisterModal] = useState(false)
   const [isDataSubmitted, setIsDataSubmitted] = useState(null)
-  const [checkBoxStatus, setCheckBoxStatus] = useState(false)
+  const [checkBoxStatus, setCheckBoxStatus] = useState(isUserAlreadyRegistered)
   const [tabKeys, setTabKeys] = useState('home')
 
   // ==  get Token
@@ -78,14 +78,14 @@ export const ChirpProvider = (props) => {
         Authorization: `Bearer ${accessToken}`,
       },
       params: {
-        username: 'userapi@prahs.com',
+        username: 'userapi@40prahs.com',
       },
     })
     return response
   }
   const addLocalDataToServer = async () => {
     let submitMethod = 'post'
-    let localData = chirpDetails.filter(({ active }) => active === true)
+    let localData = chirpList.filter(({ active }) => active === true)
     let postLocalArray = localData.map(
       ({ recordId, ...keepRest }) => recordId.includes('-') && keepRest
     )
@@ -111,7 +111,7 @@ export const ChirpProvider = (props) => {
   }
   const addServerDataToServer = async () => {
     let submitMethod = 'patch'
-    let localData = chirpDetails
+    let localData = chirpList
       .filter(({ active }) => active === true)
       .filter(({ recordId }) => !recordId.includes('-'))
 
@@ -134,7 +134,7 @@ export const ChirpProvider = (props) => {
 
   const deleteServerData = async () => {
     // let submitMethod = 'patch'
-    // let localData = chirpDetails
+    // let localData = chirpList
     //   // .filter(({ active }) => active === true)
     //   .filter(({ recordId }) => !recordId.includes('-'))
     // console.log(localData)
@@ -154,14 +154,14 @@ export const ChirpProvider = (props) => {
   }
   //  ! Add data to server
   const addDataToServer = async () => {
-    let localData = chirpDetails
+    let localData = chirpList
       .filter(({ active }) => active === true)
       .map(({ recordId, ...keepRest }) => recordId.includes('-') && keepRest)
     console.log(localData)
     let anyNewLocalData = localData.filter((e) => {
       return e !== false
     })
-    let serverData = chirpDetails
+    let serverData = chirpList
       .filter(({ active }) => active === true)
       .filter(({ recordId }) => !recordId.includes('-'))
     console.log(serverData)
@@ -180,16 +180,16 @@ export const ChirpProvider = (props) => {
 
   // == Add child data locally
   const addChildData = async (data) => {
-    await setChirpDetails((prevValue) => {
+    await setChirpList((prevValue) => {
       return [...prevValue, data]
     })
-    console.log(chirpDetails)
+    console.log(chirpList)
   }
 
   // == Edit child data
   const editChildData = async (data) => {
     // data is a object
-    await setChirpDetails((prevState) => {
+    await setChirpList((prevState) => {
       var index = prevState
         .map(function (el) {
           return el.recordId
@@ -201,7 +201,7 @@ export const ChirpProvider = (props) => {
   }
   // == Delete child data
   const deleteChildDetails = async () => {
-    await setChirpDetails((prevState) => {
+    await setChirpList((prevState) => {
       let deleteData = prevState
         .filter(({ active }) => active === true)
         .filter((chirp) => chirp.recordId === record)
@@ -230,7 +230,7 @@ export const ChirpProvider = (props) => {
   //  ==  Edit Record
   const editChild = async (id) => {
     setRecord(id)
-    let data = chirpDetails
+    let data = chirpList
       .filter(({ active }) => active === true)
       .filter((chirpList) => {
         return chirpList.recordId === id
@@ -273,13 +273,14 @@ export const ChirpProvider = (props) => {
   useEffect(() => {
     getChildDetails()
       .then((response) => {
-        let { chirpDetails, languageDetails, employeeDetails } = response.data
+        console.log(response)
+        let { chirpList, languageDetails, employeeDetails } = response.data
         setUserDetails(response.data)
-        setChirpDetails(chirpDetails)
+        setChirpList(chirpList)
         setLanguageDetails(languageDetails)
         setEmployeeDetails(employeeDetails)
-        chirpDetails
-          ? chirpDetails.filter(({ active }) => {
+        chirpList
+          ? chirpList.filter(({ active }) => {
               if (active === true) {
                 setIsUserAlreadyRegistered(true)
               }
@@ -302,7 +303,7 @@ export const ChirpProvider = (props) => {
       value={{
         userDetails,
         setUserDetails,
-        chirpDetails,
+        chirpList,
         employeeDetails,
         languageDetails,
         accessToken,
