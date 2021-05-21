@@ -14,15 +14,18 @@ import { marginTop } from './styles'
 
 export const AcceptRegistration = () => {
   const {
-    isUserAlreadyRegistered,
-    setIsUserAlreadyRegistered,
+    isUserAlreadyRegistered,                 
+    setIsUserAlreadyRegistered, 
     addDataToServer,
     chirpList,
     setIsDataSubmitted,
     checkBoxStatus,
     setCheckBoxStatus,
   } = useContext(ChirpContext)
-  const [status, setStatus] = useState(true)
+
+  useEffect(() => {
+    setCheckBoxStatus(isUserAlreadyRegistered)
+  },[isUserAlreadyRegistered])
 
   const triggerAddDataToServer = () => {
     console.log(checkBoxStatus)
@@ -39,8 +42,9 @@ export const AcceptRegistration = () => {
     setCheckBoxStatus(!checkBoxStatus)
   }
   let buttondisable =
-    chirpList &&
-    chirpList.filter(({ active }) => active === true).length > 0
+    chirpList ?
+    chirpList.filter(({ active }) => active === true).length > 0 : false
+    console.log(buttondisable)
   return (
     <Container fluid style={marginTop}>
       {/* <Form> */}
@@ -60,7 +64,7 @@ export const AcceptRegistration = () => {
                     <Form.Check
                       type='checkbox'
                       label='I have read the above statements  agree'
-                      disabled={isUserAlreadyRegistered && checkBoxStatus}
+                      disabled={checkBoxStatus}
                       checked={checkBoxStatus }
                       onClick={handleCheckboxChange}
                     />
@@ -76,7 +80,7 @@ export const AcceptRegistration = () => {
                 type='submit'
                 style={{ margin: '10px' }}
                 onClick={triggerAddDataToServer}
-                disabled={buttondisable ? buttondisable.length : true}
+                disabled={isUserAlreadyRegistered && buttondisable}
               >
                 {isUserAlreadyRegistered
                   ? 'Update Registration '
