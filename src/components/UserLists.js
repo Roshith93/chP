@@ -34,12 +34,11 @@ export const UserLists = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Email</th>
-            <th>Country</th>
-            <th>Language</th>
-            <th>Gender</th>
+            <th>Child's DOB</th>
+            <th>Child's Gender</th>
+            <th>Child's Primary Language</th>
+            <th>Child's Reading English Proficiency Level</th>
             <th>Action</th>
-            <th>Proficiency</th>
           </tr>
         </thead>
         <tbody>
@@ -49,13 +48,12 @@ export const UserLists = () => {
             </tr>
           ) : (
             activeData.map(
-              ({ recordId, gender, email, country, language, proficiency }) => {
+              ({ recordId, gender, month, year, language, proficiency }) => {
                 return (
                   <tr key={recordId}>
-                    <td>{email}</td>
-                    <td>{country}</td>
-                    <td>{language}</td>
+                    <td>{`${month} ${year}`}</td>
                     <td>{gender}</td>
+                    <td>{language}</td>
                     <td>{proficiency}</td>
                     <td>
                       {' '}
