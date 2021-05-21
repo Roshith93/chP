@@ -18,7 +18,7 @@ export const ChirpProvider = (props) => {
     JSON.parse(localStorage.getItem('accessToken'))
   )
   const [userDetails, setUserDetails] = useState(null)
-  const [chirpList, setChirpList] = useState(null)
+  const [chirpList, setChirpList] = useState([])
   const [languageDetails, setLanguageDetails] = useState(null)
   const [employeeDetails, setEmployeeDetails] = useState(null)
   const [loadedData, setLoadedData] = useState(null)
@@ -180,6 +180,7 @@ export const ChirpProvider = (props) => {
 
   // == Add child data locally
   const addChildData = async (data) => {
+    console.log(data)
     await setChirpList((prevValue) => {
       return [...prevValue, data]
     })

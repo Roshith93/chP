@@ -40,7 +40,7 @@ function CancellationForm(props) {
     let finalData = {
       ...values,
       deregister: true,
-      parentId: employeeDetails.employeeId,
+      empId: employeeDetails.employeeId,
     }
     deregisterCompletely(finalData)
       .then((result) => {

@@ -64,7 +64,7 @@ export const AcceptRegistration = () => {
                     <Form.Check
                       type='checkbox'
                       label='I have read the above statements  agree'
-                      disabled={checkBoxStatus}
+                      disabled={isUserAlreadyRegistered}
                       checked={checkBoxStatus }
                       onClick={handleCheckboxChange}
                     />
@@ -80,7 +80,6 @@ export const AcceptRegistration = () => {
                 type='submit'
                 style={{ margin: '10px' }}
                 onClick={triggerAddDataToServer}
-                disabled={isUserAlreadyRegistered && buttondisable}
               >
                 {isUserAlreadyRegistered
                   ? 'Update Registration '

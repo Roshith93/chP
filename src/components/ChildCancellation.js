@@ -22,6 +22,8 @@ export const ChildCancellation = () => {
         dialogClassName='modal-90w'
         aria-labelledby='example-modal-sizes-title-lg'
         size='lg'
+        backdrop='static'
+        keyboard={false}
       >
         <Modal.Header>
           <Modal.Title id='example-modal-sizes-title-lg'>Confirm</Modal.Title>
