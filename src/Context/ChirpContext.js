@@ -31,6 +31,8 @@ export const ChirpProvider = (props) => {
   const [isDataSubmitted, setIsDataSubmitted] = useState(null)
   const [checkBoxStatus, setCheckBoxStatus] = useState(isUserAlreadyRegistered)
   const [tabKeys, setTabKeys] = useState('home')
+  const [deletedData, setDeletedData] = useState([])
+  console.log(deletedData)
 
   // ==  get Token
   const getToken = async () => {
@@ -77,9 +79,9 @@ export const ChirpProvider = (props) => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      params:{
-        username: 'userapi@prahs.com'
-      }
+      params: {
+        username: 'userapi@prahs.com',
+      },
     })
     return response
   }
@@ -217,7 +219,8 @@ export const ChirpProvider = (props) => {
         }, initialValue)
       }
       let data = convertArrayToObject(deleteData)
-
+      let checkLocalRecordId = !data.recordId.includes('-')
+      setDeletedData([...deletedData, checkLocalRecordId ? data : []] )
       var index = prevState
         .map(function (el) {
           return el.recordId
@@ -270,7 +273,7 @@ export const ChirpProvider = (props) => {
   }
   useEffect(() => {
     getWithExpiry('accessToken')
-  },[accessToken])
+  }, [accessToken])
   useEffect(() => {
     getChildDetails()
       .then((response) => {
@@ -335,7 +338,7 @@ export const ChirpProvider = (props) => {
         setCheckBoxStatus,
         tabKeys,
         setTabKeys,
-        deregisterCompletely
+        deregisterCompletely,
       }}
     >
       {props.children}
