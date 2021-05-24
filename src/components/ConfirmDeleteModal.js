@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal'
 
 import { ChirpContext } from '../Context/ChirpContext'
 
-export const ConfirmModal = () => {
+export const ConfirmDeleteModal = () => {
   const { showModal, setShowModal, deleteChildDetails } = useContext(
     ChirpContext
   )
