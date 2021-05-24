@@ -117,10 +117,17 @@ export const ChirpProvider = (props) => {
       .filter(({ active }) => active === true)
       .filter(({ recordId }) => !recordId.includes('-'))
 
-    console.log(localData)
+      let anyNewData = deletedData && deletedData.filter((e) => {
+        if(e !== (e.length > 0)){
+          e.active = false
+        }
+        return e
+      })
+    let deletedDataWithServerData = anyNewData.length ?  [...localData, ...anyNewData] : localData
 
     let finalData = {
-      chirpList: localData,
+      chirpList: deletedDataWithServerData,
+      // chirpList: localData,
     }
     console.log(finalData)
     const response = await axios({
