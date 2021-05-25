@@ -27,7 +27,7 @@ export const Footer = () => {
        height='30'
        className='d-inline-block align-top'
      />{' '}
-    <span style={{margin:'5px'}}>
+    <span style={{margin:'5px', fontSize:'17px'}}>
      {`Copyright @${new Date().getFullYear()} PRA Health Sciences. All rights reserved.`}
      </span> 
    </Navbar.Brand>
