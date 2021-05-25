@@ -4,7 +4,6 @@ import axios from 'axios'
 
 import { NavBar } from './components/NavBar'
 import { HomeContainer } from './components/HomeContainer'
-import { UserContextProvider } from './Context/UserContext'
 import { ConfirmDeleteModal } from './components/ConfirmDeleteModal'
 import { Toast } from './components/ToastContainer'
 import { Footer } from './components/Footer'
@@ -14,9 +13,7 @@ const App = () => {
     <>
       <ConfirmDeleteModal />
       <Toast />
-      <UserContextProvider>
         <NavBar />
-      </UserContextProvider>
       <Container>
         <HomeContainer />
       </Container>
