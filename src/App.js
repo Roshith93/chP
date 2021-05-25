@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
 import Container from 'react-bootstrap/Container'
-import axios from 'axios'
 
 import { NavBar } from './components/NavBar'
 import { HomeContainer } from './components/HomeContainer'

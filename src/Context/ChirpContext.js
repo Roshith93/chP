@@ -1,7 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
-import { toast } from 'react-toastify'
-import { tempData } from './data'
 import {
   SuccessToastEmitter,
   ErrorToastEmitter,
@@ -26,7 +24,6 @@ export const ChirpProvider = (props) => {
   const [record, setRecord] = useState(null)
   const [addEditModal, setAddEditModal] = useState(false)
   const [isUserAlreadyRegistered, setIsUserAlreadyRegistered] = useState(false)
-  const [isLastRecord, setIsLastRecord] = useState(false)
   const [deregisterModal, setDeregisterModal] = useState(false)
   const [isDataSubmitted, setIsDataSubmitted] = useState(null)
   const [checkBoxStatus, setCheckBoxStatus] = useState(isUserAlreadyRegistered)
@@ -141,26 +138,6 @@ export const ChirpProvider = (props) => {
     return response
   }
 
-  const deleteServerData = async () => {
-    // let submitMethod = 'patch'
-    // let localData = chirpList
-    //   // .filter(({ active }) => active === true)
-    //   .filter(({ recordId }) => !recordId.includes('-'))
-    // console.log(localData)
-    // let finalData = {
-    //   chirpList: localData,
-    // }
-    // console.log(finalData)
-    // const response = await axios({
-    //   url: CHILD_BASE_URL,
-    //   method: submitMethod,
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    //   data: finalData,
-    // })
-    // return response
-  }
   //  ! Add data to server
   const addDataToServer = async () => {
     let localData = chirpList
@@ -334,8 +311,6 @@ export const ChirpProvider = (props) => {
         editChildData,
         isUserAlreadyRegistered,
         setIsUserAlreadyRegistered,
-        isLastRecord,
-        setIsLastRecord,
         deregisterModal,
         setDeregisterModal,
         addDataToServer,
