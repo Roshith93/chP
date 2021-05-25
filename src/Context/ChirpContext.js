@@ -154,12 +154,14 @@ export const ChirpProvider = (props) => {
 
     if (serverData.length > 0) {
       await addServerDataToServer()
-        .then((res) => SuccessToastEmitter({ message: res.message }))
+        .then((res) => console.log('server data submitted to server'))
+        // .then((res) => SuccessToastEmitter({ message: res.message }))
         .catch((err) => ErrorToastEmitter({ message: err }))
     }
     if (anyNewLocalData.length > 0) {
       await addLocalDataToServer()
-        .then((res) => SuccessToastEmitter({ message: res.message }))
+        .then((res) => console.log('local data submitted to server'))
+        // .then((res) => SuccessToastEmitter({ message: res.message }))
         .catch((err) => ErrorToastEmitter({ message: err }))
     }
   }
