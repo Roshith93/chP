@@ -1,8 +1,6 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -27,7 +25,6 @@ function RegistrationForm(props) {
     record,
     setRecord,
     editChildData,
-    getChildDetails,
     employeeDetails,
     languageDetails,
   } = useContext(ChirpContext)
