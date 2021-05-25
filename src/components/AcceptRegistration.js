@@ -83,7 +83,7 @@ export const AcceptRegistration = () => {
               >
                 {isUserAlreadyRegistered
                   ? 'Update Registration '
-                  : 'Submit Registration'}
+                  : 'I want to register my child(ren) form ChIRP'}
               </Button>
             </Col>
           </Row>

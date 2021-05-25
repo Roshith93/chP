@@ -8,7 +8,7 @@ export const NavBar = () => {
   const { employeeDetails } = useContext(ChirpContext)
   console.log(employeeDetails)
   return (
-    <Navbar expand='lg' variant='dark' bg='light'>
+    <Navbar expand='sm' variant='dark' bg='light'>
       <Navbar.Brand
         href='#home'
         style={{
