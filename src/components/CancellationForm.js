@@ -93,10 +93,10 @@ function CancellationForm(props) {
                     margin: '2px 0px',
                   }}
                 >
-                  Select Options{' '}
+                  Please choose one option{' '}
                 </label>{' '}
                 <div role='group' aria-labelledby='my-radio-group'>
-                  <label>
+                  <label style={{ marginRight: '15px'}}>
                     <Field
                       type='radio'
                       name='option'
@@ -104,7 +104,6 @@ function CancellationForm(props) {
                     />{' '}
                     Child no longer wants to take part
                   </label>{' '}
-                  <br />
                   <label>
                     <Field
                       type='radio'
@@ -127,7 +126,7 @@ function CancellationForm(props) {
                     margin: '2px 0px',
                   }}
                 >
-                  Please choose one option
+                  Reason
                 </label>
                 <Field
                   name='reason'
@@ -137,7 +136,7 @@ function CancellationForm(props) {
                     (errors.reason && touched.reason ? ' is-invalid' : '')
                   }
                 >
-                  <option value=''></option>
+                  <option value='' disabled>Select Reason</option>
                   {reasonForDiscontinuation.map(({ reason, label }) => (
                     <option key={reason}>{label}</option>
                   ))}
@@ -178,7 +177,7 @@ function CancellationForm(props) {
             style={{ margin: '5px' }}
             disabled={isSubmitting}
           >
-            I no longer wish my child(rens) to participate in chirp
+            I no longer wish my child(rens) to participate in ChIRP
           </Button>
           <Button
             type='button'

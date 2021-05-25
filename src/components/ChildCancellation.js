@@ -26,7 +26,7 @@ export const ChildCancellation = () => {
         keyboard={false}
       >
         <Modal.Header>
-          <Modal.Title id='example-modal-sizes-title-lg'>Confirm</Modal.Title>
+          <Modal.Title id='example-modal-sizes-title-lg'>Remove Participation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <CancellationForm  close={() => setDeregisterModal(false)}/>
