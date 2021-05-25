@@ -6,19 +6,22 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
 import { ChirpContext } from '../Context/ChirpContext'
-import { reasonForDiscontinuation } from '../Context/data'
+import {
+  reasonForDiscontinuation,
+  deregistrationMessages,
+} from '../Context/data'
 import { ErrorToastEmitter, SuccessToastEmitter } from './ToastContainer'
 
-function CancellationForm(props) {
+function DeregistrationForm(props) {
   const {
     setIsUserAlreadyRegistered,
     setTabKeys,
     deregisterCompletely,
     employeeDetails,
     getChildDetails,
-    setIsDataSubmitted
+    setIsDataSubmitted,
+    chirpList,
   } = useContext(ChirpContext)
-
   const initialValues = {
     option: '',
     reason: '',
@@ -74,14 +77,7 @@ function CancellationForm(props) {
       }) => (
         <Form>
           <Row>
-            <p>
-              Thank you for your participation to date. We understand that you
-              would like to remove your child(ren) from the ChIRP database. No
-              further review requests will be sent to you for your child(ren).
-              It would be really helpful for us if you could let us know why you
-              or your child(ren) no longer wish to take part to help us improve
-              ChIRP in the future.
-            </p>
+            <p>{chirpList && chirpList.filter(({ active }) => active === true).length === 0 ? deregistrationMessages.childRemovalMessage : deregistrationMessages.initialMessgae}</p>
           </Row>
           <Row>
             <div className='form-row'>
@@ -96,7 +92,7 @@ function CancellationForm(props) {
                   Please choose one option{' '}
                 </label>{' '}
                 <div role='group' aria-labelledby='my-radio-group'>
-                  <label style={{ marginRight: '15px'}}>
+                  <label style={{ marginRight: '15px' }}>
                     <Field
                       type='radio'
                       name='option'
@@ -136,7 +132,9 @@ function CancellationForm(props) {
                     (errors.reason && touched.reason ? ' is-invalid' : '')
                   }
                 >
-                  <option value='' disabled>Select Reason</option>
+                  <option value='' disabled>
+                    Select Reason
+                  </option>
                   {reasonForDiscontinuation.map(({ reason, label }) => (
                     <option key={reason}>{label}</option>
                   ))}
@@ -197,4 +195,4 @@ function CancellationForm(props) {
   )
 }
 
-export default CancellationForm
+export default DeregistrationForm

@@ -8,7 +8,7 @@ import Image from 'react-bootstrap/Image'
 
 import { AcceptRegistration } from './AcceptRegistration'
 import { ChildRegistration } from './ChildRegistration'
-import { ChildCancellation } from './ChildCancellation'
+import { ChildDeregistration } from './ChildDeregistration'
 import { ChirpContext } from '../Context/ChirpContext'
 import { UserLists } from './UserLists'
 import { firstPageData, tabTitles } from '../Context/data'
@@ -78,7 +78,7 @@ export const TabMenus = () => {
         </Tab>
         {isUserAlreadyRegistered ? (
           <Tab eventKey='deregister' title={tabTitles.third}>
-            <ChildCancellation />
+            <ChildDeregistration />
           </Tab>
         ) : null}
       </Tabs>

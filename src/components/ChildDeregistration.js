@@ -4,10 +4,10 @@ import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 
-import CancellationForm from './CancellationForm'
+import DeregistrationForm from './DeregistrationForm'
 import { ChirpContext } from '../Context/ChirpContext'
 
-export const ChildCancellation = () => {
+export const ChildDeregistration = () => {
   const { deregisterModal, setDeregisterModal } = useContext(ChirpContext)
   console.log(deregisterModal)
   return (
@@ -29,7 +29,7 @@ export const ChildCancellation = () => {
           <Modal.Title id='example-modal-sizes-title-lg'>Remove Participation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CancellationForm  close={() => setDeregisterModal(false)}/>
+          <DeregistrationForm  close={() => setDeregisterModal(false)}/>
         </Modal.Body>
       </Modal>
     </>

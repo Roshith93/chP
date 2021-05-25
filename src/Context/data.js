@@ -117,4 +117,13 @@ export const generateArrayOfYears = () => {
   }
   return years
 }
-console.log(generateArrayOfYears())
+
+export const deregistrationMessages = {
+  initialMessgae: `Thank you for your participation to date. We understand that you
+  would like to remove your child(ren) from the ChIRP database. No
+  further review requests will be sent to you for your child(ren).
+  It would be really helpful for us if you could let us know why you
+  or your child(ren) no longer wish to take part to help us improve
+  ChIRP in the future.`,
+  childRemovalMessage: `Thank you for your participation!  You have removed all child participants, so you are de-registering from ChIRP. You are welcome to register again at any time. If this was a mistake, cancel this action and add a child participant.`
+}
