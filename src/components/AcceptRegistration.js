@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -15,7 +15,6 @@ import { marginTop } from './styles'
 export const AcceptRegistration = () => {
   const {
     isUserAlreadyRegistered,                 
-    setIsUserAlreadyRegistered, 
     addDataToServer,
     chirpList,
     setIsDataSubmitted,
