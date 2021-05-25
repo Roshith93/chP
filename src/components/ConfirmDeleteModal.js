@@ -5,17 +5,21 @@ import Modal from 'react-bootstrap/Modal'
 import { ChirpContext } from '../Context/ChirpContext'
 
 export const ConfirmDeleteModal = () => {
-  const { showModal, setShowModal, deleteChildDetails, chirpList, setDeregisterModal } = useContext(
-    ChirpContext
-  )
+  const {
+    showModal,
+    setShowModal,
+    deleteChildDetails,
+    chirpList,
+    setDeregisterModal,
+  } = useContext(ChirpContext)
   const deleteRecord = () => {
     deleteChildDetails().then((result) => {
       setShowModal(false)
-      let islastData = chirpList && chirpList.filter(({ active }) => active === true)
-      if(islastData.length === 0){
+      let islastData =
+        chirpList && chirpList.filter(({ active }) => active === true)
+      if (islastData.length === 0) {
         setDeregisterModal(true)
       }
-      console.log(result)
     })
   }
   return (

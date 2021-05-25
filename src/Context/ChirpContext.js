@@ -29,7 +29,6 @@ export const ChirpProvider = (props) => {
   const [checkBoxStatus, setCheckBoxStatus] = useState(isUserAlreadyRegistered)
   const [tabKeys, setTabKeys] = useState('home')
   const [deletedData, setDeletedData] = useState([])
-  console.log(deletedData)
 
   // ==  get Token
   const getToken = async () => {
@@ -69,7 +68,6 @@ export const ChirpProvider = (props) => {
   }
   //  == get child Details
   const getChildDetails = async () => {
-    console.log(accessToken)
     const response = await axios({
       url: CHILD_BASE_URL,
       method: 'get',
@@ -92,12 +90,10 @@ export const ChirpProvider = (props) => {
     let anyNewData = postLocalArray.filter((e) => {
       return e !== false
     })
-    console.log(anyNewData)
 
     let finalData = {
       chirpList: anyNewData,
     }
-    console.log(finalData)
     const response = await axios({
       url: CHILD_BASE_URL,
       method: submitMethod,
@@ -126,7 +122,6 @@ export const ChirpProvider = (props) => {
       chirpList: deletedDataWithServerData,
       // chirpList: localData,
     }
-    console.log(finalData)
     const response = await axios({
       url: CHILD_BASE_URL,
       method: submitMethod,
@@ -143,14 +138,12 @@ export const ChirpProvider = (props) => {
     let localData = chirpList
       .filter(({ active }) => active === true)
       .map(({ recordId, ...keepRest }) => recordId.includes('-') && keepRest)
-    console.log(localData)
     let anyNewLocalData = localData.filter((e) => {
       return e !== false
     })
     let serverData = chirpList
       .filter(({ active }) => active === true)
       .filter(({ recordId }) => !recordId.includes('-'))
-    console.log(serverData)
 
     if (serverData.length > 0) {
       await addServerDataToServer()
@@ -168,7 +161,6 @@ export const ChirpProvider = (props) => {
 
   // == Add child data locally
   const addChildData = async (data) => {
-    console.log(data)
     await setChirpList((prevValue) => {
       return [...prevValue, data]
     })
@@ -263,7 +255,6 @@ export const ChirpProvider = (props) => {
   useEffect(() => {
     getChildDetails()
       .then((response) => {
-        console.log(response)
         let { chirpList, languageDetails, employeeDetails } = response.data
         setUserDetails(response.data)
         setChirpList(chirpList)
@@ -282,7 +273,6 @@ export const ChirpProvider = (props) => {
 
   useEffect(() => {
     setInterval(() => {
-      console.log('coming here at timeout')
       localStorage.removeItem('accessToken')
       getWithExpiry('accessToken')
     }, 120000)

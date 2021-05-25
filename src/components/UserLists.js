@@ -5,17 +5,13 @@ import Button from 'react-bootstrap/Button'
 import { ChirpContext } from '../Context/ChirpContext'
 
 export const UserLists = () => {
-  const {
-    chirpList,
-    setShowModal,
-    setRecord,
-    editChild,
-  } = useContext(ChirpContext)
-  console.log(chirpList)
+  const { chirpList, setShowModal, setRecord, editChild } = useContext(
+    ChirpContext
+  )
   const activeData = chirpList
     ? chirpList.filter(({ active }) => active === true)
     : []
- 
+
   return (
     <>
       <Table striped bordered hover>

@@ -6,7 +6,6 @@ import { ChirpContext } from '../Context/ChirpContext'
 
 export const ChildDeregistration = () => {
   const { deregisterModal, setDeregisterModal } = useContext(ChirpContext)
-  console.log(deregisterModal)
   return (
     <>
       <Modal

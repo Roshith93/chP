@@ -38,7 +38,6 @@ function DeregistrationForm(props) {
   })
 
   const onSubmit = (values, actions) => {
-    console.log(employeeDetails)
     let finalData = {
       ...values,
       deregister: true,
@@ -76,7 +75,12 @@ function DeregistrationForm(props) {
       }) => (
         <Form>
           <Row>
-            <p>{chirpList && chirpList.filter(({ active }) => active === true).length === 0 ? deregistrationMessages.childRemovalMessage : deregistrationMessages.initialMessgae}</p>
+            <p>
+              {chirpList &&
+              chirpList.filter(({ active }) => active === true).length === 0
+                ? deregistrationMessages.childRemovalMessage
+                : deregistrationMessages.initialMessgae}
+            </p>
           </Row>
           <Row>
             <div className='form-row'>

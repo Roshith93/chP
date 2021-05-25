@@ -46,19 +46,12 @@ function RegistrationForm(props) {
       empId: employeeDetails.employeeId,
       recordId: record ? record : uuidv4(),
     }
-    console.log(finalData)
     setTimeout(() => {
       record
         ? editChildData(finalData)
             .then((result) => {
               props.close(false)
               actions.setSubmitting(false)
-              // getChildDetails()
-              //   .then((response) => {
-              //     setUserDetails(response.data)
-              //     console.log(response.data)
-              //   })
-              //   .catch((err) => console.log(err))
               toast.success('🦄 Child Added succesfully!', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -86,14 +79,7 @@ function RegistrationForm(props) {
             })
         : addChildData(finalData)
             .then((result) => {
-              // console.log(result)
               props.close(false)
-              // getChildDetails()
-              //   .then((response) => {
-              //     setUserDetails(response.data)
-              //     console.log(response.data)
-              //   })
-              //   .catch((err) => console.log(err))
               actions.setSubmitting(false)
               toast.success('🦄 Child Added succesfully!', {
                 position: 'top-right',
@@ -120,10 +106,7 @@ function RegistrationForm(props) {
               })
               setRecord(null)
             })
-      // alert(JSON.stringify(finalData, null, 2))
     }, 0)
-
-    console.log(values)
   }
 
   return (
@@ -153,7 +136,9 @@ function RegistrationForm(props) {
                   (errors.month && touched.month ? ' is-invalid' : '')
                 }
               >
-                <option value='' disabled>Select Month</option>
+                <option value='' disabled>
+                  Select Month
+                </option>
                 {[
                   'January',
                   'February',
@@ -188,7 +173,9 @@ function RegistrationForm(props) {
                   (errors.year && touched.year ? ' is-invalid' : '')
                 }
               >
-                <option value='' disabled={true}>Select Year</option>
+                <option value='' disabled={true}>
+                  Select Year
+                </option>
                 {generateArrayOfYears().map((option) => (
                   <option key={option}>{option}</option>
                 ))}
@@ -207,15 +194,14 @@ function RegistrationForm(props) {
               <label>
                 <Field type='radio' name='gender' value='Male' /> Male
                 <ErrorMessage
-                name='gender'
-                component='div'
-                className='invalid-feedback'
-              />
+                  name='gender'
+                  component='div'
+                  className='invalid-feedback'
+                />
               </label>{' '}
               <label>
                 <Field type='radio' name='gender' value='Female' /> Female
               </label>
-              
             </div>
           </div>
           <br />
@@ -230,7 +216,9 @@ function RegistrationForm(props) {
                   (errors.language && touched.language ? ' is-invalid' : '')
                 }
               >
-                <option value='' disabled={true}>Select Language</option>
+                <option value='' disabled={true}>
+                  Select Language
+                </option>
                 {languageDetails.map(({ languageId, name }) => (
                   <option key={languageId}>{name}</option>
                 ))}
@@ -254,7 +242,9 @@ function RegistrationForm(props) {
                     : '')
                 }
               >
-                <option value='' disabled={true}>Select Proficiency Level</option>
+                <option value='' disabled={true}>
+                  Select Proficiency Level
+                </option>
                 {['Sufficient', 'Insufficient'].map((option) => (
                   <option key={option}>{option}</option>
                 ))}

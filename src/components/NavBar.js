@@ -6,7 +6,6 @@ import { ChirpContext } from '../Context/ChirpContext'
 
 export const NavBar = () => {
   const { employeeDetails } = useContext(ChirpContext)
-  console.log(employeeDetails)
   return (
     <Navbar expand='sm' variant='dark' bg='light'>
       <Navbar.Brand
