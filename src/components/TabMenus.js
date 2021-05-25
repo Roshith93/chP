@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import {  useContext, useEffect } from 'react'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Row from 'react-bootstrap/Row'
@@ -20,8 +20,6 @@ export const TabMenus = () => {
     setDeregisterModal,
     isUserAlreadyRegistered,
   } = useContext(ChirpContext)
-  // const [key, setKey] = useState('home')
-  // const { userDetails } = useContext(ChirpContext)
   useEffect(() => {
     if (tabKeys === 'deregister') {
       setDeregisterModal(true)
