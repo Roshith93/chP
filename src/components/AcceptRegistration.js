@@ -14,7 +14,7 @@ import { marginTop } from './styles'
 
 export const AcceptRegistration = () => {
   const {
-    isUserAlreadyRegistered,                 
+    isUserAlreadyRegistered,
     addDataToServer,
     chirpList,
     setIsDataSubmitted,
@@ -24,10 +24,9 @@ export const AcceptRegistration = () => {
 
   useEffect(() => {
     setCheckBoxStatus(isUserAlreadyRegistered)
-  },[isUserAlreadyRegistered])
+  }, [isUserAlreadyRegistered])
 
   const triggerAddDataToServer = () => {
-    console.log(checkBoxStatus)
     if (checkBoxStatus) {
       addDataToServer()
         .then((res) => {
@@ -40,10 +39,6 @@ export const AcceptRegistration = () => {
   const handleCheckboxChange = (e) => {
     setCheckBoxStatus(!checkBoxStatus)
   }
-  let buttondisable =
-    chirpList ?
-    chirpList.filter(({ active }) => active === true).length > 0 : false
-    console.log(buttondisable)
   return (
     <Container fluid style={marginTop}>
       {/* <Form> */}
@@ -64,7 +59,7 @@ export const AcceptRegistration = () => {
                       type='checkbox'
                       label='I have read the above statements  agree'
                       disabled={isUserAlreadyRegistered}
-                      checked={checkBoxStatus }
+                      checked={checkBoxStatus}
                       onClick={handleCheckboxChange}
                     />
                   </Form.Group>
@@ -81,8 +76,8 @@ export const AcceptRegistration = () => {
                 onClick={triggerAddDataToServer}
               >
                 {isUserAlreadyRegistered
-                  ? 'Update Registration '
-                  : 'I want to register my child(ren) form ChIRP'}
+                  ? `I want to update my child(ren)'s registration for ChIRP`
+                  : `I want to register my child(ren) form ChIRP`}
               </Button>
             </Col>
           </Row>
