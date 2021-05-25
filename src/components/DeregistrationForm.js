@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
 import { ChirpContext } from '../Context/ChirpContext'
