@@ -8,14 +8,14 @@ export const NavBar = () => {
   const { employeeDetails } = useContext(ChirpContext)
   console.log(employeeDetails)
   return (
-    <Navbar expand='lg' variant='dark' bg='dark'>
+    <Navbar expand='lg' variant='dark' bg='light'>
       <Navbar.Brand
         href='#home'
         style={{
           paddingLeft: '10px',
           fontSize: 'larger',
           fontWeight: 'bold',
-          color: '#fff',
+          color: '#3178c6',
         }}
       >
         <img
@@ -31,10 +31,10 @@ export const NavBar = () => {
         <Navbar.Collapse className='justify-content-end'>
           <Navbar.Text
             href='#'
-            style={{ fontSize: 'larger', fontWeight: 'bold', color: '#fff' }}
+            style={{ fontSize: 'larger', fontWeight: 'bold', color: '#000' }}
           >
             {employeeDetails
-              ? `Logged in as : ${employeeDetails?.fullName}`
+              ? `Hello, ${employeeDetails?.fullName}`
               : 'User not logged in'}
           </Navbar.Text>
         </Navbar.Collapse>
