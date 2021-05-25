@@ -13,11 +13,11 @@ import { generateArrayOfYears } from '../Context/data'
 import { ChirpContext } from '../Context/ChirpContext'
 
 const validationSchema = Yup.object({
-  month: Yup.string().required('Select Month'),
-  year: Yup.string().required('Select Year'),
-  gender: Yup.string().required('Select gender'),
-  language: Yup.string().required('Select primary Languagae'),
-  proficiency: Yup.string().required('Select proficiency level'),
+  month: Yup.string().required('Please Select Birth Month'),
+  year: Yup.string().required('Please Select Birth Year'),
+  gender: Yup.string().required('Please Choose gender'),
+  language: Yup.string().required('Please Choose Primary Languagae'),
+  proficiency: Yup.string().required('Please Choose Proficiency level'),
 })
 function RegistrationForm(props) {
   const {
