@@ -7,6 +7,7 @@ import { HomeContainer } from './components/HomeContainer'
 import { UserContextProvider } from './Context/UserContext'
 import { ConfirmDeleteModal } from './components/ConfirmDeleteModal'
 import { Toast } from './components/ToastContainer'
+import { Footer } from './components/Footer'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <Container>
         <HomeContainer />
       </Container>
+      <Footer />
     </>
   )
 }
