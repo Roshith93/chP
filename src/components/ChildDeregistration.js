@@ -1,8 +1,5 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import Row from 'react-bootstrap/Row'
-import Container from 'react-bootstrap/Container'
 
 import DeregistrationForm from './DeregistrationForm'
 import { ChirpContext } from '../Context/ChirpContext'
@@ -12,10 +9,6 @@ export const ChildDeregistration = () => {
   console.log(deregisterModal)
   return (
     <>
-      {/* <Button variant='primary' onClick={() => setDeregisterModal(true)}>
-        Child Cancellation
-      </Button> */}
-
       <Modal
         show={deregisterModal}
         onHide={() => setDeregisterModal(false)}
@@ -26,10 +19,12 @@ export const ChildDeregistration = () => {
         keyboard={false}
       >
         <Modal.Header>
-          <Modal.Title id='example-modal-sizes-title-lg'>Remove Participation</Modal.Title>
+          <Modal.Title id='example-modal-sizes-title-lg'>
+            Remove Participation
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DeregistrationForm  close={() => setDeregisterModal(false)}/>
+          <DeregistrationForm close={() => setDeregisterModal(false)} />
         </Modal.Body>
       </Modal>
     </>
