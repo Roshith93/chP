@@ -13,11 +13,11 @@ import { generateArrayOfYears } from '../Context/data'
 import { ChirpContext } from '../Context/ChirpContext'
 
 const validationSchema = Yup.object({
-  month: Yup.string().required('Enter the Month'),
-  year: Yup.string().required('Enter the Year'),
+  month: Yup.string().required('Select Month'),
+  year: Yup.string().required('Select Year'),
   gender: Yup.string().required('Select gender'),
-  language: Yup.string().required('Select the primary Languagae'),
-  proficiency: Yup.string().required('Please select proficiency level'),
+  language: Yup.string().required('Select primary Languagae'),
+  proficiency: Yup.string().required('Select proficiency level'),
 })
 function RegistrationForm(props) {
   const {
@@ -156,7 +156,7 @@ function RegistrationForm(props) {
                   (errors.month && touched.month ? ' is-invalid' : '')
                 }
               >
-                <option value=''></option>
+                <option value='' disabled>Select Month</option>
                 {[
                   'January',
                   'February',
@@ -191,7 +191,7 @@ function RegistrationForm(props) {
                   (errors.year && touched.year ? ' is-invalid' : '')
                 }
               >
-                <option value=''></option>
+                <option value='' disabled={true}>Select Year</option>
                 {generateArrayOfYears().map((option) => (
                   <option key={option}>{option}</option>
                 ))}
@@ -205,20 +205,26 @@ function RegistrationForm(props) {
             <br />
           </div>
           <div className='form-group col'>
-            <label>Select Gender </label>{' '}
+            <label>Child's Gender </label>{' '}
             <div role='group' aria-labelledby='my-radio-group'>
               <label>
                 <Field type='radio' name='gender' value='Male' /> Male
+                <ErrorMessage
+                name='gender'
+                component='div'
+                className='invalid-feedback'
+              />
               </label>{' '}
               <label>
                 <Field type='radio' name='gender' value='Female' /> Female
               </label>
+              
             </div>
           </div>
           <br />
           <div className='form-row'>
             <div className='form-group col'>
-              <label>Select Primary Language</label>
+              <label>Child's Primary Language</label>
               <Field
                 name='language'
                 as='select'
@@ -227,7 +233,7 @@ function RegistrationForm(props) {
                   (errors.language && touched.language ? ' is-invalid' : '')
                 }
               >
-                <option value=''></option>
+                <option value='' disabled={true}>Select Language</option>
                 {languageDetails.map(({ languageId, name }) => (
                   <option key={languageId}>{name}</option>
                 ))}
@@ -240,7 +246,7 @@ function RegistrationForm(props) {
             </div>
             <br />
             <div className='form-group col'>
-              <label>Select Proficiency Level</label>
+              <label>Child's Reading English Proficiency Level</label>
               <Field
                 name='proficiency'
                 as='select'
@@ -251,7 +257,7 @@ function RegistrationForm(props) {
                     : '')
                 }
               >
-                <option value=''></option>
+                <option value='' disabled={true}>Select Proficiency Level</option>
                 {['Sufficient', 'Insufficient'].map((option) => (
                   <option key={option}>{option}</option>
                 ))}
@@ -269,7 +275,7 @@ function RegistrationForm(props) {
             disabled={isSubmitting}
             style={{ margin: '5px' }}
           >
-            {isSubmitting ? 'Please wait...' : 'Submit'}
+            {isSubmitting ? 'Please wait...' : 'Save'}
           </Button>
           <Button
             type='button'
