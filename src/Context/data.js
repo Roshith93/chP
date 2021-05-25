@@ -49,7 +49,7 @@ export const tempData = {
 }
 
 export const tabTitles = {
-  first: 'What is Chirp',
+  first: 'What is Chirp?',
   second: ' I want to register my child(ren) for ChIRP',
   third: ' I no longer wish my child(ren) to participate in ChIRP',
   updatedSecond: 'I want to update my child(ren)\'s registration for ChIRP'
