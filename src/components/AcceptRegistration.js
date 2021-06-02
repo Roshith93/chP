@@ -16,7 +16,6 @@ export const AcceptRegistration = () => {
   const {
     isUserAlreadyRegistered,
     addDataToServer,
-    chirpList,
     setIsDataSubmitted,
     checkBoxStatus,
     setCheckBoxStatus,
