@@ -24,12 +24,12 @@ function DeregistrationForm(props) {
   const initialValues = {
     option: '',
     reason: '',
-    other: '',
+    otherReason: '',
   }
   const validationSchema = Yup.object({
     option: Yup.string().required('Please select an option'),
     reason: Yup.string().required('Please select the reason'),
-    other: Yup.string().when('reason', {
+    otherReason: Yup.string().when('reason', {
       is: (val) => val === 'Other',
       then: Yup.string()
         .max(250, 'Maximum 250 characters')
@@ -154,16 +154,16 @@ function DeregistrationForm(props) {
             <Row style={{ marginTop: '5px' }}>
               <div className='form-group col'>
                 <Field
-                  name='other'
+                  name='otherReason'
                   as='textarea'
                   placeholder='Please let us know why?'
                   className={
                     'form-control' +
-                    (errors.other && touched.other ? ' is-invalid' : '')
+                    (errors.otherReason && touched.otherReason ? ' is-invalid' : '')
                   }
                 ></Field>
                 <ErrorMessage
-                  name='other'
+                  name='otherReason'
                   component='div'
                   className='invalid-feedback'
                 />
