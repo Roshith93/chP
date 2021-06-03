@@ -29,6 +29,7 @@ export const ChirpProvider = (props) => {
   const [checkBoxStatus, setCheckBoxStatus] = useState(isUserAlreadyRegistered)
   const [tabKeys, setTabKeys] = useState('home')
   const [deletedData, setDeletedData] = useState([])
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
 
   // ==  get Token
   const getToken = async () => {
@@ -313,6 +314,8 @@ export const ChirpProvider = (props) => {
         tabKeys,
         setTabKeys,
         deregisterCompletely,
+        isUserLoggedIn,
+setIsUserLoggedIn
       }}
     >
       {props.children}
