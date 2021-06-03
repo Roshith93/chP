@@ -37,8 +37,8 @@ export const ChirpProvider = (props) => {
       url: TOKEN_BASE_URL,
       method: 'post',
       params: {
-        username: 'sukavasibharath@praintl.com.personal38',
-        password: 'Hitler@1cVhBY6pK2QJL5gm6Az3z4dVq',
+        username: 'integrationuser@prahs.com',
+        password: 'Emids@2021eu37KZzVeT1Uq9UtLoiz7NvS',
         grant_type: 'password',
         client_id:
           '3MVG97wqanbUM37Ktam8sz6Qni79f7xgjwJIfxp8PpsoBcM8ww5r.qdluKamSHXTHsgewcydRlmbz1oeK5dOw',
@@ -76,7 +76,7 @@ export const ChirpProvider = (props) => {
         Authorization: `Bearer ${accessToken}`,
       },
       params: {
-        username: 'userapi@prahs.com',
+        username: 'test@example.com',
       },
     })
     return response
