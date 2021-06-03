@@ -29,7 +29,7 @@ export const ChirpProvider = (props) => {
   const [checkBoxStatus, setCheckBoxStatus] = useState(isUserAlreadyRegistered)
   const [tabKeys, setTabKeys] = useState('home')
   const [deletedData, setDeletedData] = useState([])
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
 
   // ==  get Token
   const getToken = async () => {
@@ -111,13 +111,17 @@ export const ChirpProvider = (props) => {
       .filter(({ active }) => active === true)
       .filter(({ recordId }) => !recordId.includes('-'))
 
-      let anyNewData = deletedData && deletedData.filter((e) => {
-        if(e !== (e.length > 0)){
+    let anyNewData =
+      deletedData &&
+      deletedData.filter((e) => {
+        if (e !== e.length > 0) {
           e.active = false
         }
         return e
       })
-    let deletedDataWithServerData = anyNewData.length ?  [...localData, ...anyNewData] : localData
+    let deletedDataWithServerData = anyNewData.length
+      ? [...localData, ...anyNewData]
+      : localData
 
     let finalData = {
       chirpList: deletedDataWithServerData,
@@ -199,7 +203,7 @@ export const ChirpProvider = (props) => {
       }
       let data = convertArrayToObject(deleteData)
       let checkLocalRecordId = !data.recordId.includes('-')
-      setDeletedData([...deletedData, checkLocalRecordId ? data : []] )
+      setDeletedData([...deletedData, checkLocalRecordId ? data : []])
       var index = prevState
         .map(function (el) {
           return el.recordId
@@ -315,7 +319,7 @@ export const ChirpProvider = (props) => {
         setTabKeys,
         deregisterCompletely,
         isUserLoggedIn,
-setIsUserLoggedIn
+        setIsUserLoggedIn,
       }}
     >
       {props.children}

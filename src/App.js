@@ -8,9 +8,12 @@ import { Toast } from './components/ToastContainer'
 import { Footer } from './components/Footer'
 import { Loading } from './components/Loading'
 import { ChirpContext } from './Context/ChirpContext'
+import { AuthContext } from './Context/AuthContext'
 
 const App = () => {
   const { isUserLoggedIn } = useContext(ChirpContext)
+  const value = useContext(AuthContext)
+  console.log(value)
    return isUserLoggedIn ? (
       <>
         <ConfirmDeleteModal />
