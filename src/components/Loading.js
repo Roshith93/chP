@@ -1,1 +1,1 @@
-export const Loading  = () => <h3>Loading...</h3>
+export const Loading  = ({message}) => <h3>{message}</h3>

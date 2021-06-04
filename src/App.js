@@ -7,10 +7,11 @@ import { ConfirmDeleteModal } from './components/ConfirmDeleteModal'
 import { Toast } from './components/ToastContainer'
 import { Footer } from './components/Footer'
 import { Loading } from './components/Loading'
+import { AuthComponent } from './components/AuthComponent'
 import { ChirpContext } from './Context/ChirpContext'
 
 const App = () => {
-  const { isAuthenticated, login } = useContext(ChirpContext)
+  const { isAuthenticated, login, error } = useContext(ChirpContext)
 
   useEffect(() => {
     
@@ -29,7 +30,7 @@ const App = () => {
       <Footer />
     </>
   ) : (
-    <Loading />
+    error ? <AuthComponent ></AuthComponent>: <Loading message="Loading..."/>
   )
 }
 

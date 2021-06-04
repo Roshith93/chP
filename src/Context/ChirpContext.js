@@ -9,7 +9,11 @@ import { UserAgentApplication } from 'msal'
 import { normalizeError, getUserProfile } from '../auth/MSUtils'
 
 
-
+// username: chirpintegrationuser@prahs.com
+// password: Emids@2021kP8uSWFURLpZrI9aQVRVAy07
+// client_id: 3MVG9BJjUUIJZf1x.rZ56QPRnX6r_tZLounO6AvCryfOfnqkr6y1JW3XmMWWGcDzEe27NLb0GROVlbNwI8Seu
+// client_secret: 5324EAEA322C0136D80EE26312FCC023F4F9F41915618BB3CB016910E4860F87
+// In Endpoint URL word PERSONAL38 should be replaced with CI
 export const ChirpContext = createContext()
 
 const TOKEN_BASE_URL = 'https://test.salesforce.com/services/oauth2/token'
@@ -40,6 +44,7 @@ export const ChirpProvider = (props) => {
   const [error, setError] = useState(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState({})
+  const [loginError, setLoginError] = useState(null)
   console.log(user)
   //  === AD Auth
   const { clientId, redirectUri, scopes, cache, authority } = msalConfig
@@ -73,7 +78,7 @@ export const ChirpProvider = (props) => {
         email: user.mail || user.userPrincipalName,
       })
       setError(null)
-    } catch (err) {
+    }catch(err) {
       setIsAuthenticated(false)
       setUser({})
       setError(normalizeError(err))
@@ -326,7 +331,7 @@ export const ChirpProvider = (props) => {
             })
           : setIsUserAlreadyRegistered(false)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => setLoginError(err))
   }, [user.email, isDataSubmitted, accessTokenID])
 
   useEffect(() => {
@@ -380,6 +385,8 @@ export const ChirpProvider = (props) => {
         setIsOpen,
         login,
         logout,
+        loginError,
+setLoginError
       }}
     >
       {props.children}

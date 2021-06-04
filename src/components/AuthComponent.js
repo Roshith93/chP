@@ -13,7 +13,7 @@ export const AuthComponent = () => {
       <>
         {' '}
         <p>{error.message}</p>
-        <p>error.debug</p>
+        <p>{error.debug}</p>
       </>
     )
   }
