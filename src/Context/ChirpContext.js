@@ -4,6 +4,11 @@ import {
   SuccessToastEmitter,
   ErrorToastEmitter,
 } from '../components/ToastContainer'
+import { msalConfig } from '../auth/config'
+import { UserAgentApplication } from 'msal'
+import { normalizeError, getUserProfile } from '../auth/MSUtils'
+
+
 
 export const ChirpContext = createContext()
 
@@ -12,8 +17,8 @@ const CHILD_BASE_URL =
   'https://pra--personal38.my.salesforce.com/services/apexrest/UserRegistration/'
 
 export const ChirpProvider = (props) => {
-  const [accessToken, setAccessToken] = useState(
-    JSON.parse(localStorage.getItem('accessToken'))
+  const [accessTokenID, setAccessTokenID] = useState(
+    JSON.parse(localStorage.getItem('accessTokenID'))
   )
   const [userDetails, setUserDetails] = useState(null)
   const [chirpList, setChirpList] = useState([])
@@ -29,7 +34,55 @@ export const ChirpProvider = (props) => {
   const [checkBoxStatus, setCheckBoxStatus] = useState(isUserAlreadyRegistered)
   const [tabKeys, setTabKeys] = useState('home')
   const [deletedData, setDeletedData] = useState([])
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+  //  === AD Auth
+  const [isOpen, setIsOpen] = useState(false)
+  const [error, setError] = useState(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [user, setUser] = useState({})
+  console.log(user)
+  //  === AD Auth
+  const { clientId, redirectUri, scopes, cache, authority } = msalConfig
+
+  // Authetication details
+  const userAgentApplication = new UserAgentApplication({
+    auth: {
+      // authority:config.authority,
+      clientId: clientId,
+      redirectUri: redirectUri,
+    },
+    cache: {
+      cacheLocation: cache.storageType,
+      storeAuthStateInCookie: cache.useCookie,
+    },
+  })
+
+  const login = async () => {
+    try {
+      await userAgentApplication.loginPopup({
+        scopes: scopes,
+        prompt: 'select_account',
+      })
+
+      const user = await getUserProfile(userAgentApplication, scopes)
+      setIsAuthenticated(true)
+      setUser({
+        cacheLocation: 'localStorage',
+        storeAuthStateInCookie: true,
+        displayName: user.displayName,
+        email: user.mail || user.userPrincipalName,
+      })
+      setError(null)
+    } catch (err) {
+      setIsAuthenticated(false)
+      setUser({})
+      setError(normalizeError(err))
+    }
+  }
+
+  const logout = () => {
+    userAgentApplication.logout()
+  }
 
   // ==  get Token
   const getToken = async () => {
@@ -37,8 +90,8 @@ export const ChirpProvider = (props) => {
       url: TOKEN_BASE_URL,
       method: 'post',
       params: {
-        username: 'integrationuser@prahs.com',
-        password: 'Emids@2021eu37KZzVeT1Uq9UtLoiz7NvS',
+        username: 'sukavasibharath@praintl.com.personal38',
+        password: 'Hitler@1MEkpAOBhsZsD7AJJTUH3KUdgJ',
         grant_type: 'password',
         client_id:
           '3MVG97wqanbUM37Ktam8sz6Qni79f7xgjwJIfxp8PpsoBcM8ww5r.qdluKamSHXTHsgewcydRlmbz1oeK5dOw',
@@ -51,10 +104,10 @@ export const ChirpProvider = (props) => {
   // == get User userDetails
   const setWithExpiry = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value))
-    setAccessToken(JSON.parse(localStorage.getItem('accessToken')))
+    setAccessTokenID(JSON.parse(localStorage.getItem('accessTokenID')))
   }
-  const getWithExpiry = async (key) => {
-    const itemStr = localStorage.getItem(key)
+  const getWithExpiry = async () => {
+    const itemStr = localStorage.getItem('accessTokenID')
     // if the item doesn't exist, return null
     const item = JSON.parse(itemStr)
     const now = new Date()
@@ -62,7 +115,7 @@ export const ChirpProvider = (props) => {
     if (!itemStr || now.getTime() > item.expiry) {
       await getToken()
         .then((response) => {
-          setWithExpiry('accessToken', response.data.access_token)
+          setWithExpiry('accessTokenID', response.data.access_token)
         })
         .catch((err) => console.log(err))
     }
@@ -73,10 +126,10 @@ export const ChirpProvider = (props) => {
       url: CHILD_BASE_URL,
       method: 'get',
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessTokenID}`,
       },
       params: {
-        username: 'test@example.com',
+        username: user.email,
       },
     })
     return response
@@ -99,7 +152,7 @@ export const ChirpProvider = (props) => {
       url: CHILD_BASE_URL,
       method: submitMethod,
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessTokenID}`,
       },
       data: finalData,
     })
@@ -131,7 +184,7 @@ export const ChirpProvider = (props) => {
       url: CHILD_BASE_URL,
       method: submitMethod,
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessTokenID}`,
       },
       data: finalData,
     })
@@ -248,15 +301,15 @@ export const ChirpProvider = (props) => {
       url: CHILD_BASE_URL,
       method: 'patch',
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessTokenID}`,
       },
       data,
     })
     return response
   }
   useEffect(() => {
-    getWithExpiry('accessToken')
-  }, [accessToken])
+    getWithExpiry()
+  }, [accessTokenID, isAuthenticated])
   useEffect(() => {
     getChildDetails()
       .then((response) => {
@@ -274,14 +327,14 @@ export const ChirpProvider = (props) => {
           : setIsUserAlreadyRegistered(false)
       })
       .catch((err) => console.log(err))
-  }, [isDataSubmitted, accessToken])
+  }, [user.email, isDataSubmitted, accessTokenID])
 
   useEffect(() => {
     setInterval(() => {
-      localStorage.removeItem('accessToken')
-      getWithExpiry('accessToken')
+      localStorage.removeItem('accessTokenID')
+      getWithExpiry()
     }, 120000)
-  }, [accessToken])
+  }, [accessTokenID])
 
   return (
     <ChirpContext.Provider
@@ -291,8 +344,8 @@ export const ChirpProvider = (props) => {
         chirpList,
         employeeDetails,
         languageDetails,
-        accessToken,
-        setAccessToken,
+        accessTokenID,
+        setAccessTokenID,
         showModal,
         setShowModal,
         record,
@@ -320,6 +373,13 @@ export const ChirpProvider = (props) => {
         deregisterCompletely,
         isUserLoggedIn,
         setIsUserLoggedIn,
+        isOpen,
+        error,
+        isAuthenticated,
+        user,
+        setIsOpen,
+        login,
+        logout,
       }}
     >
       {props.children}

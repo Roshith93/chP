@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import Container from 'react-bootstrap/Container'
 
 import { NavBar } from './components/NavBar'
@@ -8,25 +8,29 @@ import { Toast } from './components/ToastContainer'
 import { Footer } from './components/Footer'
 import { Loading } from './components/Loading'
 import { ChirpContext } from './Context/ChirpContext'
-import { AuthContext } from './Context/AuthContext'
 
 const App = () => {
-  const { isUserLoggedIn } = useContext(ChirpContext)
-  const value = useContext(AuthContext)
-  console.log(value)
-   return isUserLoggedIn ? (
-      <>
-        <ConfirmDeleteModal />
-        <Toast />
-        <NavBar />
-        <Container>
-          <HomeContainer />
-        </Container>
-        <Footer />
-      </>
-    ) : (
-     <Loading/>
-    )
+  const { isAuthenticated, login } = useContext(ChirpContext)
+
+  useEffect(() => {
+    
+    setTimeout(() => {
+      login()
+    },1000)
+  }, [])
+  return isAuthenticated ? (
+    <>
+      <ConfirmDeleteModal />
+      <Toast />
+      <NavBar />
+      <Container>
+        <HomeContainer />
+      </Container>
+      <Footer />
+    </>
+  ) : (
+    <Loading />
+  )
 }
 
 export default App

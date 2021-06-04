@@ -7,15 +7,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { ChirpProvider } from './Context/ChirpContext'
-import { AuthProvider } from './Context/AuthContext'
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
       <ChirpProvider>
         <App />
       </ChirpProvider>
-    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

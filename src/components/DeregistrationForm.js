@@ -17,7 +17,6 @@ function DeregistrationForm(props) {
     setTabKeys,
     deregisterCompletely,
     employeeDetails,
-    getChildDetails,
     setIsDataSubmitted,
     chirpList,
   } = useContext(ChirpContext)
@@ -48,7 +47,6 @@ function DeregistrationForm(props) {
         SuccessToastEmitter({ message: result.message })
         props.close(false)
         setTabKeys('home')
-        getChildDetails()
         setIsDataSubmitted(Math.random())
       })
       .catch((err) => {
