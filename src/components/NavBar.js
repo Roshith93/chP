@@ -24,16 +24,16 @@ export const NavBar = () => {
           height='30'
           className='d-inline-block align-top'
         />{' '}
-        Children's Internal Review Panel (ChiRP)
+        Children's Internal Review Panel (ChIRP)
       </Navbar.Brand>
       <Container>
         <Navbar.Collapse className='justify-content-end'>
           <Navbar.Text
             href='#'
-            style={{ fontSize: 'larger', fontWeight: 'bold', color: '#000' }}
+            style={{ fontSize: 'larger', fontWeight: 'bold', color: '#3178c6' }}
           >
             {employeeDetails
-              ? `Hello, ${employeeDetails?.fullName}`
+              ? `Welcome, ${employeeDetails?.fullName}`
               : 'User not logged in'}
           </Navbar.Text>
         </Navbar.Collapse>

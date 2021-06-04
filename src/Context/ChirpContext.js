@@ -95,13 +95,13 @@ export const ChirpProvider = (props) => {
       url: TOKEN_BASE_URL,
       method: 'post',
       params: {
-        username: 'sukavasibharath@praintl.com.ci',
-        password: 'Hitler@19hEf6RUp3ottmOF6idejI0zna',
+        username: 'chirpintegrationuser@prahs.com',
+        password: 'Emids@2021kP8uSWFURLpZrI9aQVRVAy07',
         grant_type: 'password',
         client_id:
-          '3MVG97wqanbUM37Ktam8sz6Qni79f7xgjwJIfxp8PpsoBcM8ww5r.qdluKamSHXTHsgewcydRlmbz1oeK5dOw',
+          '3MVG9BJjUUIJZf1x.rZ56QPRnX6r_tZLounO6AvCryfOfnqkr6y1JW3XmMWWGcDzEe27NLb0GROVlbNwI8Seu',
         client_secret:
-          'BEEFEAECCCD9A5E344190C64A793D477FA1C60A9BFA09090351FF83D17093F11',
+          '5324EAEA322C0136D80EE26312FCC023F4F9F41915618BB3CB016910E4860F87',
       },
     })
     return response
