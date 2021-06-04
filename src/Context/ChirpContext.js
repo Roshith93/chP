@@ -16,9 +16,9 @@ import { normalizeError, getUserProfile } from '../auth/MSUtils'
 // In Endpoint URL word PERSONAL38 should be replaced with CI
 export const ChirpContext = createContext()
 
-const TOKEN_BASE_URL = 'https://test.salesforce.com/services/oauth2/token'
+const TOKEN_BASE_URL = 'https://pra--ci.my.salesforce.com/services/oauth2/token'
 const CHILD_BASE_URL =
-  'https://pra--personal38.my.salesforce.com/services/apexrest/UserRegistration/'
+  'https://pra--ci.my.salesforce.com/services/apexrest/UserRegistration/'
 
 export const ChirpProvider = (props) => {
   const [accessTokenID, setAccessTokenID] = useState(
@@ -52,7 +52,7 @@ export const ChirpProvider = (props) => {
   // Authetication details
   const userAgentApplication = new UserAgentApplication({
     auth: {
-      // authority:config.authority,
+      authority:authority,
       clientId: clientId,
       redirectUri: redirectUri,
     },
@@ -70,13 +70,13 @@ export const ChirpProvider = (props) => {
       })
 
       const user = await getUserProfile(userAgentApplication, scopes)
-      setIsAuthenticated(true)
       setUser({
         cacheLocation: 'localStorage',
         storeAuthStateInCookie: true,
         displayName: user.displayName,
         email: user.mail || user.userPrincipalName,
       })
+      setIsAuthenticated(true)
       setError(null)
     }catch(err) {
       setIsAuthenticated(false)
@@ -95,8 +95,8 @@ export const ChirpProvider = (props) => {
       url: TOKEN_BASE_URL,
       method: 'post',
       params: {
-        username: 'sukavasibharath@praintl.com.personal38',
-        password: 'Hitler@1MEkpAOBhsZsD7AJJTUH3KUdgJ',
+        username: 'sukavasibharath@praintl.com.ci',
+        password: 'Hitler@19hEf6RUp3ottmOF6idejI0zna',
         grant_type: 'password',
         client_id:
           '3MVG97wqanbUM37Ktam8sz6Qni79f7xgjwJIfxp8PpsoBcM8ww5r.qdluKamSHXTHsgewcydRlmbz1oeK5dOw',
@@ -134,7 +134,7 @@ export const ChirpProvider = (props) => {
         Authorization: `Bearer ${accessTokenID}`,
       },
       params: {
-        username: 'user.email@dd.com',
+        username: user.email,
       },
     })
     return response
