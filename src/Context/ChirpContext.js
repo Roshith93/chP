@@ -39,6 +39,7 @@ export const ChirpProvider = (props) => {
   const [tabKeys, setTabKeys] = useState('home')
   const [deletedData, setDeletedData] = useState([])
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+  const [loginError, setLoginError] = useState(false)
   //  === AD Auth
   const [isOpen, setIsOpen] = useState(false)
   const [error, setError] = useState(null)
@@ -133,7 +134,7 @@ export const ChirpProvider = (props) => {
         Authorization: `Bearer ${accessTokenID}`,
       },
       params: {
-        username: user.email,
+        username: 'user.email@dd.com',
       },
     })
     return response
@@ -315,29 +316,36 @@ export const ChirpProvider = (props) => {
     getWithExpiry()
   }, [accessTokenID, isAuthenticated])
   useEffect(() => {
-    getChildDetails()
+    if(isAuthenticated){
+      getChildDetails()
       .then((response) => {
-        let { chirpList, languageDetails, employeeDetails } = response.data
-        setUserDetails(response.data)
-        setChirpList(chirpList)
-        setLanguageDetails(languageDetails)
-        setEmployeeDetails(employeeDetails)
-        chirpList
+        let { chirpList, languageDetails, employeeDetails, success, message } = response.data
+        if(success == "true"){
+          setUserDetails(response.data)
+          setChirpList(chirpList)
+          setLanguageDetails(languageDetails)
+          setEmployeeDetails(employeeDetails)
+          chirpList
           ? chirpList.filter(({ active }) => {
-              if (active === true) {
-                setIsUserAlreadyRegistered(true)
-              }
+            if (active === true) {
+              setIsUserAlreadyRegistered(true)
+            }
             })
-          : setIsUserAlreadyRegistered(false)
-      })
-      .catch((err) => console.log(err))
-  }, [user.email, isDataSubmitted, accessTokenID])
-
+            : setIsUserAlreadyRegistered(false)
+          }else{
+            setLoginError(true)
+            setError(message)
+          }
+        })
+        .catch((err) => console.log(err))
+      }
+      }, [isAuthenticated, isDataSubmitted, accessTokenID])
+      
   useEffect(() => {
     setInterval(() => {
       localStorage.removeItem('accessTokenID')
       getWithExpiry()
-    }, 120000)
+    }, 1800000)
   }, [accessTokenID])
 
   return (
@@ -384,6 +392,7 @@ export const ChirpProvider = (props) => {
         setIsOpen,
         login,
         logout,
+        loginError
       }}
     >
       {props.children}

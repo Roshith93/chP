@@ -11,15 +11,15 @@ import { AuthComponent } from './components/AuthComponent'
 import { ChirpContext } from './Context/ChirpContext'
 
 const App = () => {
-  const { isAuthenticated, login, error } = useContext(ChirpContext)
+  const { isAuthenticated, login, error, loginError } = useContext(ChirpContext)
 
   useEffect(() => {
     
-    setTimeout(() => {
-      login()
-    },1000)
+    setTimeout(async () => {
+     await login()
+    },2500)
   }, [])
-  return isAuthenticated ? (
+  return (isAuthenticated && !loginError) ? (
     <>
       <ConfirmDeleteModal />
       <Toast />
@@ -30,7 +30,7 @@ const App = () => {
       <Footer />
     </>
   ) : (
-    error ? <AuthComponent ></AuthComponent>: <Loading message="Loading..."/>
+    error ? <AuthComponent error={error}></AuthComponent>: <Loading message="Loading..."/>
   )
 }
 

@@ -7,12 +7,13 @@ import { ChirpContext } from '../Context/ChirpContext'
 export const AuthComponent = () => {
   const [show, setShow] = useState(true)
   const { error } = useContext(ChirpContext)
+  console.log(error)
   let loginError = null
   if (error) {
     loginError = (
       <>
         {' '}
-        <p>{error.message}</p>
+        <p>{error.message || error}</p>
         <p>{error.debug || null}</p>
       </>
     )
@@ -27,8 +28,9 @@ export const AuthComponent = () => {
             show ? (
               <Alert
                 variant='danger'
-                onClose={() => setShow(false)}
+                onClose={() => window.location.reload()}
                 dismissible
+                closeLabel="Reload page"
               >
                 <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
                 {loginError}
