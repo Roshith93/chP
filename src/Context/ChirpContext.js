@@ -330,7 +330,7 @@ export const ChirpProvider = (props) => {
             })
           : setIsUserAlreadyRegistered(false)
       })
-      .catch((err) => setError(err))
+      .catch((err) => console.log(err))
   }, [user.email, isDataSubmitted, accessTokenID])
 
   useEffect(() => {
