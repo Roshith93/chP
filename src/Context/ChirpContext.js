@@ -44,7 +44,6 @@ export const ChirpProvider = (props) => {
   const [error, setError] = useState(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState({})
-  const [loginError, setLoginError] = useState(null)
   console.log(user)
   //  === AD Auth
   const { clientId, redirectUri, scopes, cache, authority } = msalConfig
@@ -331,7 +330,7 @@ export const ChirpProvider = (props) => {
             })
           : setIsUserAlreadyRegistered(false)
       })
-      .catch((err) => setLoginError(err))
+      .catch((err) => setError(err))
   }, [user.email, isDataSubmitted, accessTokenID])
 
   useEffect(() => {
@@ -385,8 +384,6 @@ export const ChirpProvider = (props) => {
         setIsOpen,
         login,
         logout,
-        loginError,
-setLoginError
       }}
     >
       {props.children}
