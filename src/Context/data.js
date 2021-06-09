@@ -109,7 +109,7 @@ export const reasonForDiscontinuation = [
 
 export const generateArrayOfYears = () => {
   var max = new Date().getFullYear()
-  var min = max - 17
+  var min = max - 18
   var years = []
 
   for (var i = max; i >= min; i--) {
