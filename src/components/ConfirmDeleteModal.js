@@ -33,7 +33,7 @@ export const ConfirmDeleteModal = () => {
         <Modal.Header>
           <Modal.Title>Confirm</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure to delete the child?</Modal.Body>
+        <Modal.Body>Are you sure you wish to delete this child participant?</Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={() => setShowModal(false)}>
             Close
