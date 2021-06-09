@@ -52,7 +52,7 @@ export const tabTitles = {
   first: 'What is ChIRP?',
   second: ' I want to register my child(ren) for ChIRP',
   third: ' I no longer wish my child(ren) to participate in ChIRP',
-  updatedSecond: 'I want to update my child(ren)\'s registration for ChIRP'
+  updatedSecond: "I want to update my child(ren)'s registration for ChIRP",
 }
 export const firstPageData = {
   image: '/images/chirpicon.jpg',
@@ -106,7 +106,6 @@ export const reasonForDiscontinuation = [
   { label: 'Other', id: '4' },
 ]
 
-
 export const generateArrayOfYears = () => {
   var max = new Date().getFullYear()
   var min = max - 18
@@ -117,7 +116,31 @@ export const generateArrayOfYears = () => {
   }
   return years
 }
+export const getAge = (dateString) => {
+  var today = new Date()
+  var birthDate = new Date(dateString)
+  var age = today.getFullYear() - birthDate.getFullYear()
+  var m = today.getMonth() - birthDate.getMonth()
+  age = age * 12 + m
+  return age
+}
 
+export const months = () => {
+  return [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+}
 export const deregistrationMessages = {
   initialMessgae: `Thank you for your participation to date. We understand that you
   would like to remove your child(ren) from the ChIRP database. No
@@ -125,5 +148,5 @@ export const deregistrationMessages = {
   It would be really helpful for us if you could let us know why you
   or your child(ren) no longer wish to take part to help us improve
   ChIRP in the future.`,
-  childRemovalMessage: `Thank you for your participation!  You have removed all child participants, so you are de-registering from ChIRP. You are welcome to register again at any time. If this was a mistake, cancel this action and add a child participant.`
+  childRemovalMessage: `Thank you for your participation!  You have removed all child participants, so you are de-registering from ChIRP. You are welcome to register again at any time. If this was a mistake, cancel this action and add a child participant.`,
 }

@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid'
 // import Form from 'react-bootstrap/Form'
 import { toast } from 'react-toastify'
 
-import { generateArrayOfYears } from '../Context/data'
+import { generateArrayOfYears, months, getAge } from '../Context/data'
 import { ChirpContext } from '../Context/ChirpContext'
 
 const validationSchema = Yup.object({
@@ -46,67 +46,74 @@ function RegistrationForm(props) {
       empId: employeeDetails.employeeId,
       recordId: record ? record : uuidv4(),
     }
-    setTimeout(() => {
-      record
-        ? editChildData(finalData)
-            .then((result) => {
-              props.close(false)
-              actions.setSubmitting(false)
-              toast.success('🦄 Child Added succesfully!', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+    let childAge = `${values.year}-${values.month}`
+    let finalAge = getAge(childAge) / 12
+    if (finalAge <= 18) {
+      setTimeout(() => {
+        record
+          ? editChildData(finalData)
+              .then((result) => {
+                props.close(false)
+                actions.setSubmitting(false)
+                toast.success('🦄 Child Added succesfully!', {
+                  position: 'top-right',
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+                actions.resetForm()
+                setRecord(null)
               })
-              actions.resetForm()
-              setRecord(null)
-            })
-            .catch((err) => {
-              actions.setSubmitting(false)
-              toast.error('🦄Error not add child', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+              .catch((err) => {
+                actions.setSubmitting(false)
+                toast.error('🦄Error not add child', {
+                  position: 'top-right',
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+                setRecord(null)
               })
-              setRecord(null)
-            })
-        : addChildData(finalData)
-            .then((result) => {
-              props.close(false)
-              actions.setSubmitting(false)
-              toast.success('🦄 Child Added succesfully!', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+          : addChildData(finalData)
+              .then((result) => {
+                props.close(false)
+                actions.setSubmitting(false)
+                toast.success('🦄 Child Added succesfully!', {
+                  position: 'top-right',
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+                actions.resetForm()
+                setRecord(null)
+                setLoadedData(null)
               })
-              actions.resetForm()
-              setRecord(null)
-              setLoadedData(null)
-            })
-            .catch((err) => {
-              toast.error('🦄Error not add child', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+              .catch((err) => {
+                toast.error('🦄Error not add child', {
+                  position: 'top-right',
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+                setRecord(null)
               })
-              setRecord(null)
-            })
-    }, 0)
+      }, 0)
+    } else {
+      actions.setSubmitting(false)
+      alert('Child\'s age should be less than 18')
+    }
   }
 
   return (
@@ -139,20 +146,7 @@ function RegistrationForm(props) {
                 <option value='' disabled>
                   Select Month
                 </option>
-                {[
-                  'January',
-                  'February',
-                  'March',
-                  'April',
-                  'May',
-                  'June',
-                  'July',
-                  'August',
-                  'September',
-                  'October',
-                  'November',
-                  'December',
-                ].map((option) => (
+                {months().map((option) => (
                   <option key={option}>{option}</option>
                 ))}
               </Field>
